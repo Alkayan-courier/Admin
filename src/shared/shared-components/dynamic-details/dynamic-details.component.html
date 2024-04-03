@@ -1,0 +1,30 @@
+<div class="row">
+    <!--  <button mat-raised-button class="btn btn-primary" (click)="submitAction(action.actionType)"
+        style="margin: 1px;">
+        {{'backToList' | translate}}
+    </button> -->
+</div>
+<div class="row">
+    <div *ngFor="let property of properties" class="col-md-6">
+        <div class="p-3 card" *ngIf="property!='bankVerifecationAttachment'">
+            <span style="text-align: start;">
+                <p class="card-text text-muted">
+                    <b> {{property | translate}} :</b>
+                    {{ detailsInput.dataObject[property] || 'unspecified'|translate}}
+                </p>
+            </span>
+        </div>
+        <div class="p-3 card" *ngIf="property=='bankVerifecationAttachment'">
+            <span style="text-align: start;">
+                <p class="card-text text-muted">
+                    <b> {{property | translate}} :</b>
+                    {{ detailsInput.dataObject[property] || 'unspecified'|translate}}
+                </p>
+                <button  mat-mini-fab (click)="downloadFile(detailsInput.dataObject[property])"
+                class="btn btn-primary m-2" matTooltip="{{'downloadFile' |translate}}" matTooltipPosition="above">
+                <i class="fa fa-download" aria-hidden="true"></i>
+              </button>
+            </span>
+        </div>
+    </div>
+</div>

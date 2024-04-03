@@ -1,0 +1,25 @@
+<div style="padding:-20px" (mouseenter)="showButton = false" (mouseleave)="showButton = false"
+  class="card p-3 relative hover:shadow-16 trans-shadow" fxLayout="column" fxLayoutAlign="start center">
+  <!-- <div *ngIf="color" [style.background-color]="color | colorFade:0.9" [style.color]="color"
+    style="border-radius: 50%;padding: 24px;" class="rounded-full d-flex justify-items-center justify-content-center"> -->
+  <img [src]="imagesUrl+icon" style="position: absolute;
+  top: -24%;
+  width: 147px;">
+  <!-- <i class="material-icons" style="font-size: 35px;">{{icon}}</i> -->
+  <!--</div>  -->
+
+  <h3 class="cardValue" style="margin-top: 42px;"><b>{{ value }}</b></h3>
+  <h3 class="cardValue"><b>{{ price }} {{'uad' | translate}}</b></h3>
+  <h5 class="cardLabel">{{ label | translate }}</h5>
+
+
+  <button *ngIf="helpText" [matTooltip]="helpText" class="absolute top-0 left-0 mt-2 ml-2 text-hint" mat-icon-button
+    matTooltipPosition="after" type="button">
+    <mat-icon height="18px" width="18px">help</mat-icon>
+  </button>
+
+  <button (click)="openSheet()" *ngIf="showButton" @scaleInOut class="absolute -top-3 -right-3 bg-card shadow-8"
+    color="primary" mat-icon-button type="button">
+    <mat-icon height="24px" width="24px">share</mat-icon>
+  </button>
+</div>

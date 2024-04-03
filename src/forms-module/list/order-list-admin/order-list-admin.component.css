@@ -1,0 +1,11 @@
+td.mat-cell {
+  border: 1px solid #000000;
+  text-align: center !important;
+  align-content: center !important;
+}
+
+th.mat-header-cell {
+  border: 1px solid #000000;
+  text-align: center !important;
+}
+

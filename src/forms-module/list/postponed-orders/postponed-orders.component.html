@@ -1,0 +1,24 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-primary">
+                      <h3 class="card-title ">{{'postponedOrdersList'|translate}}</h3>
+                      <p class="card-category"> {{'postponedOrdersManagemet' | translate}}</p>
+                  </div>
+                  <div class="card-body">
+                      <app-dynamic-form [isList]="true" [isUpdate]="true" *ngIf="!isLoading" [formInput]="dynamicFormInput"
+                          (actionSubmitted)="serveAction($event)"></app-dynamic-form>
+                        
+                      <div class="table-responsive">
+                          <app-dynamic-list (listActionClickedEvent)="serveListAction($event)" (pageChangedEvent)="pageChanged($event)" [pageSize]="pageSize"
+                              [pageNumber]="pageNumber" *ngIf="!isLoading" [listInput]="dynamicListInput">
+                          </app-dynamic-list>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

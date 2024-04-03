@@ -1,0 +1,13 @@
+<div class="row w-100 d-flex justify-content-end">
+    <button [routerLink]="'/forms/client-brand-create/'+clientId" class="btn btn-primary" color="primary" mat-raised-button
+        type="button" style="margin-left: 2px; margin-right: 2px;">{{'add' |
+        translate}}
+    </button>
+</div>
+<app-dynamic-form [isList]="true" [isUpdate]="true" *ngIf="!isLoading" [formInput]="dynamicFormInput"
+    (actionSubmitted)="serveAction($event)"></app-dynamic-form>
+<div class="table-responsive">
+    <app-dynamic-list (listActionClickedEvent)="serveListAction($event)" (pageChangedEvent)="pageChanged($event)"
+        [pageSize]="pageSize" [pageNumber]="pageNumber" *ngIf="!isLoading" [listInput]="dynamicListInput">
+    </app-dynamic-list>
+</div>

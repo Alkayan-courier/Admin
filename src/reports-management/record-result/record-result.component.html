@@ -1,0 +1,254 @@
+<!-- 
+<div style="padding: 10px; font-size: large;">
+    <div class="forPrint" style="background-color: white;" *ngIf="userType.value == 1 ||userType.value == 2">
+      <div class="row">
+       <div class="col-12 text-center">
+         <img src="assets/img/demo/delivery-sama.png" height="75" width="160" class="center"> 
+       </div>
+      </div>
+      <br>
+      <div class="row">
+       <div class="col-12 text-center">
+         <h2>
+           <b>
+           سما للتوصيل
+           </b>  
+      
+          
+         </h2>
+       </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>
+            <b *ngIf="userType.value == 2">
+             كشف حساب العملاء
+            </b>  
+            <b *ngIf="userType.value == 1">
+             كشف حساب المندوب
+            </b>  
+           
+          </h3>
+        </div>
+       </div>
+      <div class="row" *ngIf="userType.value == 2" style="font-size: larger;">
+        <div class="col">
+          <b>  اسم الصفحة:  {{  ordersList[0]?.clientName}}  </b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          تاريخ الكشف من {{ordersDateFrom.value | date: 'dd/MM/yyyy'}} الى {{ordersDateTo.value | date: 'dd/MM/yyyy'}}
+        </div>
+      </div>
+      <br>
+      <div class="row">
+       <div class="col">
+         <table class="print-friendly" style="align-content: center;">
+          <thead>
+           <tr>
+             <th>الرقم</th>
+             <th *ngIf="userType.value == 1">الصفحة </th>
+             <th *ngIf="userType.value == 1">اسم المندوب </th>
+             <th>المنطقة</th>
+             <th>رقم البوليصة</th>
+             <th>العنوان التفصيلي</th>
+             <th>رقم هاتف الزبون</th>
+            
+             <th>الحالة</th>
+             <th>السعر</th>
+             <th> تكاليف اضافية</th>
+             <th *ngIf="userType.value == 1"> اجور المندوب</th>
+             <th *ngIf="userType.value == 2"> اجور التوصيل</th>
+             <th> المجموع</th>
+             <th>تفاصيل</th>
+           </tr>
+          </thead>
+          <tbody>
+  
+           <tr *ngFor="let order of ordersList; let i=index" [ngStyle]="{'background-color':order.orderStatusId === 3 || order.orderStatusId === 6 || order.orderStatusId === 7 || order.orderStatusId === 8 || order.orderStatusId === 9 || order.orderStatusId === 10? '#e1e3e1' : 'white' }">
+             <td>
+               {{i + 1}}
+             </td>
+             <td  *ngIf="userType.value == 1">
+               {{order?.clientName}}
+             </td>
+             <td *ngIf="userType.value == 1">
+               {{order?.driverName}}
+             </td>
+             <td>
+               {{order?.areaName}}
+             </td>
+             <td>
+               {{order?.policyNumber}}
+             </td>
+             <td>
+               {{order?.address}}
+             </td>
+             <td>
+               {{order?.deliveryNumber}}
+             </td>
+           
+             <td>
+               {{order?.orderStatusName}}
+             </td>
+             <td>
+               {{order?.orderTotalPrice}}
+             </td>
+             <td>
+               {{order?.addedPrice}}
+             </td>
+             <td *ngIf="userType.value == 1"> 
+              {{order?.driverRevenue}}
+             </td>
+             <td *ngIf="userType.value == 2"> 
+              {{order?.deliveryCost}}
+             </td>
+             <td> 
+               {{order.isOrderPriceIncluded ? (order?.orderTotalPrice - order?.addedPrice - order?.deliveryCost) : (order.isPaid ? 0 - order?.addedPrice + order?.deliveryCost: 0)}}
+              </td>
+              <td>
+                {{order?.orderItemDescription}}
+              </td>
+      
+           
+           </tr>
+          </tbody>
+  
+         </table>
+       </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <table>
+            <tr>
+              <th>
+                مجموع اسعار الطلبيات
+              </th>
+              <th>
+                {{totalOrderPrices}}
+              </th>
+            </tr>
+            <tr  *ngIf="userType.value == 2">
+              <th>
+                مجموع اجور التوصيل
+              </th>
+              <th>
+                {{totalCompanyRevenue}}
+              </th>
+            </tr>
+            <tr *ngIf="userType.value == 1">
+              <th>
+                مجموع اجور التوصيل للمندوب 
+              </th>
+              <th>
+                {{totalCompanyRevenue}}
+              </th>
+            </tr>
+            <tr  *ngIf="userType.value == 2">
+              <th>
+                مجموع التكاليف الاضافية
+              </th>
+              <th>
+                {{totalClientRevenue}}
+              </th>
+            </tr>
+            <tr *ngIf="userType.value == 1" style="background-color: #e1e3e1;">
+              <th>
+               الصافي
+              </th>
+              <th>
+                {{totalDriverRevenue}}
+              </th>
+            </tr>
+            <tr *ngIf="userType.value == 2" style="background-color: #e1e3e1;">
+              <th>
+                المجموع الكلي (مجموع اسعار الطلبات - اجور التوصيل - الاجور الاضافية) 
+              </th>
+              <th>
+                {{totalDriverRevenue}}
+              </th>
+            </tr>
+         
+          </table>
+        </div>
+      </div>
+     
+      <br>
+      <br>
+      <br>
+      <div *ngIf="userType.value == 2">
+      <div class="row">
+        <div class="col">
+             تم استلام قيمة الكشف والمرتجعات الموجودة في الكشف اعلاه
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+         اسم المستلم
+        </div>
+        <div class="col">
+          توقيع المستلم
+         </div>
+      </div>
+    </div>
+    </div>   
+  
+    <div *ngIf="userType.value == 3">
+      <table class="print-friendly" style="align-content: center;">
+        <tr>
+          <th>الرقم</th>
+          <th>
+            اسم الصفحة
+          </th>
+          <th>
+           عدد الطلبات
+          </th>
+        </tr>
+        <tr *ngFor="let client of clientsList; let i=index">
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{client.clientName}}
+          </td>
+          <td>
+            {{client.totalOrders}}
+          </td>
+        </tr> 
+      </table>
+    </div>
+    <div *ngIf="userType.value == 4">
+      <table class="print-friendly" style="align-content: center;">
+        <tr>
+          <th>
+            الرقم
+          </th>
+          <th>
+            اسم المندوب
+          </th>
+          <th>
+            اسم الجولة
+          </th>
+          <th>
+           عدد الطلبات
+          </th>
+        </tr>
+        <tr *ngFor="let driver of driversList; let i=index">
+          <td>
+            {{i + 1}}
+          </td>
+          <td>
+            {{!driver.driverName ? "لم يتم تعيين سائق": driver.driverName }}
+          </td>
+          <td>
+            {{driver.recordArea}}
+          </td>
+          <td>
+            {{driver.totalOrders}}
+          </td>
+        </tr> 
+      </table>
+    </div>
+  </div> -->

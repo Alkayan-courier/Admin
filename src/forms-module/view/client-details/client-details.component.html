@@ -1,0 +1,36 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'clientDetails' | translate}}</h3>
+                        <p class="card-category"> {{'clientsManagement' | translate}}</p>
+                    </div>
+                    <div  class="card-body" *ngIf="!isLoading">
+                        <mat-tab-group   color="primary" [(selectedIndex)]="activeTab">
+                            <mat-tab   label="{{'clientInformation' | translate}}">
+                                <ng-template style="overflow: hidden;" matTabContent>
+                                <app-dynamic-details  [detailsInput]="detailsInput"></app-dynamic-details>
+                                
+                            </ng-template>
+                            </mat-tab>
+                            <mat-tab label="{{'areaGroupPrices'| translate}}">
+                                <ng-template matTabContent>
+                                    <app-area-group-prices [clientId]="clientId"></app-area-group-prices>
+                                </ng-template>
+                            </mat-tab>  
+                             <mat-tab label="{{'clientBrands'| translate}}">
+                                <ng-template matTabContent>
+                                    <app-client-brand-list [clientId]="clientId"></app-client-brand-list>
+                                </ng-template>
+                            </mat-tab>
+                        </mat-tab-group> 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

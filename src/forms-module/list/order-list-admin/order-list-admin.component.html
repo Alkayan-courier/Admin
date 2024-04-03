@@ -1,0 +1,161 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h3 class="card-title ">{{'adminOrderList'|translate}}</h3>
+            <p class="card-category"> {{'ordersManagement' | translate}}</p>
+          </div>
+          <div class="card-body">
+            <div class="row w-100 d-flex justify-content-end">
+
+              <button (click)="createOrder()" class="btn btn-primary btn-start" color="primary" mat-raised-button
+                type="button" style="margin-left: 2px; margin-right: 2px;">{{'add' | translate}} </button>
+              <button (click)="openDialog()" [disabled]="!selection.selected.length" class="btn btn-primary btn-start"
+                color="primary" mat-raised-button>
+                {{'moveOrder'| translate}}
+              </button>
+            </div>
+            <app-dynamic-form [isList]="true" [isUpdate]="true" *ngIf="!isLoading" [formInput]="dynamicFormInput"
+              (actionSubmitted)="serveAction($event)">
+            </app-dynamic-form>
+            <div class="table-responsive">
+              <div class="mat-elevation-z8 w-100">
+                <table [dataSource]="dataSource" class="w-100" mat-table matSort>
+                  <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                      </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="orderDate">
+                    <th *matHeaderCellDef mat-header-cell>{{'orderDate' | translate}} </th>
+                    <td *matCellDef="let row" mat-cell>
+                      {{row?.orderDate}}
+                    </td>
+                  </ng-container>
+
+                  <!-- merchantName Column -->
+                  <ng-container matColumnDef="merchantName">
+                    <th *matHeaderCellDef mat-header-cell>{{'merchantName' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      <a *ngIf="row.clientId" routerLink="/forms/client-details/{{row?.clientId}}/0">
+                        {{ row?.merchantName}}
+                      </a>
+                      <p *ngIf="!row?.clientId">{{'unspecified' | translate}}</p>
+                    </td>
+                  </ng-container>
+
+                  <!-- driverName Column -->
+                  <ng-container matColumnDef="driverName">
+                    <th *matHeaderCellDef mat-header-cell>{{'driverName' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      <a *ngIf="row.driverId" routerLink="/forms/driver-details/{{row?.driverId}}">
+                        {{ row?.driverName}}
+                      </a>
+                      <p *ngIf="!row?.driverId">{{'unspecified' | translate}}</p>
+                    </td>
+                  </ng-container>
+                  <!-- area Column -->
+                  <ng-container matColumnDef="area">
+                    <th *matHeaderCellDef mat-header-cell>{{'area' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      {{row?.areaName}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="driverRevenue">
+                    <th *matHeaderCellDef mat-header-cell>{{'addedPrice' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      {{ row?.addedPrice}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="status">
+                    <th *matHeaderCellDef mat-header-cell>{{'orderStatus' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      <mat-form-field appearance="outline">
+                        <mat-select [(value)]="row.orderStatusId" aria-placeholder="Status"
+                          (selectionChange)="changeOrderStatus($event.value,row.id)">
+                          <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus.value">
+                            {{languageService.getCurrentLanguage()=='ar'? (orderStatus.viewValueAr |translate) :
+                            (orderStatus.viewValueEn |translate)}}</mat-option>
+                        </mat-select>
+
+                      </mat-form-field>
+                      <mat-error *ngIf="orderStatusId.hasError('required')">
+                        {{'requiredField' | translate}}
+                      </mat-error>
+                    </td>
+                  </ng-container>
+
+                  <!-- orderPrice Column -->
+                  <ng-container matColumnDef="orderTotalPrice">
+                    <th *matHeaderCellDef mat-header-cell>{{'orderPrice' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      <mat-form-field appearance="outline">
+                          <input type="number" placeholder="{{'orderPrice' | translate}}" matInput
+                            value="{{row.orderTotalPrice}}" (change)="changeOrderPrice($event, row.id)">
+                      </mat-form-field>
+                    </td>
+                  </ng-container>
+                  <!-- driverRevenue Column -->
+
+                  <!--  <ng-container matColumnDef="orderItemTypeDescription">
+                <th *matHeaderCellDef mat-header-cell>{{'notes' | translate}}</th>
+                <td *matCellDef="let row" class="w-8 min-w-8 pr-0"  mat-cell>
+                  <mat-form-field appearance="outline" style="width: 50px;">
+                    <div class="my-form">
+                      <input type="text" placeholder="{{'notes' | translate}}" matInput
+                      value="{{row.orderItemTypeDescription}}"
+                        (change)="changeOrderItemDescription($event, row.id)">
+                    </div>
+
+                  </mat-form-field>
+
+                </td>
+              </ng-container> -->
+                  <!-- Action Column -->
+                  <ng-container matColumnDef="actions">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'actions' | translate}}</th>
+                    <td *matCellDef="let row" mat-cell>
+                      <ng-container>
+                        <button style="flex-grow: 1;" mat-mini-fab (click)="viewOrder(row.id)"
+                          class="btn btn-primary m-2">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                      </ng-container>
+                      <ng-container>
+                        <button style="flex-grow: 1;" mat-mini-fab (click)="updateOrder(row.id)"
+                          class="btn btn-primary m-2">
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                      </ng-container>
+                    </td>
+                  </ng-container>
+
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr class="hover:bg-hover trans-ease-out cursor-pointer" mat-row
+                    *matRowDef="let row; columns: displayedColumns;">
+                  </tr>
+                </table>
+                <mat-paginator (page)="pageChanged($event)" [length]="totalRows" [pageIndex]="pageNumber-1"
+                  [pageSize]="pageSize">
+                </mat-paginator>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

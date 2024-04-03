@@ -1,0 +1,14 @@
+<form [formGroup]="filterForm" #myForm="ngForm" autocomplete="alkayanform" id="alkayanformId">
+
+
+<div [dir]="languageService.getCurrentLanguage()=='en'?'ltr':'rtl'" style="text-align: start !important;">
+  <h1 mat-dialog-title><b>{{data.title |translate}} </b> </h1>
+  <div mat-dialog-content>
+    <div class="card-body" *ngIf="!isLoading">
+      <app-dynamic-form [formInput]="dynamicFormInput" (actionSubmitted)="serveAction($event)"></app-dynamic-form>
+  </div>
+</div>
+
+</div>
+
+</form>

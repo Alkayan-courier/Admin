@@ -1,0 +1,26 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'messagesList'|translate}}</h3>
+                        <p class="card-category"> {{'employeeMessages' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                            <ul class="flash_msg">
+                                <li class="msg s_base" *ngFor="let message of messagesList">
+                                    <span class="icon-circle"><mat-icon>email</mat-icon></span>
+                                    <div class="text">
+                                        <div class="title">{{message.createdBy}}</div>
+                                        <div class="content">{{message.messageText}}</div>
+                                    </div>
+                                    <span >{{message.createdAt}}</span>
+                                </li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

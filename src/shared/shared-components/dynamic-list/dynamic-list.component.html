@@ -1,0 +1,65 @@
+<div class="mat-elevation-z8 w-100">
+  <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+    <div *ngFor="let col of listInput.columns">
+      <ng-container *ngIf="col.columnId!='actions' && !col.isFile" [matColumnDef]="col.columnId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col.columnName | translate}} </th>
+        <td mat-cell *matCellDef="let row"> {{row[col.columnName] | translate}}
+          <span class="color-td" [style.backgroundColor]="row[col.columnName]"
+            *ngIf="col.columnName.toLocaleLowerCase().includes('color')">
+          </span>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col.columnId!='actions'  && col.isFile" [matColumnDef]="col.columnId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col.columnName | translate}} </th>
+        <td mat-cell *matCellDef="let row">
+          <img *ngIf="row[col.columnName]" [src]="imagesUrl+row[col.columnName]"
+            style="width: 45px;height: 45px;object-fit: cover;">
+          <button style="flex-grow: 1;" mat-mini-fab (click)="downloadFile(row[col.columnName])"
+            class="btn btn-primary m-2" matTooltip="{{'downloadFile' |translate}}" matTooltipPosition="above">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col.columnId=='actions'" [matColumnDef]="col.columnId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'actions' | translate}} </th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngFor="let action of col.actions">
+            <button *ngIf="action.actionType==actionTypeEnum.Delete" mat-mini-fab
+              (click)="listActionClicked(row.id,actionTypeEnum.Delete)" class="btn btn-danger m-2">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button style="flex-grow: 1;" *ngIf="action.actionType==actionTypeEnum.Edit" mat-mini-fab
+              (click)="listActionClicked(row.id,actionTypeEnum.Edit)" class="btn btn-primary m-2">
+              <mat-icon>create</mat-icon>
+            </button>
+            <button style="flex-grow: 1;" *ngIf="action.actionType==actionTypeEnum.View" mat-mini-fab
+              (click)="listActionClicked(row.id,actionTypeEnum.View)" class="btn btn-primary m-2">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button style="flex-grow: 1;" *ngIf="action.actionType==actionTypeEnum.Reactivate" mat-mini-fab
+              (click)="listActionClicked(row.id,actionTypeEnum.Reactivate)" class="btn btn-primary m-2">
+              <mat-icon>restore</mat-icon>
+            </button>
+          </ng-container>
+        </td>
+      </ng-container>
+    </div>
+
+
+
+    <!-- actions Column -->
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">{{'NoMatch' | translate }}</td>
+    </tr>
+  </table>
+  <mat-paginator (page)="pageChanged($event)" [length]="totalCount" [pageIndex]="pageNumber-1" [pageSize]="pageSize">
+
+  </mat-paginator>
+</div>

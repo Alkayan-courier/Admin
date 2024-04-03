@@ -1,0 +1,84 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h3 class="card-title ">{{'sendNotification' | translate}}</h3>
+            <p class="card-category"> {{'pushNotifications' | translate}}</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <mat-radio-group [(ngModel)]="tergetedAudience" aria-label="Select an option">
+                  <mat-radio-button [value]="1">{{'specificUsers' |translate}} </mat-radio-button>
+                  <mat-radio-button style="margin-left: 10px;" [value]="2">{{'allUsers' |translate}}</mat-radio-button>
+                  <mat-radio-button style="margin-left: 10px;" [value]="3">{{'specificTypeOfUsers' |translate}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <form [formGroup]="pushNotificationForm">
+                  <div class="row">
+                    <div class="col" *ngIf="tergetedAudience==1">
+                      <ng-select appearance="outline" placeholder="{{'selectUser'|translate}}"
+                        (change)="userSelectionChange($event)" [multiple]="true" [(ngModel)]="mappedUser"
+                        [ngModelOptions]="{standalone: true}">
+                        <ng-option *ngFor="let option of usersList" [value]="option.value">
+                          {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                          (option.viewValueEn
+                          |translate)}}</ng-option>
+                      </ng-select>
+                    </div> 
+                    <div class="col" *ngIf="tergetedAudience==3">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{ 'roles' | translate }}</mat-label>
+                        <mat-select formControlName="role" [placeholder]="'chooseRole' | translate">
+                            <mat-option *ngFor="let option of rolesList" [value]="option.viewValueEn">
+                                {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                                (option.viewValueEn |translate)}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'title' | translate}}</mat-label>
+                        <input type="text" matInput formControlName="title">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field appearance="outline">
+                        <mat-label>{{'body' |translate}}</mat-label>
+                        <textarea rows="5" type="text" matInput formControlName="body"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col d-flex justify-content-end" style="margin-top: 20px;">
+                      <button [disabled]="pushNotificationForm.invalid" *ngIf="tergetedAudience == 1" (click)="submitMultiUserNotification()" mat-raised-button
+                        class="btn btn-primary btn-start">
+                        {{'sendNotification' |translate}}
+                      </button>
+                      <button [disabled]="pushNotificationForm.invalid" *ngIf="tergetedAudience == 2" (click)="submitAllUsersNotifications()" mat-raised-button
+                        class="btn btn-primary btn-start">
+                        {{'sendNotification' |translate}}
+                      </button>
+                      <button [disabled]="pushNotificationForm.invalid" *ngIf="tergetedAudience == 3" (click)="submitSpecificRoleNotifications()" mat-raised-button
+                        class="btn btn-primary btn-start">
+                        {{'sendNotification' |translate}}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

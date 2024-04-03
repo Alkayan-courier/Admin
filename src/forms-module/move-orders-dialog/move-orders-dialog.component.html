@@ -1,0 +1,48 @@
+<div mat-dialog-content [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>{{'recordDate' |translate }}</mat-label>
+          <input [matDatepicker]="fromDatePicker" formControlName="recordDate" matInput (dateChange)="getRecords()">
+          <mat-datepicker-toggle [for]="fromDatePicker" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #fromDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>{{'areaGroup' |translate }}</mat-label>
+          <mat-select formControlName="areaGroupId">
+            <mat-option *ngFor="let option of areaGroups; let i = index" [value]="option.id">
+              {{languageService.getCurrentLanguage()=='ar'? (option.nameAr |translate) :
+              (option.nameEn |translate)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-radio-group  formControlName="type" (change)="changeRadio()">
+          <mat-radio-button [value]="1" style="margin: 10px;">{{'newRecord' |translate}}</mat-radio-button>
+          <mat-radio-button [value]="2">{{'existingRecord' | translate}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row" *ngIf="type.value == 2">
+      <div class="col">
+        <mat-form-field  class="w-100" appearance="outline">
+          <mat-label>{{'records' | translate}}</mat-label>
+          <mat-select formControlName="recordId">
+            <mat-option *ngFor="let record of recordList; let i = index" [value]="record.id">{{languageService.getCurrentLanguage()=='ar'? (record.areaGroupNameAr |translate) :
+              (record.areaGroupNameEn |translate) + ' ' + (i + 1)}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="btn btn-accent m-2" (click)="onNoClick()">{{'cancel' | translate}}</button>
+    <button mat-raised-button class="btn btn-primary m-2" [mat-dialog-close]="form.value" [disabled]="form.invalid">{{'submit' | translate}}</button>
+  </div>

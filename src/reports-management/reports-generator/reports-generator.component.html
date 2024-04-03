@@ -1,0 +1,103 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'reports' | translate}}</h3>
+                        <p class="card-category"> {{'reportsGenerator' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="filterForm">
+                            <div class="row w-100 p-3">
+                                <mat-radio-group aria-label="Select an option" formControlName="userType">
+                                    <mat-radio-button [value]="1" style="margin: 10px;" *ngIf="isAdmin">{{'driver' |
+                                        translate}}</mat-radio-button>
+                                    <mat-radio-button [value]="2" style="margin: 10px;" *ngIf="isAdmin">{{'clients' |
+                                        translate}}</mat-radio-button>
+                                    <mat-radio-button [value]="3" style="margin: 10px;" *ngIf="isAdmin">
+                                        {{'clientsDetails' | translate}}</mat-radio-button>
+                                    <mat-radio-button [value]="4" *ngIf="isAdmin">{{'todayDriversDetails' | translate}}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <div class="row w-100" *ngIf="userType.value == 2">
+                                <mat-form-field class="example-full-width col-md-12" appearance="outline">
+                                    <mat-label>{{'client' | translate}}</mat-label>
+                                    <div class="my-form">
+                                        <input type="text" placeholder="{{'searchClients' | translate}}" matInput
+                                            [formControl]="clientsControl" [matAutocomplete]="autoClients">
+                                    </div>
+                                    <mat-autocomplete [displayWith]="displayFn"
+                                        (optionSelected)="clientSelected($event)" #autoClients="matAutocomplete">
+                                        <mat-option *ngFor="let option of clients"
+                                            [value]="option">
+                                            {{option.viewValueEn}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="clientId.hasError('required')">
+                                        {{ 'requiredField' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+
+
+                            </div>
+                            <div class="row w-100" *ngIf="userType.value == 1">
+                                <mat-form-field class="example-full-width col-md-12" appearance="outline">
+                                    <mat-label>{{'driver' | translate}}</mat-label>
+                                    <div class="my-form">
+                                        <input type="text" placeholder="{{'searchDrivers' | translate}}" matInput
+                                            [formControl]="driversControl" [matAutocomplete]="autoDrivers">
+                                    </div>
+                                    <mat-autocomplete [displayWith]="displayFn"
+                                        (optionSelected)="driverSelected($event)" #autoDrivers="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredDriversOptions | async"
+                                            [value]="option">
+                                            {{option.viewValue}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="driverId.hasError('required')">
+                                        {{ 'requiredField' | translate }}
+                                    </mat-error>
+                                </mat-form-field>
+
+
+                            </div>
+
+                            <div class="row w-100">
+                                <mat-form-field appearance="outline" class="example-full-width col-md-12">
+                                    <mat-label>{{'fromDate' |translate}}</mat-label>
+                                    <input [matDatepicker]="fromDatePicker" formControlName="ordersDateFrom" matInput>
+                                    <mat-datepicker-toggle [for]="fromDatePicker" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #fromDatePicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="row w-100">
+                                <mat-form-field appearance="outline" class="example-full-width col-md-12">
+                                    <mat-label>{{'toDate' |translate}}</mat-label>
+                                    <input [matDatepicker]="toDatePicker" formControlName="ordersDateTo" matInput>
+                                    <mat-datepicker-toggle [for]="toDatePicker" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #toDatePicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="d-flex flex-row-reverse padding-end">
+                                <button mat-raised-button
+                                    class="btn btn-primary btn-start"
+                                    [disabled]="!userType.value"
+                                    (click)="filterOrders()" style="margin: 1px;">
+                                    {{'search' | translate}}
+                                </button>
+                                <button mat-raised-button
+                                    class="btn btn-primary btn-start"
+                                    [disabled]="!userType.value"
+                                    (click)="filterForm.reset(); filterOrders()" style="margin: 1px;">
+                                    {{'clear' | translate}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

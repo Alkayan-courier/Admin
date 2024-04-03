@@ -1,0 +1,41 @@
+<form #myForm="ngForm" autocomplete="alkayanform" id="alkayanformId">
+
+
+<div [dir]="languageService.getCurrentLanguage()=='en'?'ltr':'rtl'" style="text-align: start !important;">
+  <h1 mat-dialog-title><b>{{data.title}} </b> </h1>
+  <div mat-dialog-content>
+    <div class="card-body">
+      <mat-form-field *ngIf="dialogType==1" class="example-full-width"
+                appearance="outline">
+                <mat-label>End User Phone Number</mat-label>
+                <input  matInput type="text" [(ngModel)]="endUserPhoneNumber" [ngModelOptions]="{standalone: true}"
+                  >
+            </mat-form-field>
+            <mat-form-field *ngIf="dialogType==2" class="example-full-width"
+            appearance="outline">
+            <mat-label>Merchant Phone Number</mat-label>
+            <mat-select [(ngModel)]="clientId" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let option of merchants" [value]="option.id">
+                    {{option.phoneNumber}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>  
+        <mat-form-field *ngIf="dialogType==3" class="example-full-width"
+            appearance="outline">
+            <mat-label>Driver Phone Number</mat-label>
+            <mat-select [(ngModel)]="driverId" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let option of drivers" [value]="option.id">
+                    {{option.phoneNumber}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+  </div>
+</div>
+
+</div>
+
+</form>
+<div mat-dialog-actions [ngClass]="languageService.getCurrentLanguage()=='en'?'float-right':'float-left'">
+  <button mat-raised-button class="btn btn-primary" cdkFocusInitial (click)="onDriverSelected()">Submit</button>
+  <button mat-raised-button class="btn btn-warn" (click)="onNoClick()">Close</button>
+</div>

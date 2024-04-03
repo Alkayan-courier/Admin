@@ -1,0 +1,78 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'reports'|translate}}</h3>
+                        <p class="card-category"> {{'reportsManagement' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="px-6 py-4" fxLayout="column">
+                            <form [formGroup]="filterForm">
+                              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0">
+                                <mat-radio-group aria-label="Select an option"  formControlName="userType" (change)="changeRadio()">
+                                  <mat-radio-button [value]="2" style="margin: 10px;" *ngIf="isTracker || isAdmin">{{'driver' | translate}}</mat-radio-button>
+                                  <mat-radio-button [value]="3" style="margin: 10px;" *ngIf="isAdmin">{{'page' | translate}}</mat-radio-button>
+                                  <mat-radio-button [value]="4" style="margin: 10px;" *ngIf="isAdmin">{{'pageDetails' | translate}}</mat-radio-button>
+                                  <mat-radio-button [value]="5" *ngIf="isAdmin || isDataEntry">{{'dailyDriversDetails' | translate}}</mat-radio-button>
+                                </mat-radio-group>
+                              </div>  
+                              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0" *ngIf="userType.value == 3">
+                                <mat-form-field class="w-100"  appearance="outline">
+                                  <mat-label>{{ 'filterMerchants' | translate }}</mat-label>
+                                  <input autocomplete="filterMerchantsOff" matInput  [formControl]="merchantsControl"
+                                    [placeholder]="'filterMerchants' | translate" [matAutocomplete]="filterMerchants">
+                                  <mat-autocomplete autocomplete="filterMerchantsf2f" [displayWith]="displayMerchantFn" #filterMerchants="matAutocomplete"
+                                    (optionSelected)="merchantSelected($event)">
+                                    <mat-option *ngFor="let option of filteredMerchantsOptions | async" [value]="option">
+                                      {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                                      (option.viewValueEn |translate)}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                </mat-form-field>
+                              </div>  
+                              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0" *ngIf="userType.value == 2">
+                                <mat-form-field class="w-100"  appearance="outline">
+                                  <mat-label>{{ 'filterDrivers' | translate }}</mat-label>
+                                  <input autocomplete="filterDriversOff" matInput  [formControl]="driversControl"
+                                    [placeholder]="'filterDrivers' | translate" [matAutocomplete]="filterDrivers">
+                                  <mat-autocomplete autocomplete="filterDriversOf2f" [displayWith]="displayDriverFn" #filterDrivers="matAutocomplete"
+                                    (optionSelected)="driverSelected($event)">
+                                    <mat-option *ngFor="let option of filteredDriversOptions | async" [value]="option">
+                                      {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                                      (option.viewValueEn |translate)}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                </mat-form-field>
+                              
+                              </div>
+                              <div *ngIf="!isWithoutDates" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                  <mat-label>{{'fromDate' | translate}} </mat-label>
+                                  <input [matDatepicker]="fromDatePicker" (dateChange)="changeDate(dateFrom.value,0)" #dateFrom formControlName="ordersDateFrom"  matInput>
+                                  <mat-datepicker-toggle [for]="fromDatePicker"  matSuffix></mat-datepicker-toggle>
+                                  <mat-datepicker #fromDatePicker></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <div *ngIf="!isWithoutDates" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                  <mat-label> {{'toDate' | translate}}</mat-label>
+                                  <input [matDatepicker]="toDatePicker"  (dateChange)="changeDate(dateTo.value,1)" #dateTo  formControlName="ordersDateTo" matInput>
+                                  <mat-datepicker-toggle [for]="toDatePicker" matSuffix></mat-datepicker-toggle>
+                                  <mat-datepicker #toDatePicker></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                              <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+                                <button class="btn btn-primary btn-start" (click)="submit();" color="primary" [disabled]="disabled"  mat-raised-button type="button">{{'search' | translate}}</button>
+                                <button class="btn btn-primary btn-start" (click)="filterForm.reset(); validateForm();" color="primary" mat-raised-button type="button">{{'clear' | translate}}</button>
+                              </div>
+                            </form>
+                          </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

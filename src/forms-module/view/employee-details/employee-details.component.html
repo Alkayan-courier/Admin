@@ -1,0 +1,28 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'employeeDetails' | translate}}</h3>
+                        <p class="card-category">  {{'employeesManagement' | translate}}</p>
+                    </div> 
+                    <div class="card-body" *ngIf="!isLoading">
+                        <mat-tab-group color="primary" [(selectedIndex)]="activeTab">
+                            <mat-tab label="{{'employeeDetails' | translate}}">
+                                <app-dynamic-details [detailsInput]="detailsInput"></app-dynamic-details>
+                            </mat-tab>
+                            <mat-tab label="{{'employeeRoles'| translate}}">
+                                <ng-template matTabContent>
+                                    <app-user-roles [userId]="employeeId"></app-user-roles>
+                                </ng-template>
+                            </mat-tab> 
+                        </mat-tab-group> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

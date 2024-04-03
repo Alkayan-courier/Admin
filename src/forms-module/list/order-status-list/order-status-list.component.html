@@ -1,0 +1,29 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'orderstatusList'|translate}}</h3>
+                        <p class="card-category"> {{'orderstatusManagement' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row w-100 d-flex justify-content-end">
+                            <button routerLink="/forms/order-status-create" class="btn btn-primary" color="primary"
+                                mat-raised-button type="button" style="margin-left: 2px; margin-right: 2px;">{{'add' |
+                                translate}} 
+                            </button>
+                        </div>
+                        <app-dynamic-form [isList]="true" [isUpdate]="true" *ngIf="!isLoading" [formInput]="dynamicFormInput"
+                            (actionSubmitted)="serveAction($event)"></app-dynamic-form>
+                        <div class="table-responsive">
+                            <app-dynamic-list (listActionClickedEvent)="serveListAction($event)" (pageChangedEvent)="pageChanged($event)" [pageSize]="pageSize"
+                                [pageNumber]="pageNumber" *ngIf="!isLoading" [listInput]="dynamicListInput">
+                            </app-dynamic-list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

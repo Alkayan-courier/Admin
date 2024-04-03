@@ -1,0 +1,11 @@
+<div [dir]="languageService.getCurrentLanguage()=='en'?'ltr':'rtl'" style="text-align: start !important;">
+  <h1 mat-dialog-title><b>{{data.title |translate}} </b> </h1>
+  <div mat-dialog-content>
+    <p>{{data.content | translate}}</p>
+  </div>
+  <hr />
+  <div mat-dialog-actions [ngClass]="languageService.getCurrentLanguage()=='en'?'float-right':'float-left'">
+    <button mat-raised-button class="btn btn-primary" cdkFocusInitial [mat-dialog-close]="true">{{'yes' | translate}}</button>
+    <button mat-raised-button class="btn btn-warn" [mat-dialog-close]="false">{{'no' | translate}}</button>
+  </div>
+</div>

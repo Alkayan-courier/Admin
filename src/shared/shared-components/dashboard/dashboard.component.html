@@ -1,0 +1,44 @@
+<div *ngIf="isAuthorizedToView" class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'dasboard'|translate}}</h3>
+                        <p class="card-category"> {{'dashboardAdvanceFilter' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                        <app-dynamic-form [isList]="true" [isUpdate]="true" *ngIf="!isLoading"
+                            [formInput]="dynamicFormInput" (actionSubmitted)="serveAction($event)"></app-dynamic-form>
+                        <button mat-raised-button class="btn btn-primary btn-start"
+                            (click)="downloadExcel()">{{'downloadExcel'
+                            |
+                            translate}}</button>
+                            <button mat-raised-button class="btn btn-primary btn-start" (click)="addEndUserTestData()">Add End User Test Data</button>
+                            <button mat-raised-button class="btn btn-primary btn-start" (click)="addMerchantTestData()">Add Merchant Test Data</button>
+                            <button mat-raised-button class="btn btn-primary btn-start" (click)="addDriverTestData()">Add Driver Test Data</button>               
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <div class="col-md-3" *ngFor="let status of orderStatuses">
+                <app-dynamic-card [price]="status.price" [label]="languageService.getCurrentLanguage()=='ar'? (status.statusNameAr|translate) :
+                (status.statusNameEn |translate)" [color]="status.backgroundColor" [value]="status.ordersCount"
+                    [icon]="status.iconPath"></app-dynamic-card>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!isAuthorizedToView" id="main">
+    <img src="../../../assets/img/403.png" style="position: absolute;
+    left: 30%;
+    top: 74px;" />
+    <div class="fof mt-5" style="padding-top: 361px;">
+        <h1>{{'sorryYouAre' | translate}} </h1>
+        <br />
+        <h1> {{'toAccess' | translate}} </h1>
+    </div>
+</div>

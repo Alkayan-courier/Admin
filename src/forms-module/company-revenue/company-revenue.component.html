@@ -1,0 +1,44 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'statistics'|translate}}</h3>
+                        <p class="card-category"> {{'companyRevenue' | translate}}</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="filterForm">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="25px" fxLayoutGap.lt-sm="0">
+                              <mat-form-field fxFlex="auto">
+                                <mat-label>{{'fromDate' | translate}}</mat-label>
+                                <input [matDatepicker]="fromDatePicker" formControlName="from" matInput>
+                                <mat-datepicker-toggle [for]="fromDatePicker" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #fromDatePicker></mat-datepicker>
+                              </mat-form-field>
+                              <mat-form-field fxFlex="auto">
+                                <mat-label>{{'toDate' | translate}}</mat-label>
+                                <input [matDatepicker]="toDatePicker" formControlName="to" matInput>
+                                <mat-datepicker-toggle [for]="toDatePicker" matSuffix></mat-datepicker-toggle>
+                                <mat-datepicker #toDatePicker></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+                              <button class="btn btn-primary btn-start" (click)="filterOrders()" color="primary" mat-raised-button type="button">{{'search' | translate}}</button>
+                              <button class="btn btn-primary btn-start" (click)="filterForm.reset(); filterOrders()" color="primary" mat-raised-button type="button">{{'clear' | translate}}</button>
+                            </div>
+                          </form>
+                    </div>
+                    <div *ngIf="!isLoading" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let card of cards">
+                              <app-dynamic-card [price]="card.price" [icon]="card.icon" 
+                                [color]="card.backgroundColor" [label]="card.name"
+                              ></app-dynamic-card>                            </div>
+                          </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

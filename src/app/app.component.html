@@ -1,0 +1,9 @@
+<div [dir]="languageService.getCurrentLanguage()=='en'?'ltr':'rtl'">
+    <ngx-spinner bdColor="#ffffffcc" size="medium" color="#0c7dc0" type="ball-clip-rotate" [fullScreen]="true">
+        <img style="width: 293px;
+        top: -350px;
+        left: -160px;
+        position: absolute;" src="../../../assets/img/logo.png" alt="">
+    </ngx-spinner>
+    <router-outlet></router-outlet>
+</div>

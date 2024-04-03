@@ -1,0 +1,46 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'orderDetails' | translate}}</h3>
+                    </div>
+
+                    <div class="card-body" *ngIf="!isLoading">
+                        <div *ngIf="!detailsInput?.dataObject?.isDeliveryCompany"
+                            class="row d-flex justify-content-center mb-3">
+                            <img src="/assets/img/logo.png" style="width: 17%;">
+                        </div>
+                        <div *ngIf="detailsInput?.dataObject?.isDeliveryCompany"
+                            class="row d-flex justify-content-center mb-3">
+                            <img [src]="imagesUrl+detailsInput?.dataObject?.clientBrand" style="width: 17%;">
+                        </div>
+                        <app-dynamic-details [detailsInput]="detailsInput"></app-dynamic-details>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">{{'driverDetails' | translate}}</h3>
+                    </div>
+
+                    <div class="card-body" *ngIf="!isLoading">
+                        <app-dynamic-details [detailsInput]="driverDetailsInput"></app-dynamic-details>
+                        <div *ngIf="driverDetailsInput?.dataObject?.latitude && driverDetailsInput?.dataObject?.longitude"
+                            class="row d-flex justify-content-center mb-3">
+                            <h3>{{'driverCurrentLocation' | translate}}</h3>
+                            <agm-map [latitude]="driverDetailsInput?.dataObject?.latitude"
+                                [longitude]="driverDetailsInput?.dataObject?.longitude" [zoom]="14">
+                                <agm-marker [latitude]="driverDetailsInput?.dataObject?.latitude"
+                                    [longitude]="driverDetailsInput?.dataObject?.longitude" [markerDraggable]="false">
+                                </agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

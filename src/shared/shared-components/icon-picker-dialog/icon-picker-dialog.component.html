@@ -1,0 +1,23 @@
+<div [dir]="languageService.getCurrentLanguage()=='en'?'ltr':'rtl'" style="text-align: start !important;">
+  <h1 mat-dialog-title><b>{{data.title |translate}} </b> </h1>
+  <div mat-dialog-content>
+    <div class="row p-3">
+      <mat-form-field class="example-form-field w-100" appearance="outline">
+        <mat-label>{{'searchIcons' |translate}}</mat-label>
+        <input matInput #txtVal type="text" autocomplete="off" [(ngModel)]="searchValue"
+          [placeholder]="'searchIcons' |translate">
+        <button *ngIf="searchValue" matSuffix mat-icon-button (click)="clearSearchText()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <hr>
+    <div class="row p-3">
+      <div class="col-md-2" *ngFor="let icon of icons | filter : searchValue">
+        <mat-card style="margin-top: 10px;cursor: pointer;" matRipple matTooltip="{{icon}}" (click)="onPickerSelected(icon)">
+          <mat-icon>{{icon}}</mat-icon>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

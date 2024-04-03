@@ -1,0 +1,31 @@
+.label-li {
+    padding-top: 13px;
+}
+#toggler{
+  font-size: 25px;
+  padding: 10px !important;
+}
+.headersMobile{
+  top : 40px;
+  position: absolute;
+  padding: 0;
+z-index: 3000;
+  display: none;
+  list-style-type: none;
+  margin-left: 10% ;
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+}.headersMobile li{
+  display: inline-flex !important;
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 990px) {
+ 
+  .headersMobile{
+display: block !important;
+  }
+
+
+}

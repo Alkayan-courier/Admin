@@ -1,0 +1,13 @@
+ [dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),
+ [dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),
+ [dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type) {
+     padding-right: 24px !important;
+     padding-left: 0 !important;
+     text-align: start !important;
+ }
+ .color-td{
+    border-radius: 40px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+ }

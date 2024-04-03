@@ -1,0 +1,46 @@
+<div class="table-responsive">
+    <div class="mat-elevation-z8 w-100">
+        <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="areaGroupNameEn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'areaGroupNameEn' | translate}} </th>
+                <td mat-cell *matCellDef="let row"> {{row.areaGroupNameEn}} </td>
+            </ng-container>
+            <ng-container matColumnDef="areaGroupNameAr">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'areaGroupNameAr' | translate}} </th>
+                <td mat-cell *matCellDef="let row"> {{row.areaGroupNameAr}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'price' | translate}} </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-form-field appearance="outline">
+                        <input [(ngModel)]="row.price" min="0" type="number" matInput>
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>{{'actions' | translate}}</th>
+                <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                    <button (click)="updatePrice(row)" mat-raised-button class="btn btn-primary" type="button">
+                        {{'saveChanges' |translate}}
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- actions Column -->
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">{{'NoDataMatchingTheFilter' | translate}}</td>
+            </tr>
+        </table>
+        <mat-paginator (page)="pageChanged($event)" [length]="totalCount" [pageIndex]="pageNumber-1"
+            [pageSize]="pageSize">
+        </mat-paginator>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+<form [formGroup]="dynamicFormGroup" #myForm="ngForm" autocomplete="alkayanform" id="alkayanformId">
+
+    <div class="row w-100">
+        <div *ngFor="let field of formInput.formFields; let i=index ;let ix=index"
+            [class]="'col-md-'+field.options.size">
+
+            <!-- Field Type ==> {{Input}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.Input" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <span style="position: initial;" matPrefix *ngIf="field.options.phoneNumberValidation">+971
+                    &nbsp;</span>
+                <input  [autocomplete]="field.fieldId+ix" matInput type="text" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.errors?.required">
+                    {{'requiredField' | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.invalid && field.options.phoneNumberValidation">
+                    {{'invalidPhoneNumber' | translate }}
+                </mat-error>
+            </mat-form-field> 
+            <!-- Field Type ==> {{Email}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.Email" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input  [autocomplete]="field.fieldId+ix" matInput type="email" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.errors?.required">
+                    {{'requiredField' | translate }}
+                </mat-error>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.errors?.email">
+                    {{'invalidEmail' | translate }}
+                </mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{File}} -->
+            <input  [autocomplete]="field.fieldId+ix" *ngIf="field.fieldType== filedTypeEnum.File" id="{{field.fieldId}}" #myFileInput type="file"
+                [hidden]="true" (change)="fileUploaderChanged($event,field.fieldId)" />
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.File" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input  [autocomplete]="field.fieldId+ix" style="width: 90%;" type="text" disabled="true" matInput
+                    [(ngModel)]="filesWrapper[field.fieldId]" [ngModelOptions]="{standalone: true}" />
+                <button style="position: absolute;
+                    top: 0px;" (click)="openUploader(field.fieldId)" mat-mini-fab class="btn btn-primary"
+                    matTooltip="{{'uploadFile' | translate}}" matTooltipPosition="above">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                </button>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.invalid">
+                    {{'requiredField' | translate }}
+                </mat-error>
+            </mat-form-field>
+            
+            <!-- Field Type ==> {{ImageFile}} -->
+            <input  [autocomplete]="field.fieldId+ix" *ngIf="field.fieldType== filedTypeEnum.ImageFile" id="{{field.fieldId}}" #myFileInput type="file"
+                [hidden]="true" accept="image/x-png,image/gif,image/jpeg" (change)="fileUploaderChanged($event,field.fieldId)" />
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.ImageFile" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input  [autocomplete]="field.fieldId+ix" style="width: 90%;" type="text" disabled="true" matInput
+                    [(ngModel)]="filesWrapper[field.fieldId]" [ngModelOptions]="{standalone: true}" />
+                <button style="position: absolute;
+                    top: 0px;" (click)="openUploader(field.fieldId)" mat-mini-fab class="btn btn-primary"
+                    matTooltip="{{'uploadFile' | translate}}" matTooltipPosition="above">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                </button>
+                <mat-error 
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.invalid">
+                    {{'requiredField' | translate }}
+                </mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{Input Number}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.Number" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input  [autocomplete]="field.fieldId+ix" matInput type="number" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.invalid">
+                    {{'requiredField' | translate }}
+                </mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{Icon Picker}} -->
+
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.ColorPicker" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input type="color" matInput autocomplete="off" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId)?.touched && getFormControlByName(field.fieldId)?.invalid">
+                    {{'requiredField' | translate }}
+                </mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{DropDownList}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.DropDownList" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <mat-select formControlName="{{field.fieldId}}" [placeholder]="field.placeholder | translate">
+                    <mat-option *ngFor="let option of field.data" [value]="option.value">
+                        {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                        (option.viewValueEn |translate)}}
+                    </mat-option>
+                </mat-select>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId).touched && getFormControlByName(field.fieldId).invalid">
+                    {{
+                    'requiredField' | translate }}</mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{AutoCompleteList}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.AutoCompleteList" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input [autocomplete]="field.fieldId+ix" matInput
+                    (focus)="pushToFocusedFields(field.fieldId)" id="{{field.fieldId}}"
+                    [formControl]="getDynamicFormControl(field.fieldId)" [placeholder]="field.placeholder | translate"
+                    [matAutocomplete]="i">
+                <mat-autocomplete autocomplete="off" [displayWith]="displayFn.bind(this,field.fieldId)"
+                    #i="matAutocomplete" (optionSelected)="autoCompleteListSelected($event,field.fieldId)">
+                    <mat-option *ngFor="let option of filteredOptionsWrapper[field.fieldId] | async"
+                        [value]="option.value">
+                        {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) :
+                        (option.viewValueEn |translate)}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                    *ngIf="getDynamicFormControl(field.fieldId).touched && getDynamicFormControl(field.fieldId).invalid">
+                    {{
+                    'requiredField' | translate }}</mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{Date}} -->
+            <mat-form-field *ngIf="field.fieldType== filedTypeEnum.Date" class="example-full-width"
+                appearance="outline">
+                <mat-label>{{ field.label | translate }}</mat-label>
+                <input matInput [matDatepicker]="i" [attr.id]="field.fieldId + i" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-datepicker-toggle matSuffix [for]="i"></mat-datepicker-toggle>
+                <mat-datepicker #i></mat-datepicker>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId).touched && getFormControlByName(field.fieldId).invalid">
+                    {{
+                    'requiredField' | translate }}</mat-error>
+            </mat-form-field>
+            <!-- Field Type ==> {{CheckBox}} -->
+            <div *ngIf="field.fieldType== filedTypeEnum.CheckBox" class="example-full-width" appearance="outline">
+                <input matInput hidden="true" formControlName="{{field.fieldId}}"
+                    [placeholder]="field.placeholder | translate">
+                <mat-checkbox [ngModelOptions]="{standalone: true}"
+                    (change)="checkBoxValueChanged($event,field.fieldId)" [(ngModel)]="field.value">{{ field.label |
+                    translate
+                    }}</mat-checkbox>
+            </div>
+            <!-- Field Type ==> {{RadioButton}} -->
+            <div *ngIf="field.fieldType== filedTypeEnum.RadioButton" class="example-full-width" appearance="outline">
+                <mat-label class="row">{{ field.label | translate }}</mat-label>
+                <input matInput hidden="true" formControlName="{{field.fieldId}}">
+                <mat-radio-button style="margin-inline-end: 5px;" *ngFor="let option of field?.data"
+                    (change)="radioButtonValueChanged($event,field.fieldId)" [value]="option.value">
+                    {{languageService.getCurrentLanguage()=='ar'? (option.viewValueAr |translate) : (option.viewValueEn
+                    |translate)}}
+                </mat-radio-button>
+                <mat-error
+                    *ngIf="getFormControlByName(field.fieldId).touched && getFormControlByName(field.fieldId).invalid">
+                    {{
+                    'requiredField' | translate }}</mat-error>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row-reverse padding-end">
+        <div *ngFor="let action of formInput?.actions">
+        
+            <button *ngIf="action.actionType==actionTypeEnum.Submit" mat-raised-button class="btn btn-primary btn-start"
+                [disabled]="action.isDisableAllowed && dynamicFormGroup.invalid"
+                (click)="submitAction(action.actionType,myForm)" style="margin: 5px;">
+                {{action.actionName | translate}}
+            </button>
+            <button *ngIf="action.actionType==actionTypeEnum.ReactivateAll" mat-raised-button class="btn btn-primary btn-start"
+            [disabled]="action.isDisableAllowed && dynamicFormGroup.invalid"
+            (click)="submitAction(action.actionType,myForm)" style="margin: 5px;">
+            {{action.actionName | translate}}
+        </button>
+            <button *ngIf="action.actionType==actionTypeEnum.Reset" mat-raised-button class="btn btn-primary btn-start"
+                [disabled]="action.isDisableAllowed && dynamicFormGroup.invalid"
+                (click)="submitAction(action.actionType,myForm)" style="margin: 5px;">
+                {{action.actionName | translate}}
+            </button>
+        
+        </div>
+        <button *ngIf="!isUpdate || !isList" mat-raised-button class="btn btn-primary btn-start"
+            (click)="submitAction(actionTypeEnum.Back,myForm)" style="margin-right: 5px;">
+            {{'cacnel' | translate}}
+        </button>
+    </div>
+</form>
