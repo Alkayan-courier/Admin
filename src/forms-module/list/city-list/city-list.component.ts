@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { BaseService } from '../../../shared/services/base.service';
 import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
-import { Actions, Controllers } from '../../../shared/global-variables/api-config';
+import {
+  Actions,
+  Controllers,
+} from '../../../shared/global-variables/api-config';
 import { FieldListData } from '../../../shared/models/dynamic-form-field';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
-import { DynamicListInput } from '../../../shared/models/dynamic-list.model';
+import {
+  DynamicListColumn,
+  DynamicListInput,
+} from '../../../shared/models/dynamic-list.model';
 import { PageEvent } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ListActionTypeEnum } from '../../../shared/enums/enums';
@@ -18,17 +24,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
-  styleUrls: ['./city-list.component.css']
+  styleUrls: ['./city-list.component.css'],
 })
 export class CityListComponent implements OnInit {
-
-  constructor(private dynamicService: DynamicDataService,
+  constructor(
+    private dynamicService: DynamicDataService,
     private baseService: BaseService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
     private notification: NotificationService,
     private router: Router
-  ) { }
+  ) {}
   public dynamicFormInput = new DynamicFormInput();
   public dynamicListInput = new DynamicListInput();
   public isLoading = true;
@@ -39,97 +45,117 @@ export class CityListComponent implements OnInit {
   public areaGroups: FieldListData[] = [];
   ngOnInit(): void {
     this.spinner.show();
-    this.getFormData();
+    // this.getFormData();
     this.getListSettings();
-
   }
   public getFormData() {
-    this.dynamicService.getFormSettings('CitySearchForm').subscribe(res => {
+    this.dynamicService.getFormSettings('CitySearchForm').subscribe((res) => {
       this.dynamicFormInput = res;
     });
   }
   public getListSettings() {
-    this.baseService.getAllForList(Controllers.City).subscribe(res => {
+    this.baseService.getAllForList(Controllers.City).subscribe((res) => {
       this.cities = res;
-      this.dynamicService.getListSettings('CityList').subscribe(res => {
-        this.dynamicListInput = res;
-        this.getListData();
-      });
+      const columns: DynamicListColumn[] = [
+        {
+          columnId: 'nameEn',
+          columnValue: 'nameEn',
+          columnName: 'nameEn',
+          actions: [],
+        },
+        {
+          columnId: 'nameAr',
+          columnValue: 'nameAr',
+          columnName: 'nameAr',
+          actions: [],
+        },
+      ];
+      this.dynamicListInput = { ...this.dynamicListInput, columns };
+      this.getListData();
+      // this.dynamicService.getListSettings('CityList').subscribe((res) => {
+      // });
     });
   }
   public getListData(pageSize?: number, pageNumber?: number) {
     let request = {
       pageSize: pageSize ? pageSize : this.pageSize,
-      pageNumber: pageNumber ? pageNumber : this.pageNumber
-    }
-    this.baseService.postItem(Controllers.City, Actions.GetList, request).subscribe(res => {
-      this.cities = res.entities;
-      this.dynamicListInput.data = this.cities;
-      this.dynamicListInput.totalCount = res.totalCount;
-      this.isLoading = false;
-      this.spinner.hide();
-    });
+      pageNumber: pageNumber ? pageNumber : this.pageNumber,
+    };
+    this.baseService
+      .postItem(Controllers.City, Actions.GetList, request)
+      .subscribe((res) => {
+        this.cities = res.entities;
+        this.dynamicListInput.data = this.cities;
+        this.dynamicListInput.totalCount = res.totalCount;
+        this.isLoading = false;
+      });
+    this.spinner.hide();
   }
   public serveAction(event: DynamicFormOutput) {
     event.data.pageSize = this.pageSize;
     event.data.pageNumber = this.pageNumber;
-    this.baseService.postItem(Controllers.City, Actions.GetList, event.data).subscribe(res => {
-      this.areasList = res.entities;
-      this.dynamicListInput.data = this.areasList;
-      this.dynamicListInput.totalCount = res.totalCount;
-      this.isLoading = false;
-      this.spinner.hide();
-    })
+    this.baseService
+      .postItem(Controllers.City, Actions.GetList, event.data)
+      .subscribe((res) => {
+        this.areasList = res.entities;
+        this.dynamicListInput.data = this.areasList;
+        this.dynamicListInput.totalCount = res.totalCount;
+        this.isLoading = false;
+        this.spinner.hide();
+      });
   }
   public serveListAction(event: ListActionClickedOutput) {
     switch (event.action) {
-      case ListActionTypeEnum.Delete:
-        {
-          const dialogRef = this.dialog.open(YesNoDialogComponent, {
-            width: '400px',
-            data: {
-              title: 'confirm',
-              content: 'confirmDeleteMessage'
-            }
-          })
+      case ListActionTypeEnum.Delete: {
+        const dialogRef = this.dialog.open(YesNoDialogComponent, {
+          width: '400px',
+          data: {
+            title: 'confirm',
+            content: 'confirmDeleteMessage',
+          },
+        });
 
-          dialogRef.afterClosed().subscribe(res => {
-            if (res) {
-              this.spinner.show();
-              this.baseService.removeItemById(Controllers.City, event.entityId).subscribe(res => {
-                this.getListData(this.pageSize, this.pageNumber);
-                this.isLoading = false;
-                this.spinner.hide();
-                this.notification.showNotification(res, 'success')
-              }, error => {
-                if (error.status === 400) {
-                  this.notification.showNotification(error.error, 'danger');
+        dialogRef.afterClosed().subscribe((res) => {
+          if (res) {
+            this.spinner.show();
+            this.baseService
+              .removeItemById(Controllers.City, event.entityId)
+              .subscribe(
+                (res) => {
+                  this.getListData(this.pageSize, this.pageNumber);
+                  this.isLoading = false;
+                  this.spinner.hide();
+                  this.notification.showNotification(res, 'success');
+                },
+                (error) => {
+                  if (error.status === 400) {
+                    this.notification.showNotification(error.error, 'danger');
+                  } else {
+                    this.notification.showNotification(
+                      'somethingWentWrong',
+                      'danger'
+                    );
+                  }
+                  this.spinner.hide();
                 }
-                else {
-                  this.notification.showNotification('somethingWentWrong', 'danger');
-                }
-                this.spinner.hide();
-              });
-            }
-          })
+              );
+          }
+        });
 
-          break;
-        }
-      case ListActionTypeEnum.Edit:
-        {
-          this.router.navigate([`/forms/city-update/${event.entityId}`]);
-          break;
-        }
-      case ListActionTypeEnum.View:
-        {
-          this.router.navigate([`/forms/city-details/${event.entityId}`]);
-          break;
-        }
+        break;
+      }
+      case ListActionTypeEnum.Edit: {
+        this.router.navigate([`/forms/city-update/${event.entityId}`]);
+        break;
+      }
+      case ListActionTypeEnum.View: {
+        this.router.navigate([`/forms/city-details/${event.entityId}`]);
+        break;
+      }
 
       default:
         break;
     }
-
   }
   public pageChanged(event: PageEvent) {
     this.getListData(event.pageSize, event.pageIndex + 1);

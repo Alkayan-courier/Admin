@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Actions, Controllers } from '../../../shared/global-variables/api-config';
+import {
+  Actions,
+  Controllers,
+} from '../../../shared/global-variables/api-config';
 import { AuthorizeService } from '../../../auth/authorize.service';
 import { DashboardResponse } from '../../../shared/models/dashboard-model';
 import { BaseService } from '../../../shared/services/base.service';
@@ -15,7 +18,7 @@ import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.mo
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   public orderStatuses: DashboardResponse[] = [];
@@ -26,7 +29,7 @@ export class DashboardComponent implements OnInit {
     from: new FormControl(),
     to: new FormControl(),
     pageSize: new FormControl(10),
-    pageNumber: new FormControl(1)
+    pageNumber: new FormControl(1),
   });
   constructor(
     private dashboardService: BaseService,
@@ -35,8 +38,8 @@ export class DashboardComponent implements OnInit {
     public languageService: LanguageService,
     private dialog: MatDialog,
     public dynamicService: DynamicDataService
-    ) { }
- /*  public startAnimationForLineChart(chart) {
+  ) {}
+  /*  public startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
     delays = 80;
@@ -84,139 +87,150 @@ export class DashboardComponent implements OnInit {
             dur: durations2,
             from: 0,
             to: 1,
-            easing: 'ease'
-          }
+            easing: 'ease',
+          },
         });
       }
     });
 
     seq2 = 0;
-  };
+  }
   ngOnInit() {
-    this.spinner.show();
-    const userRoleExist = this.authService.getLoggedInUsersRole().find(x => x == 'DataEntry');
-    if (userRoleExist) {
-      this.isAuthorizedToView = false;
-      this.spinner.hide();
-    }
-    else {
-      this.getFormData();
-    }
+    // this.spinner.show();
+    // const userRoleExist = this.authService.getLoggedInUsersRole().find(x => x == 'DataEntry');
+    // if (userRoleExist) {
+    //   this.isAuthorizedToView = false;
+    // }
+    // else {
+    //   this.getFormData();
+    // }
+    this.spinner.hide();
   }
   downloadExcel() {
-    this.dashboardService.downloadExcel(Controllers.Order, Actions.DownloadExcel).subscribe(res => {
-      console.log(res);
-       var a = document.createElement("a");
-       const blob = new Blob([res.body], { type:res.body.type });
-       a.href = URL.createObjectURL(blob);
-       a.download = 'Order-Details.csv';
-       a.click();
-     });
-  } 
-  addEndUserTestData(){
+    this.dashboardService
+      .downloadExcel(Controllers.Order, Actions.DownloadExcel)
+      .subscribe((res) => {
+        console.log(res);
+        var a = document.createElement('a');
+        const blob = new Blob([res.body], { type: res.body.type });
+        a.href = URL.createObjectURL(blob);
+        a.download = 'Order-Details.csv';
+        a.click();
+      });
+  }
+  addEndUserTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
       width: '700px',
       data: {
         title: 'Add Test Data',
         content: 'Add Test Data',
-        dialogType:1
+        dialogType: 1,
       },
-      autoFocus: false
-    })
+      autoFocus: false,
+    });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.spinner.show();
         let request = {
           endUserPhoneNumber: res,
           numberOfOrders: 5,
-          clientBrandId:11,
-          clientId:49
-        }
-        console.log('Add Record',request);
-        this.dashboardService.postItem(Controllers.TestData, Actions.PostItem, request).subscribe(res => {
-         console.log(res);
-          this.spinner.hide();
-         
-        }, error => {
-          if (error.status === 400) {
-          }
-          else {
-          }
-          this.spinner.hide();
-        });
+          clientBrandId: 11,
+          clientId: 49,
+        };
+        console.log('Add Record', request);
+        this.dashboardService
+          .postItem(Controllers.TestData, Actions.PostItem, request)
+          .subscribe(
+            (res) => {
+              console.log(res);
+              this.spinner.hide();
+            },
+            (error) => {
+              if (error.status === 400) {
+              } else {
+              }
+              this.spinner.hide();
+            }
+          );
       }
-    })
-  } 
-  addMerchantTestData(){
+    });
+  }
+  addMerchantTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
       width: '700px',
       data: {
         title: 'Add Test Data',
         content: 'Add Test Data',
-        dialogType:2
+        dialogType: 2,
       },
-      autoFocus: false
-    })
+      autoFocus: false,
+    });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.spinner.show();
         let request = {
-          endUserPhoneNumber: "",
+          endUserPhoneNumber: '',
           numberOfOrders: 5,
-          clientBrandId:11,
-          clientId:res
-        }
-        console.log('Add Record',request);
-        this.dashboardService.postItem(Controllers.TestData, Actions.PostItem, request).subscribe(res => {
-         console.log(res);
-          this.spinner.hide();
-         
-        }, error => {
-          if (error.status === 400) {
-          }
-          else {
-          }
-          this.spinner.hide();
-        });
+          clientBrandId: 11,
+          clientId: res,
+        };
+        console.log('Add Record', request);
+        this.dashboardService
+          .postItem(Controllers.TestData, Actions.PostItem, request)
+          .subscribe(
+            (res) => {
+              console.log(res);
+              this.spinner.hide();
+            },
+            (error) => {
+              if (error.status === 400) {
+              } else {
+              }
+              this.spinner.hide();
+            }
+          );
       }
-    })
-  } 
-  addDriverTestData(){
+    });
+  }
+  addDriverTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
       width: '700px',
       data: {
         title: 'Add Test Data',
         content: 'Add Test Data',
-        dialogType:3
+        dialogType: 3,
       },
-      autoFocus: false
-    })
+      autoFocus: false,
+    });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.spinner.show();
         let request = {
-          endUserPhoneNumber: "",
+          endUserPhoneNumber: '',
           numberOfOrders: 5,
-          clientBrandId:11,
-          driverId:res,
-          clientId:null
-        }
-        this.dashboardService.postItem(Controllers.TestData, Actions.PostItem, request).subscribe(res => {
-         console.log(res);
-          this.spinner.hide();
-         
-        }, error => { 
-          if (error.status === 400) {
-          }
-          else {
-          }
-          this.spinner.hide();
-        });
+          clientBrandId: 11,
+          driverId: res,
+          clientId: null,
+        };
+        this.dashboardService
+          .postItem(Controllers.TestData, Actions.PostItem, request)
+          .subscribe(
+            (res) => {
+              console.log(res);
+              this.spinner.hide();
+            },
+            (error) => {
+              if (error.status === 400) {
+              } else {
+              }
+              this.spinner.hide();
+            }
+          );
       }
-      var a = document.createElement("a");
+      var a = document.createElement('a');
       const blob = new Blob([res.body], { type: res.body.type });
       a.href = URL.createObjectURL(blob);
       a.download = 'Order-Details.csv';
@@ -224,38 +238,45 @@ export class DashboardComponent implements OnInit {
     });
   }
   public getFormData() {
-    this.dynamicService.getFormSettings('DashboardSearchForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      this.isLoading = false;
-      this.getConfig();
-    });
+    this.dynamicService
+      .getFormSettings('DashboardSearchForm')
+      .subscribe((res) => {
+        this.dynamicFormInput = res;
+        this.isLoading = false;
+        this.getConfig();
+      });
   }
   public serveAction(event: DynamicFormOutput) {
-    this.dashboardService.getDashboardData(event.data).subscribe(res => {
-      this.orderStatuses = res;
-      this.isLoading = false;
-      this.spinner.hide();
-    })
+    // this.dashboardService.getDashboardData(event.data).subscribe(res => {
+    //   this.orderStatuses = res;
+    //   this.isLoading = false;
+    // })
+    this.spinner.hide();
   }
- 
- 
+
   getConfig() {
     const form = this.filterForm.value;
     form.from = this.convertToUTC(form.from);
     form.to = this.convertToUTC(form.to);
-    this.dashboardService.getDashboardData(form).subscribe(res => {
-      this.orderStatuses = res;
-      console.log(this.orderStatuses)
-      this.spinner.hide()
-    }, error => {
-      this.spinner.hide();
-    })
+    this.dashboardService.getDashboardData(form).subscribe(
+      (res) => {
+        this.orderStatuses = res;
+        console.log(this.orderStatuses);
+        this.spinner.hide();
+      },
+      (error) => {
+        this.spinner.hide();
+      }
+    );
   }
   convertToUTC(date: Date): Date {
     if (date) {
       date = new Date(date);
-      return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    } else { return null; }
+      return new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      );
+    } else {
+      return null;
+    }
   }
-
 }
