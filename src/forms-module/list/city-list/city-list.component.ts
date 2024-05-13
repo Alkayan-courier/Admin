@@ -6,7 +6,10 @@ import {
   Actions,
   Controllers,
 } from '../../../shared/global-variables/api-config';
-import { FieldListData } from '../../../shared/models/dynamic-form-field';
+import {
+  DynamicFormField,
+  FieldListData,
+} from '../../../shared/models/dynamic-form-field';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import {
   DynamicListColumn,
@@ -14,7 +17,11 @@ import {
 } from '../../../shared/models/dynamic-list.model';
 import { PageEvent } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ListActionTypeEnum } from '../../../shared/enums/enums';
+import {
+  ActionTypeEnum,
+  FieldTypeEnum,
+  ListActionTypeEnum,
+} from '../../../shared/enums/enums';
 import { ListActionClickedOutput } from '../../../shared/models/list-action-clicked-output';
 import { YesNoDialogComponent } from '../../../shared/shared-components/yes-no-dialog/yes-no-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -69,8 +76,37 @@ export class CityListComponent implements OnInit {
           columnName: 'nameAr',
           actions: [],
         },
+        {
+          columnId: 'actions',
+          columnValue: 'actions',
+          columnName: 'actions',
+          actions: [
+            { actionName: 'view', actionType: 3 },
+            { actionName: 'delete', actionType: 2 },
+            { actionName: 'edit', actionType: 1 },
+          ],
+        },
       ];
-      this.dynamicListInput = { ...this.dynamicListInput, columns };
+      this.dynamicListInput.columns = columns;
+      this.dynamicFormInput = {
+        actions: [
+          {
+            actionName: 'search',
+            actionType: ActionTypeEnum.Submit,
+            isDisableAllowed: false,
+          },
+        ],
+        formFields: [
+          {
+            fieldId: 'name',
+            fieldType: FieldTypeEnum.Input,
+            label: 'name',
+            fieldOrder: 1,
+            placeholder: 'name',
+            options: { disabled: false, required: true, size: 2 },
+          },
+        ],
+      };
       this.getListData();
       // this.dynamicService.getListSettings('CityList').subscribe((res) => {
       // });

@@ -24,16 +24,12 @@ export class RoleGuard implements CanActivate {
       this.router.navigate(['/auth/login']);
       return false;
     }
-    console.log(expectedRole.find(r => r == (tokenPayload as any)[environment.roleClaim]));
-    console.log((tokenPayload as any)[environment.roleClaim]);
     if (
       !this.auth.isAuthenticated() ||
         Array.isArray((tokenPayload as any)[environment.roleClaim])
         ? !((tokenPayload as any)[environment.roleClaim].find(x => x === expectedRole.find(r => r == x)))
         : (tokenPayload as any)[environment.roleClaim] !== expectedRole.find(r => r == (tokenPayload as any)[environment.roleClaim])) {
 
-      console.log('IsAuth : ' + this.auth.isAuthenticated());
-      console.log('Expected Role : ' + expectedRole);
       this.router.navigate(['/auth/login']);
       return false;
 

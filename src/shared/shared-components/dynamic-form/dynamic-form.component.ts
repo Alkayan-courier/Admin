@@ -1,5 +1,22 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgForm,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { ActionTypeEnum, FieldTypeEnum } from '../../../shared/enums/enums';
 import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
@@ -16,10 +33,9 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.css']
+  styleUrls: ['./dynamic-form.component.css'],
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
-
   @Input() formInput = new DynamicFormInput();
   @ViewChild('myFileInput') myFileInput;
   @Input() isUpdate = false;
@@ -27,7 +43,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   public fields;
   public selectedMatAutoComleteFieldId: string;
   public renderedMatAutoComleteFieldId: string[] = [];
-  @Output() actionSubmitted: EventEmitter<DynamicFormOutput> = new EventEmitter<DynamicFormOutput>();
+  @Output() actionSubmitted: EventEmitter<DynamicFormOutput> =
+    new EventEmitter<DynamicFormOutput>();
   public filteredOptions: Observable<any[]>[];
   public autoCompleteControls: FormGroup = new FormGroup({});
   public dynamicFormGroup: FormGroup = new FormGroup({});
@@ -48,20 +65,31 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     public languageService: LanguageService,
     public router: LanguageService,
-  ) { }
+    private formBuilder: FormBuilder
+  ) {}
   ngOnInit(): void {
 
+    this.dynamicFormGroup = this.formBuilder.group({});
+
+    this.formInput.formFields.forEach(field => {
+      this.dynamicFormGroup.addControl(field.fieldId, this.formBuilder.control(field.value));
+    });
 
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
 
   public displayFn(fieldId, data) {
     if (fieldId) {
-      let fieldData = this.formInput.formFields.find(x => x.fieldId == fieldId);
-      let selectedOption = fieldData.data.find(x => x.value == data);
-      return selectedOption && (selectedOption.viewValueEn || selectedOption.viewValueAr) ? (this.languageService.getCurrentLanguage() == 'ar' ? selectedOption.viewValueAr : selectedOption.viewValueEn) : '';
+      let fieldData = this.formInput.formFields.find(
+        (x) => x.fieldId == fieldId
+      );
+      let selectedOption = fieldData.data.find((x) => x.value == data);
+      return selectedOption &&
+        (selectedOption.viewValueEn || selectedOption.viewValueAr)
+        ? this.languageService.getCurrentLanguage() == 'ar'
+          ? selectedOption.viewValueAr
+          : selectedOption.viewValueEn
+        : '';
     }
     return '';
   }
@@ -70,14 +98,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     if (field.options.required && field.options.phoneNumberValidation) {
       validators.push(Validators.required);
       validators.push(RegexValidator(RegexConstants.uaeNumber));
-    }
-    else if (field.options.required && !field.options.phoneNumberValidation) {
+    } else if (field.options.required && !field.options.phoneNumberValidation) {
       validators.push(Validators.required);
-    }
-    else if (!field.options.required && field.options.phoneNumberValidation) {
+    } else if (!field.options.required && field.options.phoneNumberValidation) {
       validators.push(RegexValidator(RegexConstants.uaeNumber));
-    }
-    else {
+    } else {
     }
     if (field.fieldType == FieldTypeEnum.Email) {
       validators.push(Validators.email);
@@ -89,19 +114,25 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   private filterOptions(value: any, data: any[]): any[] {
     const filterValue = value.toLowerCase();
-    return data.filter(option => option.viewValueEn.toLowerCase().includes(filterValue) || option.viewValueAr.toLowerCase().includes(filterValue));
+    return data.filter(
+      (option) =>
+        option.viewValueEn.toLowerCase().includes(filterValue) ||
+        option.viewValueAr.toLowerCase().includes(filterValue)
+    );
   }
-
 
   public autoCompleteListSelected(event, fieldId: string) {
     this.selectedMatAutoComleteFieldId = fieldId;
-    var autoCompleteField = this.formInput.formFields.find(x => x.fieldId == fieldId);
-    const control = autoCompleteField.data.find(x => x.value === event.option.value);
+    var autoCompleteField = this.formInput.formFields.find(
+      (x) => x.fieldId == fieldId
+    );
+    const control = autoCompleteField.data.find(
+      (x) => x.value === event.option.value
+    );
     this.dynamicFormGroup.get(fieldId).setValue(control.value);
     this.dynamicFormGroup.updateValueAndValidity();
   }
   public checkBoxValueChanged(event, fieldId: string) {
-
     this.getFormControlByName(fieldId).setValue(event.checked);
   }
   public radioButtonValueChanged(event, fieldId: string) {
@@ -111,7 +142,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     return this.dynamicFormGroup.get(controlName) as FormControl;
   }
   public fileUploaderChanged(event, fieldId: string) {
-
     this.selectedFile = event.target.files[0];
     this.filesWrapper[fieldId] = this.selectedFile.name;
     this.dynamicFormGroup.controls[fieldId].setValue(this.selectedFile);
@@ -140,7 +170,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
   }
   public submitAction(actionType: ActionTypeEnum, form: any) {
-
     this.filesWrapper = [];
     let output = new DynamicFormOutput();
     switch (actionType) {
@@ -176,18 +205,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       width: '600px',
       data: {
         title: 'chooseYourIcon',
-        content: 'confirmDeleteMessage'
-      }
-    })
+        content: 'confirmDeleteMessage',
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(res => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.getFormControlByName(fieldId).setValue(res);
         this.iconName = res;
       }
-    })
+    });
   }
-
 }
 
 export class RegexConstants {
