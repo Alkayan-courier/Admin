@@ -82,12 +82,10 @@ export class DynamicListComponent implements OnInit, DoCheck {
       );
     };
 
-    console.log('data', this.listInput.data);
     this.dataSource = new MatTableDataSource(this.listInput.data);
     this.dataSource.sort = this.sort;
     this.totalCount = this.listInput.totalCount;
     this.displayedColumns = this.listInput.columns.map((c) => c.columnName);
-    console.log('Col', this.displayedColumns);
   }
 
   public pageChanged(event: PageEvent) {
