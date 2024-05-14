@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { RoleTypes } from '../../../shared/enums/enums';
 import { Router } from '@angular/router';
+import { UserCreateForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-enduser-create',
@@ -26,7 +27,6 @@ export class EndUserCreateComponent implements OnInit {
     return RoleTypes;
   }
   constructor(
-    private dynamicService: DynamicDataService,
     private baseService: BaseService,
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
@@ -55,11 +55,9 @@ export class EndUserCreateComponent implements OnInit {
   }
 
   public getFieldsData() {
-    this.dynamicService.getFormSettings('UserCreateForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      this.isLoading = false;
-      this.spinner.hide();
-    });
+    this.dynamicFormInput = UserCreateForm;
+    this.isLoading = false;
+    this.spinner.hide();
   }
 
 }
