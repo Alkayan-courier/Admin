@@ -71,41 +71,41 @@ export const OrderSearchForm: DynamicFormInput = {
     {
       fieldId: 'areaId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'areaId',
+      label: 'area',
       fieldOrder: 1,
-      placeholder: 'areaId',
+      placeholder: 'area',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'clientId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'clientId',
+      label: 'client',
       fieldOrder: 2,
-      placeholder: 'clientId',
+      placeholder: 'client',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'driverId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'driverId',
+      label: 'driver',
       fieldOrder: 3,
-      placeholder: 'driverId',
+      placeholder: 'driver',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'orderStatusId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'orderStatusId',
+      label: 'orderStatus',
       fieldOrder: 4,
-      placeholder: 'orderStatusId',
+      placeholder: 'orderStatus',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'clientBrandId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'clientBrandId',
+      label: 'clientBrand',
       fieldOrder: 5,
-      placeholder: 'clientBrandId',
+      placeholder: 'clientBrand',
       options: { disabled: false, required: true, size: 3 },
     },
     {
@@ -168,7 +168,7 @@ export const UserSearchForm: DynamicFormInput = {
   ],
 };
 
-export const OrderList : DynamicListColumn[] = [
+export const OrderList: DynamicListColumn[] = [
   {
     columnId: 'merchantName',
     columnValue: 'merchantName',
@@ -229,7 +229,7 @@ export const OrderList : DynamicListColumn[] = [
     columnName: 'driverName',
     actions: [],
   },
-]
+];
 
 export const UsersList: DynamicListColumn[] = [
   {
@@ -365,3 +365,108 @@ UpdateMerchantForm.formFields = UpdateMerchantForm.formFields.concat([
     options: { disabled: false, required: true, size: 3 },
   },
 ]);
+
+export const OrderForm: DynamicFormInput = {
+  actions: [
+    {
+      actionName: 'Create',
+      actionType: ActionTypeEnum.Submit,
+      isDisableAllowed: true,
+    },
+  ],
+  formFields: [
+    {
+      fieldId: 'areaId',
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'areaId',
+      fieldOrder: 1,
+      placeholder: 'areaId',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'clientId',
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'clientId',
+      fieldOrder: 1,
+      placeholder: 'clientId',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'orderStatusId',
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'orderStatusId',
+      fieldOrder: 1,
+      placeholder: 'orderStatusId',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'orderTaskId',
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'orderTaskId',
+      fieldOrder: 1,
+      placeholder: 'orderTaskId',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'deliveryFeesOn',
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'deliveryFeesOn',
+      fieldOrder: 1,
+      placeholder: 'deliveryFeesOn',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'endUserAddress',
+      fieldType: FieldTypeEnum.Input,
+      label: 'endUserAddress',
+      fieldOrder: 1,
+      placeholder: 'endUserAddress',
+      options: { disabled: false, required: false, size: 3 },
+    },
+    {
+      fieldId: 'orderItemTypeDescription',
+      fieldType: FieldTypeEnum.Input,
+      label: 'orderItemTypeDescription',
+      fieldOrder: 1,
+      placeholder: 'orderItemTypeDescription',
+      options: { disabled: false, required: false, size: 3 },
+    },
+    {
+      fieldId: 'orderPrice',
+      fieldType: FieldTypeEnum.Number,
+      label: 'orderPrice',
+      fieldOrder: 1,
+      placeholder: 'orderPrice',
+      options: { disabled: false, required: true, size: 3 },
+    },
+    {
+      fieldId: 'addedPrice',
+      fieldType: FieldTypeEnum.Number,
+      label: 'addedPrice',
+      fieldOrder: 1,
+      placeholder: 'addedPrice',
+      options: { disabled: false, required: false, size: 3 },
+    },
+    {
+      fieldId: 'endUserPhoneNumber',
+      fieldType: FieldTypeEnum.Input,
+      label: 'endUserPhoneNumber',
+      fieldOrder: 1,
+      placeholder: 'endUserPhoneNumber',
+      options: {
+        disabled: false,
+        required: false,
+        phoneNumberValidation: true,
+        size: 3,
+      },
+    },
+    {
+      fieldId: 'endUserName',
+      fieldType: FieldTypeEnum.Input,
+      label: 'endUserName',
+      fieldOrder: 1,
+      placeholder: 'endUserName',
+      options: { disabled: false, required: false, size: 3 },
+    },
+  ],
+};

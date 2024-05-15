@@ -75,7 +75,6 @@ export class OrderListComponent implements OnInit {
               (x) => x.fieldId == 'toDate'
             ).value = storedForm.toDate;
           }
-          console.log(this.dynamicFormInput.formFields);
           this.baseService.getAllForList(Controllers.Area).subscribe((res) => {
             this.areas = res;
             this.baseService
@@ -144,7 +143,6 @@ export class OrderListComponent implements OnInit {
     this.baseService
       .postItem(Controllers.Order, Actions.List, request)
       .subscribe((res) => {
-        console.log(res);
         this.orders = res.entities;
         this.dynamicListInput.data = this.orders;
         this.dynamicListInput.totalCount = res.totalCount;

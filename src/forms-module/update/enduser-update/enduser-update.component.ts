@@ -10,11 +10,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { RoleTypes } from '../../../shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UpdateUserForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-enduser-update',
   templateUrl: './enduser-update.component.html',
-  styleUrls: ['./enduser-update.component.css']
+  styleUrls: ['./enduser-update.component.css'],
 })
 export class EndUserUpdateComponent implements OnInit {
   public baseStatuses = [];
@@ -32,47 +33,51 @@ export class EndUserUpdateComponent implements OnInit {
     private notification: NotificationService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.spinner.show();
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.clientId = params.id;
       this.baseStatuses = [
         { value: true, viewValueEn: 'Active', viewValueAr: 'نشط' },
-        { value: false, viewValueEn: 'Not Active', viewValueAr: 'غير نشط' }
+        { value: false, viewValueEn: 'Not Active', viewValueAr: 'غير نشط' },
       ];
       this.getAsync(this.clientId);
     });
     this.spinner.show();
   }
   public getAsync(id: number) {
-    this.baseService.getById(Controllers.User, id).subscribe(res => {
+    this.baseService.getById(Controllers.User, id).subscribe((res) => {
       this.getFieldsData(res);
-    })
+    });
   }
   public serveAction(event: DynamicFormOutput) {
     event.data['role'] = this.userRolesEnum.Merchant;
     event.data.id = Number(this.clientId);
-    this.baseService.editItem(Controllers.User, event.data).subscribe(res => {
-      this.spinner.hide();
-      this.notification.showNotification(res, 'success');
-      this.router.navigate(['/forms/endusers-list']);
-    }, error => {
-      this.spinner.hide();
-      this.notification.showNotification(error.error, 'danger');
-    })
+    this.baseService.editItem(Controllers.User, event.data).subscribe(
+      (res) => {
+        this.spinner.hide();
+        this.notification.showNotification(res, 'success');
+        this.router.navigate(['/forms/endusers-list']);
+      },
+      (error) => {
+        this.spinner.hide();
+        this.notification.showNotification(error.error, 'danger');
+      }
+    );
   }
 
   public getFieldsData(client: any) {
-    this.dynamicService.getFormSettings('UserUpdateForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      this.dynamicFormInput.formFields.forEach(field => {
-        field.value = client[field.fieldId];
-      }); let statusField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'isActive');
-
-      statusField.data = this.baseStatuses;
-      this.isLoading = false;
-      this.spinner.hide();
+    this.dynamicFormInput = UpdateUserForm;
+    this.dynamicFormInput.formFields.forEach((field) => {
+      field.value = client[field.fieldId];
     });
+    let statusField = this.dynamicFormInput.formFields.find(
+      (x) => x.fieldId == 'isActive'
+    );
+
+    statusField.data = this.baseStatuses;
+    this.isLoading = false;
+    this.spinner.hide();
   }
 }
