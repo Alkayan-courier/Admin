@@ -27,6 +27,7 @@ import { YesNoDialogComponent } from '../../../shared/shared-components/yes-no-d
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { Router } from '@angular/router';
+import { CityList, CitySearchForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-city-list',
@@ -63,53 +64,9 @@ export class CityListComponent implements OnInit {
   public getListSettings() {
     this.baseService.getAllForList(Controllers.City).subscribe((res) => {
       this.cities = res;
-      const columns: DynamicListColumn[] = [
-        {
-          columnId: 'nameEn',
-          columnValue: 'nameEn',
-          columnName: 'nameEn',
-          actions: [],
-        },
-        {
-          columnId: 'nameAr',
-          columnValue: 'nameAr',
-          columnName: 'nameAr',
-          actions: [],
-        },
-        {
-          columnId: 'actions',
-          columnValue: 'actions',
-          columnName: 'actions',
-          actions: [
-            { actionName: 'view', actionType: 3 },
-            { actionName: 'delete', actionType: 2 },
-            { actionName: 'edit', actionType: 1 },
-          ],
-        },
-      ];
-      this.dynamicListInput.columns = columns;
-      this.dynamicFormInput = {
-        actions: [
-          {
-            actionName: 'search',
-            actionType: ActionTypeEnum.Submit,
-            isDisableAllowed: false,
-          },
-        ],
-        formFields: [
-          {
-            fieldId: 'name',
-            fieldType: FieldTypeEnum.Input,
-            label: 'name',
-            fieldOrder: 1,
-            placeholder: 'name',
-            options: { disabled: false, required: true, size: 2 },
-          },
-        ],
-      };
+      this.dynamicListInput.columns = CityList;
+      this.dynamicFormInput = CitySearchForm;
       this.getListData();
-      // this.dynamicService.getListSettings('CityList').subscribe((res) => {
-      // });
     });
   }
   public getListData(pageSize?: number, pageNumber?: number) {

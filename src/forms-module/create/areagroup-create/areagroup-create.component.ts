@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { Router } from '@angular/router';
+import { AreaGroupForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-areagroup-create',
@@ -51,13 +52,9 @@ export class AreaGroupCreateComponent implements OnInit {
   }
 
   public getFieldsData() {
-    this.dynamicService.getFormSettings('AreaGroupForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      this.isLoading = false;
-      this.spinner.hide();
-    });
-
-
+    this.dynamicFormInput = AreaGroupForm;
+    this.isLoading = false;
+    this.spinner.hide();
   }
   public getTranslatableText(key: string) {
     var textValue = "";

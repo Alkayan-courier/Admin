@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { YesNoDialogComponent } from '../../../shared/shared-components/yes-no-dialog/yes-no-dialog.component';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UserSearchForm, UsersList } from '../../dynamic-data';
 
 @Component({
   selector: 'app-employee-list',
@@ -55,23 +56,18 @@ export class EmployeeListComponent implements OnInit {
   public getFormData() {
     this.baseService.getItemsByKey(Controllers.User, Actions.GetAllItems, 'role', this.userRolesEnum.Employee).subscribe(res => {
       this.employees = res;
-      this.dynamicService.getFormSettings('UserSearchForm').subscribe(res => {
-        this.dynamicFormInput = res;
-        let userIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'userId');
-        let statusField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'isActive');
-        userIdField.data = this.employees;
-        statusField.data = this.baseStatuses;
-        this.getListSettings();
-        console.log(this.dynamicFormInput);
-      });
+      this.dynamicFormInput = UserSearchForm;
+      let userIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'userId');
+      let statusField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'isActive');
+      userIdField.data = this.employees;
+      statusField.data = this.baseStatuses;
+      this.getListSettings();
     });
   }
   public getListSettings() {
-    this.dynamicService.getListSettings('EmployeeList').subscribe(res => {
-      this.dynamicListInput = res;
-      this.getListData();
-      console.log(this.dynamicFormInput);
-    });
+    this.dynamicListInput.columns = UsersList;
+    this.getListData();
+    console.log(this.dynamicFormInput);
   }
   public getListData(pageSize?: number, pageNumber?: number) {
     let request = {

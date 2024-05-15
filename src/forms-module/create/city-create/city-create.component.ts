@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { Router } from '@angular/router';
 import { ActionTypeEnum, FieldTypeEnum } from '../../../shared/enums/enums';
+import { CityCreateForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-city-create',
@@ -21,7 +22,6 @@ import { ActionTypeEnum, FieldTypeEnum } from '../../../shared/enums/enums';
 })
 export class CityCreateComponent implements OnInit {
   constructor(
-    private dynamicService: DynamicDataService,
     private baseService: BaseService,
     private spinner: NgxSpinnerService,
     private translate: TranslateService,
@@ -62,33 +62,7 @@ export class CityCreateComponent implements OnInit {
   public getFieldsData() {
     this.spinner.hide();
 
-    this.dynamicFormInput = {
-      formFields: [
-        {
-          fieldId: 'nameEn',
-          fieldType: FieldTypeEnum.Input,
-          label: 'nameEn',
-          fieldOrder: 1,
-          placeholder: 'nameEn',
-          options: { disabled: false, required: true, size: 2 },
-        },
-        {
-          fieldId: 'nameAr',
-          fieldType: FieldTypeEnum.Input,
-          label: 'nameAr',
-          fieldOrder: 2,
-          placeholder: 'nameAr',
-          options: { disabled: false, required: true, size: 2 },
-        },
-      ],
-      actions: [
-        {
-          actionName: 'add',
-          actionType: ActionTypeEnum.Submit,
-          isDisableAllowed: false,
-        },
-      ],
-    };
+    this.dynamicFormInput = CityCreateForm;
     this.isLoading = false;
   }
   public getTranslatableText(key: string) {

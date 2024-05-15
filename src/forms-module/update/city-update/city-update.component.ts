@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FieldListData } from '../../../shared/models/dynamic-form-field';
-import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
-import {
-  Actions,
-  Controllers,
-} from '../../../shared/global-variables/api-config';
+import { Controllers } from '../../../shared/global-variables/api-config';
 import { BaseService } from '../../../shared/services/base.service';
 import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import { NotificationService } from '../../../shared/services/notification.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ActionTypeEnum, FieldTypeEnum } from '../../../shared/enums/enums';
+import { CityUpdateForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-city-update',
@@ -24,7 +19,6 @@ export class CityUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private baseService: BaseService,
     private spinner: NgxSpinnerService,
-    private dynamicService: DynamicDataService,
     private notification: NotificationService,
     private router: Router
   ) {}
@@ -48,35 +42,7 @@ export class CityUpdateComponent implements OnInit {
   }
 
   public getFieldsData(city: any) {
-    this.dynamicFormInput = {
-      formFields: [
-        {
-          fieldId: 'nameEn',
-          fieldType: FieldTypeEnum.Input,
-          label: 'nameEn',
-          fieldOrder: 1,
-          value: '',
-          placeholder: 'nameEn',
-          options: { disabled: false, required: true, size: 2 },
-        },
-        {
-          fieldId: 'nameAr',
-          fieldType: FieldTypeEnum.Input,
-          label: 'nameAr',
-          fieldOrder: 2,
-          value: '',
-          placeholder: 'nameAr',
-          options: { disabled: false, required: true, size: 2 },
-        },
-      ],
-      actions: [
-        {
-          actionName: 'Edit',
-          actionType: ActionTypeEnum.Submit,
-          isDisableAllowed: false,
-        },
-      ],
-    };
+    this.dynamicFormInput = CityUpdateForm;
     this.dynamicFormInput.formFields.forEach((field) => {
       field.value = city[field.fieldId];
     });
