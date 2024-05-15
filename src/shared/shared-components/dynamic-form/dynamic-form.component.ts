@@ -67,15 +67,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     public router: LanguageService,
     private formBuilder: FormBuilder
   ) {}
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.dynamicFormGroup = this.formBuilder.group({});
 
-    this.formInput.formFields.forEach(field => {
-      this.dynamicFormGroup.addControl(field.fieldId, this.formBuilder.control(field.value));
+    this.formInput.formFields.forEach((field) => {
+      const validators = this.fetchFieldValidations(field);
+      const control = this.formBuilder.control(field.value, validators);
+      this.dynamicFormGroup.addControl(field.fieldId, control);
     });
-
   }
+
   ngAfterViewInit(): void {}
 
   public displayFn(fieldId, data) {
