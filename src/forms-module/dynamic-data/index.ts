@@ -1,23 +1,48 @@
-import { ActionTypeEnum, FieldTypeEnum } from '../../shared/enums/enums';
+import {
+  FormAction,
+  ListAction,
+} from '../../shared/models/dynamic-action.model';
+import {
+  ActionTypeEnum,
+  FieldTypeEnum,
+  ListActionTypeEnum,
+} from '../../shared/enums/enums';
 import { DynamicFormInput } from '../../shared/models/dynamic-form-input';
 import { DynamicListColumn } from '../../shared/models/dynamic-list.model';
 
+const searchAction: FormAction = {
+  actionName: 'search',
+  actionType: ActionTypeEnum.Submit,
+  isDisableAllowed: false,
+};
+
+const resetAction: FormAction = {
+  actionName: 'Reset',
+  actionType: ActionTypeEnum.Reset,
+  isDisableAllowed: false,
+};
+
+const addAction: FormAction = {
+  actionName: 'Add',
+  actionType: ActionTypeEnum.Submit,
+  isDisableAllowed: true,
+};
+
+const editAction: FormAction = {
+  actionName: 'Edit',
+  actionType: ActionTypeEnum.Submit,
+  isDisableAllowed: true,
+};
 export const UserCreateForm: DynamicFormInput = {
-  actions: [
-    {
-      actionName: 'Add',
-      actionType: ActionTypeEnum.Submit,
-      isDisableAllowed: false,
-    },
-  ],
+  actions: [addAction],
   formFields: [
     {
       fieldId: 'fullName',
       fieldType: FieldTypeEnum.Input,
-      label: 'FullName',
+      label: 'Name',
       fieldOrder: 1,
-      placeholder: 'FullName',
-      options: { disabled: false, required: true, size: 3 },
+      placeholder: 'Name',
+      options: { disabled: false, required: true, size: 4 },
     },
     {
       fieldId: 'email',
@@ -25,15 +50,20 @@ export const UserCreateForm: DynamicFormInput = {
       label: 'Email',
       fieldOrder: 1,
       placeholder: 'Email',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: true, size: 4 },
     },
     {
       fieldId: 'phoneNumber',
       fieldType: FieldTypeEnum.Input,
-      label: 'PhoneNumber',
+      label: 'Number',
       fieldOrder: 1,
-      placeholder: 'PhoneNumber',
-      options: { disabled: false, required: true, size: 3 },
+      placeholder: 'Number',
+      options: {
+        disabled: false,
+        required: true,
+        size: 4,
+        phoneNumberValidation: true,
+      },
     },
     {
       fieldId: 'address',
@@ -41,7 +71,7 @@ export const UserCreateForm: DynamicFormInput = {
       label: 'Address',
       fieldOrder: 1,
       placeholder: 'Address',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: true, size: 4 },
     },
     {
       fieldId: 'password',
@@ -49,24 +79,13 @@ export const UserCreateForm: DynamicFormInput = {
       label: 'Password',
       fieldOrder: 1,
       placeholder: 'Password',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: true, size: 4 },
     },
   ],
 };
 
 export const OrderSearchForm: DynamicFormInput = {
-  actions: [
-    {
-      actionName: 'search',
-      actionType: ActionTypeEnum.Submit,
-      isDisableAllowed: false,
-    },
-    {
-      actionName: 'Reset',
-      actionType: ActionTypeEnum.Reset,
-      isDisableAllowed: false,
-    },
-  ],
+  actions: [searchAction, resetAction],
   formFields: [
     {
       fieldId: 'areaId',
@@ -74,15 +93,15 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'area',
       fieldOrder: 1,
       placeholder: 'area',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
-      fieldId: 'clientId',
+      fieldId: 'status',
       fieldType: FieldTypeEnum.DropDownList,
       label: 'client',
       fieldOrder: 2,
       placeholder: 'client',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
       fieldId: 'driverId',
@@ -90,7 +109,7 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'driver',
       fieldOrder: 3,
       placeholder: 'driver',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
       fieldId: 'orderStatusId',
@@ -98,7 +117,7 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'orderStatus',
       fieldOrder: 4,
       placeholder: 'orderStatus',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
       fieldId: 'clientBrandId',
@@ -106,7 +125,7 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'clientBrand',
       fieldOrder: 5,
       placeholder: 'clientBrand',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
       fieldId: 'fromDate',
@@ -114,7 +133,7 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'fromDate',
       fieldOrder: 6,
       placeholder: 'fromDate',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
     {
       fieldId: 'toDate',
@@ -122,24 +141,13 @@ export const OrderSearchForm: DynamicFormInput = {
       label: 'toDate',
       fieldOrder: 7,
       placeholder: 'toDate',
-      options: { disabled: false, required: true, size: 3 },
+      options: { disabled: false, required: false, size: 3 },
     },
   ],
 };
 
 export const UserSearchForm: DynamicFormInput = {
-  actions: [
-    {
-      actionName: 'search',
-      actionType: ActionTypeEnum.Submit,
-      isDisableAllowed: false,
-    },
-    {
-      actionName: 'Reset',
-      actionType: ActionTypeEnum.Reset,
-      isDisableAllowed: false,
-    },
-  ],
+  actions: [searchAction, resetAction],
   formFields: [
     {
       fieldId: 'searchValue',
@@ -229,6 +237,12 @@ export const OrderList: DynamicListColumn[] = [
     columnName: 'driverName',
     actions: [],
   },
+  {
+    columnId: 'actions',
+    columnValue: 'actions',
+    columnName: 'actions',
+    actions: [{ actionName: 'view', actionType: ListActionTypeEnum.View }],
+  },
 ];
 
 export const UsersList: DynamicListColumn[] = [
@@ -270,13 +284,7 @@ export const UsersList: DynamicListColumn[] = [
 ];
 
 export const UpdateUserForm: DynamicFormInput = {
-  actions: [
-    {
-      actionName: 'Edit',
-      actionType: ActionTypeEnum.Submit,
-      isDisableAllowed: false,
-    },
-  ],
+  actions: [editAction],
   formFields: [
     {
       fieldId: 'fullName',
@@ -367,44 +375,38 @@ UpdateMerchantForm.formFields = UpdateMerchantForm.formFields.concat([
 ]);
 
 export const OrderForm: DynamicFormInput = {
-  actions: [
-    {
-      actionName: 'Create',
-      actionType: ActionTypeEnum.Submit,
-      isDisableAllowed: true,
-    },
-  ],
+  actions: [addAction],
   formFields: [
     {
       fieldId: 'areaId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'areaId',
+      label: 'area',
       fieldOrder: 1,
-      placeholder: 'areaId',
+      placeholder: 'area',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'clientId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'clientId',
+      label: 'client',
       fieldOrder: 1,
-      placeholder: 'clientId',
+      placeholder: 'client',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'orderStatusId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'orderStatusId',
+      label: 'orderStatus',
       fieldOrder: 1,
-      placeholder: 'orderStatusId',
+      placeholder: 'orderStatus',
       options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'orderTaskId',
       fieldType: FieldTypeEnum.DropDownList,
-      label: 'orderTaskId',
+      label: 'orderTask',
       fieldOrder: 1,
-      placeholder: 'orderTaskId',
+      placeholder: 'orderTask',
       options: { disabled: false, required: true, size: 3 },
     },
     {
@@ -445,7 +447,7 @@ export const OrderForm: DynamicFormInput = {
       label: 'addedPrice',
       fieldOrder: 1,
       placeholder: 'addedPrice',
-      options: { disabled: false, required: false, size: 3 },
+      options: { disabled: false, required: true, size: 3 },
     },
     {
       fieldId: 'endUserPhoneNumber',
@@ -469,4 +471,586 @@ export const OrderForm: DynamicFormInput = {
       options: { disabled: false, required: false, size: 3 },
     },
   ],
+};
+
+export const OrderUpdateForm: DynamicFormInput = {
+  actions: [editAction],
+  formFields: OrderForm.formFields,
+};
+
+export const PostponedOrdersSearchForm: DynamicFormInput = {
+  actions: OrderSearchForm.actions,
+  formFields: [...OrderSearchForm.formFields],
+};
+
+export const EmployeeCreateForm: DynamicFormInput = {
+  actions: [...UserCreateForm.actions],
+  formFields: [
+    ...UserCreateForm.formFields,
+    {
+      fieldId: 'role',
+      fieldOrder: 10,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'role',
+      placeholder: 'role',
+      options: { required: true, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const EmployeeUpdateForm: DynamicFormInput = {
+  actions: [editAction],
+  formFields: [
+    ...EmployeeCreateForm.formFields.filter(
+      (field) => field.fieldId !== 'role'
+    ),
+    {
+      fieldId: 'isActive',
+      fieldOrder: 7,
+      fieldType: FieldTypeEnum.DropDownList,
+      placeholder: 'isActive',
+      label: 'isActive',
+      options: { required: true, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const RecordSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'areaGroupId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'areaGroup',
+      placeholder: 'areaGroup',
+      options: { required: false, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const RecordList: DynamicListColumn[] = [
+  {
+    columnId: 'areaGroupNameEn',
+    columnName: 'areaGroupNameEn',
+    columnValue: 'areaGroupNameEn',
+    actions: [],
+  },
+  {
+    columnId: 'areaGroupNameAr',
+    columnName: 'areaGroupNameAr',
+    columnValue: 'areaGroupNameAr',
+    actions: [],
+  },
+  {
+    columnId: 'createdBy',
+    columnName: 'createdBy',
+    columnValue: 'createdBy',
+    actions: [],
+  },
+  {
+    columnId: 'driverName',
+    columnName: 'driverName',
+    columnValue: 'driverName',
+    actions: [],
+  },
+  {
+    columnId: 'recordDate',
+    columnName: 'recordDate',
+    columnValue: 'recordDate',
+    actions: [],
+  },
+];
+
+export const FinancialRoundSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'clientId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'client',
+      placeholder: 'client',
+      options: { required: false, disabled: false, size: 5 },
+    },
+    {
+      fieldId: 'status',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'status',
+      placeholder: 'status',
+      options: { required: false, disabled: false, size: 5 },
+    },
+    {
+      fieldId: 'fromDate',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Date,
+      label: 'fromDate',
+      placeholder: 'fromDate',
+      options: { required: false, disabled: false, size: 5 },
+    },
+    {
+      fieldId: 'toDate',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Date,
+      label: 'toDate',
+      placeholder: 'toDate',
+      options: { required: false, disabled: false, size: 5 },
+    },
+  ],
+};
+
+export const FinancialRoundList: DynamicListColumn[] = [
+  {
+    columnId: 'clientName',
+    columnName: 'clientName',
+    columnValue: 'clientName',
+    actions: [],
+  },
+  {
+    columnId: 'status',
+    columnName: 'status',
+    columnValue: 'status',
+    actions: [],
+  },
+  {
+    columnId: 'roundDate',
+    columnName: 'roundDate',
+    columnValue: 'roundDate',
+    actions: [],
+  },
+  {
+    columnId: 'lastValidationDate',
+    columnName: 'lastValidationDate',
+    columnValue: 'lastValidationDate',
+    actions: [],
+  },
+];
+
+export const CitySearchForm: DynamicFormInput = {
+  actions: [
+    {
+      actionName: 'search',
+      actionType: ActionTypeEnum.Submit,
+      isDisableAllowed: false,
+    },
+    {
+      actionName: 'reset',
+      actionType: ActionTypeEnum.Reset,
+      isDisableAllowed: false,
+    },
+  ],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      fieldOrder: 1,
+      placeholder: 'name',
+      options: { disabled: false, required: false, size: 4 },
+    },
+  ],
+};
+
+export const CityList: DynamicListColumn[] = [
+  {
+    columnId: 'nameEn',
+    columnValue: 'nameEn',
+    columnName: 'nameEn',
+    actions: [],
+  },
+  {
+    columnId: 'nameAr',
+    columnValue: 'nameAr',
+    columnName: 'nameAr',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnValue: 'actions',
+    columnName: 'actions',
+    actions: [
+      { actionName: 'view', actionType: 3 },
+      { actionName: 'delete', actionType: 2 },
+      { actionName: 'edit', actionType: 1 },
+    ],
+  },
+];
+
+export const CityCreateForm: DynamicFormInput = {
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      fieldOrder: 1,
+      placeholder: 'nameEn',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      fieldOrder: 2,
+      placeholder: 'nameAr',
+      options: { disabled: false, required: true, size: 4 },
+    },
+  ],
+  actions: [
+    {
+      actionName: 'add',
+      actionType: ActionTypeEnum.Submit,
+      isDisableAllowed: true,
+    },
+  ],
+};
+
+export const CityUpdateForm: DynamicFormInput = {
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      fieldOrder: 1,
+      placeholder: 'nameEn',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      fieldOrder: 2,
+      placeholder: 'nameAr',
+      options: { disabled: false, required: true, size: 4 },
+    },
+  ],
+  actions: [editAction],
+};
+
+export const AreaGroupSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: true, size: 4 },
+    },
+  ],
+};
+
+export const AreaGroupList: DynamicListColumn[] = [
+  {
+    columnId: 'nameEn',
+    columnName: 'nameEn',
+    columnValue: 'nameEn',
+    actions: [],
+  },
+  {
+    columnId: 'nameAr',
+    columnName: 'nameAr',
+    columnValue: 'nameAr',
+    actions: [],
+  },
+  {
+    columnId: 'defaultPrice',
+    columnName: 'defaultPrice',
+    columnValue: 'defaultPrice',
+    actions: [],
+  },
+  {
+    columnId: 'driverPrice',
+    columnName: 'driverPrice',
+    columnValue: 'driverPrice',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [
+      { actionName: 'view', actionType: ListActionTypeEnum.View },
+      { actionName: 'edit', actionType: ListActionTypeEnum.Edit },
+      { actionName: 'delete', actionType: ListActionTypeEnum.Delete },
+    ],
+  },
+];
+
+export const AreaGroupForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      placeholder: 'nameEn',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      placeholder: 'nameAr',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'driverPrice',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Number,
+      label: 'driverPrice',
+      placeholder: 'driverPrice',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'defaultPrice',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Number,
+      label: 'defaultPrice',
+      placeholder: 'defaultPrice',
+      options: { required: true, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const AreaSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: false, size: 4 },
+    },
+    {
+      fieldId: 'cityId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'city',
+      placeholder: 'city',
+      options: { required: false, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'areaGroupId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'areaGroup',
+      placeholder: 'areaGroup',
+      options: { required: false, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const AreaList: DynamicListColumn[] = [
+  {
+    columnId: 'nameEn',
+    columnName: 'nameEn',
+    columnValue: 'nameEn',
+    actions: [],
+  },
+  {
+    columnId: 'nameAr',
+    columnName: 'nameAr',
+    columnValue: 'nameAr',
+    actions: [],
+  },
+  {
+    columnId: 'areaGroupNameEn',
+    columnName: 'areaGroupNameEn',
+    columnValue: 'areaGroupNameEn',
+    actions: [],
+  },
+  {
+    columnId: 'areaGroupNameAr',
+    columnName: 'areaGroupNameAr',
+    columnValue: 'areaGroupNameAr',
+    actions: [],
+  },
+  {
+    columnId: 'cityNameEn',
+    columnName: 'cityNameEn',
+    columnValue: 'cityNameEn',
+    actions: [],
+  },
+  {
+    columnId: 'cityNameAr',
+    columnName: 'cityNameAr',
+    columnValue: 'cityNameAr',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [
+      { actionName: 'view', actionType: ListActionTypeEnum.View },
+      { actionName: 'edit', actionType: ListActionTypeEnum.Edit },
+      { actionName: 'delete', actionType: ListActionTypeEnum.Delete },
+    ],
+  },
+];
+
+export const AreaCreateForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      placeholder: 'nameEn',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      placeholder: 'nameAr',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'cityId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'city',
+      placeholder: 'city',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'areaGroupId',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'areaGroup',
+      placeholder: 'areaGroup',
+      options: { required: true, disabled: false, size: 4 },
+    },
+  ],
+};
+
+export const AreaUpdateForm: DynamicFormInput = {
+  actions: [editAction],
+  formFields: [...AreaCreateForm.formFields],
+};
+
+export const OrderStatusSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: false, size: 4 },
+    },
+  ],
+};
+
+export const OrderStatusList: DynamicListColumn[] = [
+  {
+    columnId: 'nameEn',
+    columnName: 'nameEn',
+    columnValue: 'nameEn',
+    actions: [],
+  },
+  {
+    columnId: 'nameAr',
+    columnName: 'nameAr',
+    columnValue: 'nameAr',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [
+      { actionName: 'view', actionType: ListActionTypeEnum.View },
+      { actionName: 'edit', actionType: ListActionTypeEnum.Edit },
+      { actionName: 'delete', actionType: ListActionTypeEnum.Delete },
+    ],
+  },
+];
+
+export const OrderStatusCreateForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      placeholder: 'nameEn',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      placeholder: 'nameAr',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'backgroundColor',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.ColorPicker,
+      label: 'backgroundColor',
+      placeholder: 'backgroundColor',
+      options: { disabled: false, required: false, size: 4 },
+    },
+    {
+      fieldId: 'icon',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.ImageFile,
+      label: 'icon',
+      placeholder: 'icon',
+      options: { disabled: false, required: false, size: 4 },
+    },
+    {
+      fieldId: 'sortNumber',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Number,
+      label: 'sortNumber',
+      placeholder: 'sortNumber',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'isPaid',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.CheckBox,
+      label: 'isPaid',
+      value: false,
+      placeholder: 'isPaid',
+      options: { disabled: false, required: false, size: 4 },
+    },
+    {
+      fieldId: 'isEditablePrice',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.CheckBox,
+      label: 'isEditablePrice',
+      value: false,
+      placeholder: 'isEditablePrice',
+      options: { disabled: false, required: false, size: 4 },
+    },
+    {
+      fieldId: 'isOrderPriceIncluded',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.CheckBox,
+      label: 'isOrderPriceIncluded',
+      value: false,
+      placeholder: 'isOrderPriceIncluded',
+      options: { disabled: false, required: false, size: 4 },
+    },
+  ],
+};
+
+export const OrderStatusUpdateForm: DynamicFormInput = {
+  actions: [editAction],
+  formFields: [...OrderStatusCreateForm.formFields],
 };

@@ -2,13 +2,16 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseService } from '../../../shared/services/base.service';
 import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
-import { Actions, Controllers } from '../../../shared/global-variables/api-config';
+import {
+  Actions,
+  Controllers,
+} from '../../../shared/global-variables/api-config';
 import { FieldListData } from '../../../shared/models/dynamic-form-field';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import { DynamicListInput } from '../../../shared/models/dynamic-list.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {  RoleTypes } from '../../../shared/enums/enums';
+import { RoleTypes } from '../../../shared/enums/enums';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { Router } from '@angular/router';
@@ -20,24 +23,26 @@ import { Observable } from 'rxjs';
 import { MoveOrdersDialogComponent } from '../../../forms-module/move-orders-dialog/move-orders-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../shared/services/language.service';
+import { OrderSearchForm } from '../../dynamic-data';
 @Component({
   selector: 'app-order-list-admin',
   templateUrl: './order-list-admin.component.html',
-  styleUrls: ['./order-list-admin.component.css']
+  styleUrls: ['./order-list-admin.component.css'],
 })
 export class OrderListAdminComponent implements OnInit {
   public drivers: FieldListData[] = [];
   public clients: FieldListData[] = [];
   public areas: FieldListData[] = [];
-  constructor(private dynamicService: DynamicDataService,
+  constructor(
+    private dynamicService: DynamicDataService,
     private baseService: BaseService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
     private notification: NotificationService,
     private router: Router,
     private translate: TranslateService,
-    public languageService: LanguageService,
-  ) { }
+    public languageService: LanguageService
+  ) {}
   public dynamicFormInput = new DynamicFormInput();
   public dynamicListInput = new DynamicListInput();
   public isLoading = true;
@@ -55,50 +60,53 @@ export class OrderListAdminComponent implements OnInit {
     this.getFormData();
   }
   public getFormData() {
-
-
-    this.dynamicService.getFormSettings('OrderSearchForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      var storedForm = JSON.parse(sessionStorage.getItem('searchForm'));
-      if(storedForm)
-      { 
-        this.dynamicFormInput.formFields.find(x => x.fieldId =='fromDate').value = storedForm.fromDate ;
-    this.dynamicFormInput.formFields.find(x => x.fieldId =='toDate').value = storedForm.toDate ;
-  }
-      this.getAllStatuses();
-    });
-
-
+    this.dynamicFormInput = OrderSearchForm;
+    var storedForm = JSON.parse(sessionStorage.getItem('searchForm'));
+    if (storedForm) {
+      this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'fromDate'
+      ).value = storedForm.fromDate;
+      this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'toDate'
+      ).value = storedForm.toDate;
+    }
+    this.getAllStatuses();
+    // this.dynamicService.getFormSettings('OrderSearchForm').subscribe((res) => {
+    // });
   }
 
   public getListData(pageSize?: number, pageNumber?: number) {
     let request = {
       pageSize: pageSize ? pageSize : this.pageSize,
-      pageNumber: pageNumber ? pageNumber : this.pageNumber
-    }
-    this.baseService.postItem(Controllers.Order, Actions.ListWithRevenue, request).subscribe(res => {
-      console.log(res.entities);
-      this.dataSource = new MatTableDataSource(res.entities);
-      this.dataSource.sort = this.sort;
-      this.totalRows = res.totalCount;
-      this.isLoading = false;
-      this.spinner.hide();
-    });
+      pageNumber: pageNumber ? pageNumber : this.pageNumber,
+    };
+    this.baseService
+      .postItem(Controllers.Order, Actions.ListWithRevenue, request)
+      .subscribe((res) => {
+        console.log(res.entities);
+        this.dataSource = new MatTableDataSource(res.entities);
+        this.dataSource.sort = this.sort;
+        this.totalRows = res.totalCount;
+        this.isLoading = false;
+        this.spinner.hide();
+      });
   }
   public serveAction(event: DynamicFormOutput) {
     event.data.pageSize = this.pageSize;
     event.data.pageNumber = this.pageNumber;
-    sessionStorage.setItem("searchForm", JSON.stringify(this.filterForm.value));
-    this.baseService.postItem(Controllers.Order, Actions.ListWithRevenue, event.data).subscribe(res => {
-      console.log(res.entities);
-      this.dataSource = new MatTableDataSource(res.entities);
-      this.dataSource.sort = this.sort;
-      this.totalRows = res.totalCount;
-      this.isLoading = false;
-      this.spinner.hide();
-
-    })
-  } get clientId() {
+    sessionStorage.setItem('searchForm', JSON.stringify(this.filterForm.value));
+    this.baseService
+      .postItem(Controllers.Order, Actions.ListWithRevenue, event.data)
+      .subscribe((res) => {
+        console.log(res.entities);
+        this.dataSource = new MatTableDataSource(res.entities);
+        this.dataSource.sort = this.sort;
+        this.totalRows = res.totalCount;
+        this.isLoading = false;
+        this.spinner.hide();
+      });
+  }
+  get clientId() {
     return this.filterForm.get('clientId') as FormControl;
   }
   get driverId() {
@@ -145,7 +153,6 @@ export class OrderListAdminComponent implements OnInit {
   filteredAreasOptions: Observable<any>;
   filteredAreaGroupsOptions: Observable<any>;
 
-
   totalRows: any;
   services: any;
   isLoadingResults = true;
@@ -160,7 +167,7 @@ export class OrderListAdminComponent implements OnInit {
     'status',
     'driverRevenue',
     'orderTotalPrice',
-    'actions'
+    'actions',
   ];
   public get userRolesEnum(): typeof RoleTypes {
     return RoleTypes;
@@ -177,42 +184,52 @@ export class OrderListAdminComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
     console.log(this.selection.selected);
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(MoveOrdersDialogComponent, {
-      width: '600px'
+      width: '600px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         const dialogResult = result;
         dialogResult.orders = this.selection.selected;
         dialogResult.recordDate = this.convertToUTC(dialogResult.recordDate);
         console.log(dialogResult);
-        this.baseService.postItem(Controllers.Record, Actions.MoveOrders, dialogResult).subscribe(res => {
-          this.notification.showNotification(this.translate.instant('ordersMovedSuccess'), 'success');
-        });
+        this.baseService
+          .postItem(Controllers.Record, Actions.MoveOrders, dialogResult)
+          .subscribe((res) => {
+            this.notification.showNotification(
+              this.translate.instant('ordersMovedSuccess'),
+              'success'
+            );
+          });
       }
     });
   }
 
-
   convertToUTC(date: Date): Date {
     if (date) {
       date = new Date(date);
-      return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    } else { return null; }
+      return new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      );
+    } else {
+      return null;
+    }
   }
   /** The label for the checkbox on the passed row */
   checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row.position + 1
+    }`;
   }
   inputType = 'password';
   countries: any;
@@ -236,8 +253,6 @@ export class OrderListAdminComponent implements OnInit {
   public loggedInUserRoles;
   isAuth = false;
 
-
-
   onPageChanged(page: PageEvent) {
     this.pageSize = page.pageSize;
     this.pageNumber = page.pageIndex + 1;
@@ -245,116 +260,168 @@ export class OrderListAdminComponent implements OnInit {
     this.getListData(page.pageSize, page.pageIndex + 1);
   }
   filterOrders() {
-    
     this.getListData(this.pageSize, this.pageNumber);
   }
 
   getALlClients() {
-    this.baseService.getItemsByKey(Controllers.User, Actions.GetAllItems, 'role', this.userRolesEnum.Merchant).subscribe(res => {
-      this.clients = res;
-      this.getAllDrivers();
-    }, error => {
-      this.notification.showNotification(error.error, 'Failed');
-    });
+    this.baseService
+      .getItemsByKey(
+        Controllers.User,
+        Actions.GetAllItems,
+        'role',
+        this.userRolesEnum.Merchant
+      )
+      .subscribe(
+        (res) => {
+          this.clients = res;
+          this.getAllDrivers();
+        },
+        (error) => {
+          this.notification.showNotification(error.error, 'Failed');
+        }
+      );
   }
 
   getALlAreas() {
-    this.baseService.getAllForList(Controllers.Area).subscribe(res => {
-      this.areas = res;
-      this.getAllBrands();
-    }, error => {
-      this.notification.showNotification(error.error, 'Failed');
-    });
+    this.baseService.getAllForList(Controllers.Area).subscribe(
+      (res) => {
+        this.areas = res;
+        this.getAllBrands();
+      },
+      (error) => {
+        this.notification.showNotification(error.error, 'Failed');
+      }
+    );
   }
   getAllDrivers() {
-    this.baseService.getItemsByKey(Controllers.User, Actions.GetAllItems, 'role', this.userRolesEnum.Driver).subscribe(res => {
-      this.drivers = res;
-      this.getALlAreas();
-    }, error => {
-      this.notification.showNotification(error.error, 'Failed');
-    });
+    this.baseService
+      .getItemsByKey(
+        Controllers.User,
+        Actions.GetAllItems,
+        'role',
+        this.userRolesEnum.Driver
+      )
+      .subscribe(
+        (res) => {
+          this.drivers = res;
+          this.getALlAreas();
+        },
+        (error) => {
+          this.notification.showNotification(error.error, 'Failed');
+        }
+      );
   }
   getAllBrands() {
-    this.baseService.getAllForList(Controllers.ClientBrand).subscribe(res => {
+    this.baseService.getAllForList(Controllers.ClientBrand).subscribe((res) => {
       this.clientBrands = res;
-      let areaIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'areaId');
+      let areaIdField = this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'areaId'
+      );
       areaIdField.data = this.areas;
-      let clientIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'clientId');
+      let clientIdField = this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'clientId'
+      );
       clientIdField.data = this.clients;
-      let driverIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'driverId');
+      let driverIdField = this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'driverId'
+      );
       driverIdField.data = this.drivers;
-      let orderStatusIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'orderStatusId');
+      let orderStatusIdField = this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'orderStatusId'
+      );
       orderStatusIdField.data = this.orderStatuses;
-      let clientBrandIdField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'clientBrandId');
+      let clientBrandIdField = this.dynamicFormInput.formFields.find(
+        (x) => x.fieldId == 'clientBrandId'
+      );
       clientBrandIdField.data = this.clientBrands;
       this.getListData();
     });
   }
   getAllStatuses() {
-    this.baseService.getAllForList(Controllers.OrderStatus).subscribe(res => {
-      this.orderStatuses = res;
-      this.getALlClients();
-    }, error => {
-      this.notification.showNotification(error.error, 'Failed');
-    });
+    this.baseService.getAllForList(Controllers.OrderStatus).subscribe(
+      (res) => {
+        this.orderStatuses = res;
+        this.getALlClients();
+      },
+      (error) => {
+        this.notification.showNotification(error.error, 'Failed');
+      }
+    );
   }
 
-
-
   clientSelected(event) {
-    this.selectedClient = this.clients.find(x => x.viewValueEn == event.option.value).value;
+    this.selectedClient = this.clients.find(
+      (x) => x.viewValueEn == event.option.value
+    ).value;
     this.clientId.setValue(this.selectedClient);
   }
   driverSelected(event) {
-    this.selectedDriver = this.drivers.find(x => x.viewValueEn == event.option.value).value;
+    this.selectedDriver = this.drivers.find(
+      (x) => x.viewValueEn == event.option.value
+    ).value;
     this.driverId.setValue(this.selectedDriver);
   }
   areaGroupSelected(event) {
-    const selectedAreaGroup = this.areaGroups.find(x => x.groupName == event.option.value).id;
+    const selectedAreaGroup = this.areaGroups.find(
+      (x) => x.groupName == event.option.value
+    ).id;
     this.areaGroupId.setValue(selectedAreaGroup);
   }
   areaSelected(event) {
-    const selectedArea = this.areas.find(x => x.viewValueEn == event.option.value).value;
+    const selectedArea = this.areas.find(
+      (x) => x.viewValueEn == event.option.value
+    ).value;
     this.areaId.setValue(selectedArea);
   }
   changeOrderStatus(event, id) {
     console.log(event, id);
-    let request = { orderStatusId: event, id: id }
-    this.baseService.postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request).subscribe(response => {
-
-      this.notification.showNotification(response, 'success');
-    }, error => {
-      this.notification.showNotification('somethingWentWrong', 'failed');
-    })
+    let request = { orderStatusId: event, id: id };
+    this.baseService
+      .postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request)
+      .subscribe(
+        (response) => {
+          this.notification.showNotification(response, 'success');
+        },
+        (error) => {
+          this.notification.showNotification('somethingWentWrong', 'failed');
+        }
+      );
   }
   changeOrderPrice(event, id) {
     console.log(event, id);
     let request = {
-
       id: id,
-      orderTotalPrice: event.target.value
-    }
-    this.baseService.postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request).subscribe(response => {
-
-      this.notification.showNotification(response, 'success');
-    }, error => {
-      console.log(error);
-      this.notification.showNotification('somethingWentWrong', 'failed');
-    })
+      orderTotalPrice: event.target.value,
+    };
+    this.baseService
+      .postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request)
+      .subscribe(
+        (response) => {
+          this.notification.showNotification(response, 'success');
+        },
+        (error) => {
+          console.log(error);
+          this.notification.showNotification('somethingWentWrong', 'failed');
+        }
+      );
   }
   changeOrderItemDescription(event, id) {
     console.log(event, id);
     let request = {
-
       id: id,
-      orderItemTypeDescription: event.target.value
-    }
-    this.baseService.postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request).subscribe(response => {
-      console.log(response);
-      this.notification.showNotification(response, 'success');
-    }, error => {
-      this.notification.showNotification('somethingWentWrong', 'failed');
-    })
+      orderItemTypeDescription: event.target.value,
+    };
+    this.baseService
+      .postItemTextReponse(Controllers.Order, Actions.UpdateDetails, request)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.notification.showNotification(response, 'success');
+        },
+        (error) => {
+          this.notification.showNotification('somethingWentWrong', 'failed');
+        }
+      );
   }
 
   navigateToDetails(id) {
@@ -369,20 +436,15 @@ export class OrderListAdminComponent implements OnInit {
   navigateToMerchant(id) {
     this.router.navigate(['/forms/client-details/' + id]);
   }
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() {}
   public updateOrder(orderId) {
     this.router.navigate([`/forms/order-update/` + orderId]);
-
   }
   public viewOrder(orderId) {
     this.router.navigate([`/forms/order-details/` + orderId]);
-
   }
   public createOrder() {
     this.router.navigate([`/forms/order-create/`]);
-
   }
   public pageChanged(event: any) {
     this.getListData(event.pageSize, event.pageIndex + 1);
