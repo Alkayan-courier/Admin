@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
 import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
+import { DashboardSearchForm } from '../../../forms-module/dynamic-data';
 
 @Component({
   selector: 'app-dashboard',
@@ -96,14 +97,15 @@ export class DashboardComponent implements OnInit {
     seq2 = 0;
   }
   ngOnInit() {
-    // this.spinner.show();
-    // const userRoleExist = this.authService.getLoggedInUsersRole().find(x => x == 'DataEntry');
-    // if (userRoleExist) {
-    //   this.isAuthorizedToView = false;
-    // }
-    // else {
-    //   this.getFormData();
-    // }
+    this.spinner.show();
+    const userRoleExist = this.authService
+      .getLoggedInUsersRole()
+      .find((x) => x == 'DataEntry');
+    if (userRoleExist) {
+      this.isAuthorizedToView = false;
+    } else {
+      this.getFormData();
+    }
     this.spinner.hide();
   }
   downloadExcel() {
@@ -173,7 +175,7 @@ export class DashboardComponent implements OnInit {
         let request = {
           endUserPhoneNumber: '',
           numberOfOrders: 5,
-          clientBrandId: 11,
+          clientBrandId: 1,
           clientId: res,
         };
         console.log('Add Record', request);
@@ -238,19 +240,15 @@ export class DashboardComponent implements OnInit {
     });
   }
   public getFormData() {
-    this.dynamicService
-      .getFormSettings('DashboardSearchForm')
-      .subscribe((res) => {
-        this.dynamicFormInput = res;
-        this.isLoading = false;
-        this.getConfig();
-      });
+    this.dynamicFormInput = DashboardSearchForm;
+    this.isLoading = false;
+    this.getConfig();
   }
   public serveAction(event: DynamicFormOutput) {
-    // this.dashboardService.getDashboardData(event.data).subscribe(res => {
-    //   this.orderStatuses = res;
-    //   this.isLoading = false;
-    // })
+    this.dashboardService.getDashboardData(event.data).subscribe((res) => {
+      this.orderStatuses = res;
+      this.isLoading = false;
+    });
     this.spinner.hide();
   }
 
