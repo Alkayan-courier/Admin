@@ -9,6 +9,7 @@ import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PromoCodeUpdateForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-promo-code-update',
@@ -34,6 +35,7 @@ export class PromoCodeUpdateComponent implements OnInit {
   public isLoading = true;
   public dynamicFormInput = new DynamicFormInput();
   ngOnInit(): void {
+    this.spinner.show();
     this.route.params.subscribe(params => {
       this.promoCodeId = params.id;
       this.getAsync(this.promoCodeId);
@@ -45,18 +47,16 @@ export class PromoCodeUpdateComponent implements OnInit {
     })
   }
   public getFieldsData(promoCode: any) {
-    this.dynamicService.getFormSettings('PromoCodeForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      let expiryTypeField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'expiryType');
-      expiryTypeField.data = this.expiryTypes;
-      let expiryDateField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'expiryDate');
-      let ordersLimitField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'ordersLimit');
-      this.dynamicFormInput.formFields.forEach(field => {
-        field.value = promoCode[field.fieldId];
-      });
-      this.isLoading = false;
-      this.spinner.hide();
+    this.dynamicFormInput = PromoCodeUpdateForm;
+    let expiryTypeField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'expiryType');
+    expiryTypeField.data = this.expiryTypes;
+    let expiryDateField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'expiryDate');
+    let ordersLimitField = this.dynamicFormInput.formFields.find(x => x.fieldId == 'ordersLimit');
+    this.dynamicFormInput.formFields.forEach(field => {
+      field.value = promoCode[field.fieldId];
     });
+    this.isLoading = false;
+    this.spinner.hide();
   }
   public serveAction(event: DynamicFormOutput) {
     event.data.id = Number(this.promoCodeId);

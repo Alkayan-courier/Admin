@@ -96,7 +96,7 @@ export const OrderSearchForm: DynamicFormInput = {
       options: { disabled: false, required: false, size: 3 },
     },
     {
-      fieldId: 'status',
+      fieldId: 'clientId',
       fieldType: FieldTypeEnum.DropDownList,
       label: 'client',
       fieldOrder: 2,
@@ -977,80 +977,250 @@ export const OrderStatusList: DynamicListColumn[] = [
   },
 ];
 
+const OrderFormFields = [
+  {
+    fieldId: 'nameEn',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.Input,
+    label: 'nameEn',
+    placeholder: 'nameEn',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'nameAr',
+    fieldOrder: 2,
+    fieldType: FieldTypeEnum.Input,
+    label: 'nameAr',
+    placeholder: 'nameAr',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'backgroundColor',
+    fieldOrder: 3,
+    fieldType: FieldTypeEnum.ColorPicker,
+    label: 'backgroundColor',
+    placeholder: 'backgroundColor',
+    options: { disabled: false, required: false, size: 4 },
+  },
+  {
+    fieldId: 'icon',
+    fieldOrder: 4,
+    fieldType: FieldTypeEnum.ImageFile,
+    label: 'icon',
+    placeholder: 'icon',
+    options: { disabled: false, required: false, size: 4 },
+  },
+  {
+    fieldId: 'sortNumber',
+    fieldOrder: 5,
+    fieldType: FieldTypeEnum.Number,
+    label: 'sortNumber',
+    placeholder: 'sortNumber',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'isPaid',
+    fieldOrder: 6,
+    fieldType: FieldTypeEnum.CheckBox,
+    label: 'isPaid',
+    value: false,
+    placeholder: 'isPaid',
+    options: { disabled: false, required: false, size: 4 },
+  },
+  {
+    fieldId: 'isEditablePrice',
+    fieldOrder: 7,
+    fieldType: FieldTypeEnum.CheckBox,
+    label: 'isEditablePrice',
+    value: false,
+    placeholder: 'isEditablePrice',
+    options: { disabled: false, required: false, size: 4 },
+  },
+  {
+    fieldId: 'isOrderPriceIncluded',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.CheckBox,
+    label: 'isOrderPriceIncluded',
+    value: false,
+    placeholder: 'isOrderPriceIncluded',
+    options: { disabled: false, required: false, size: 4 },
+  },
+];
+
 export const OrderStatusCreateForm: DynamicFormInput = {
   actions: [addAction],
+  formFields: JSON.parse(JSON.stringify([...OrderFormFields])),
+};
+
+export const OrderStatusUpdateForm: DynamicFormInput = {
+  actions: [editAction],
+  formFields: [...OrderFormFields],
+};
+
+export const PromoCodeSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
   formFields: [
     {
-      fieldId: 'nameEn',
+      fieldId: 'name',
       fieldOrder: 1,
       fieldType: FieldTypeEnum.Input,
-      label: 'nameEn',
-      placeholder: 'nameEn',
-      options: { disabled: false, required: true, size: 4 },
-    },
-    {
-      fieldId: 'nameAr',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.Input,
-      label: 'nameAr',
-      placeholder: 'nameAr',
-      options: { disabled: false, required: true, size: 4 },
-    },
-    {
-      fieldId: 'backgroundColor',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.ColorPicker,
-      label: 'backgroundColor',
-      placeholder: 'backgroundColor',
+      label: 'name',
+      placeholder: 'name',
       options: { disabled: false, required: false, size: 4 },
     },
     {
-      fieldId: 'icon',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.ImageFile,
-      label: 'icon',
-      placeholder: 'icon',
-      options: { disabled: false, required: false, size: 4 },
-    },
-    {
-      fieldId: 'sortNumber',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.Number,
-      label: 'sortNumber',
-      placeholder: 'sortNumber',
-      options: { disabled: false, required: true, size: 4 },
-    },
-    {
-      fieldId: 'isPaid',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.CheckBox,
-      label: 'isPaid',
-      value: false,
-      placeholder: 'isPaid',
-      options: { disabled: false, required: false, size: 4 },
-    },
-    {
-      fieldId: 'isEditablePrice',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.CheckBox,
-      label: 'isEditablePrice',
-      value: false,
-      placeholder: 'isEditablePrice',
-      options: { disabled: false, required: false, size: 4 },
-    },
-    {
-      fieldId: 'isOrderPriceIncluded',
-      fieldOrder: 1,
-      fieldType: FieldTypeEnum.CheckBox,
-      label: 'isOrderPriceIncluded',
-      value: false,
-      placeholder: 'isOrderPriceIncluded',
+      fieldId: 'expiryType',
+      fieldOrder: 2,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'expiryType',
+      placeholder: 'expiryType',
       options: { disabled: false, required: false, size: 4 },
     },
   ],
 };
 
-export const OrderStatusUpdateForm: DynamicFormInput = {
+export const PromoCodeList: DynamicListColumn[] = [
+  {
+    columnId: 'code',
+    columnName: 'code',
+    columnValue: 'code',
+    actions: [],
+  },
+  {
+    columnId: 'percentage',
+    columnName: 'percentage',
+    columnValue: 'percentage',
+    actions: [],
+  },
+  {
+    columnId: 'expiryType',
+    columnName: 'expiryType',
+    columnValue: 'expiryType',
+    actions: [],
+  },
+  {
+    columnId: 'expiryDate',
+    columnName: 'expiryDate',
+    columnValue: 'expiryDate',
+    actions: [],
+  },
+  {
+    columnId: 'ordersLimit',
+    columnName: 'ordersLimit',
+    columnValue: 'ordersLimit',
+    actions: [],
+  },
+  {
+    columnId: 'createdBy',
+    columnName: 'createdBy',
+    columnValue: 'createdBy',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [
+      { actionName: 'view', actionType: ListActionTypeEnum.View },
+      { actionName: 'edit', actionType: ListActionTypeEnum.Edit },
+      { actionName: 'delete', actionType: ListActionTypeEnum.Delete },
+    ],
+  },
+];
+
+const PromoCodeFormFields = [
+  {
+    fieldId: 'percentage',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.Number,
+    label: 'percentage',
+    placeholder: 'percentage',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'code',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.Input,
+    label: 'code',
+    placeholder: 'code',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'expiryType',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.DropDownList,
+    label: 'expiryType',
+    placeholder: 'expiryType',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'expiryDate',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.Date,
+    label: 'expiryDate',
+    placeholder: 'expiryDate',
+    options: { disabled: false, required: true, size: 4 },
+  },
+  {
+    fieldId: 'ordersLimit',
+    fieldOrder: 1,
+    fieldType: FieldTypeEnum.Number,
+    label: 'ordersLimit',
+    placeholder: 'ordersLimit',
+    options: { disabled: false, required: true, size: 4 },
+  },
+];
+
+export const PromoCodeCreateForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: JSON.parse(JSON.stringify(PromoCodeFormFields)),
+};
+
+export const PromoCodeUpdateForm: DynamicFormInput = {
   actions: [editAction],
-  formFields: [...OrderStatusCreateForm.formFields],
+  formFields: JSON.parse(JSON.stringify(PromoCodeFormFields)),
+};
+
+export const MsgCreateForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'messageText',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'messageText',
+      placeholder: 'messageText',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'sentTo',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.DropDownList,
+      label: 'sentTo',
+      placeholder: 'sentTo',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'sentToText',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'sentToText',
+      placeholder: 'sentToText',
+      options: { disabled: false, required: true, size: 4 },
+    },
+  ],
+};
+
+export const DashboardSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: false, size: 4 },
+    },
+  ],
 };
