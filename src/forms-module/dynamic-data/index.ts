@@ -33,7 +33,7 @@ const editAction: FormAction = {
   actionType: ActionTypeEnum.Submit,
   isDisableAllowed: true,
 };
-export const UserCreateForm: DynamicFormInput = {
+export const  UserCreateForm: DynamicFormInput = {
   actions: [addAction],
   formFields: [
     {
@@ -65,6 +65,14 @@ export const UserCreateForm: DynamicFormInput = {
         phoneNumberValidation: true,
       },
     },
+    // {
+    //   fieldId: 'areaRegionId',
+    //   fieldType: FieldTypeEnum.DropDownList,
+    //   label: 'Region',
+    //   fieldOrder: 1,
+    //   placeholder: 'Region',
+    //   options: { disabled: false, required: true, size: 4 },
+    // },
     {
       fieldId: 'address',
       fieldType: FieldTypeEnum.Input,
@@ -278,7 +286,7 @@ export const UsersList: DynamicListColumn[] = [
       { actionName: 'view', actionType: 3 },
       { actionName: 'delete', actionType: 2 },
       { actionName: 'edit', actionType: 1 },
-      { actionName: 'activate', actionType: 4 },
+      // { actionName: 'activate', actionType: 4 },
     ],
   },
 ];
@@ -318,6 +326,14 @@ export const UpdateUserForm: DynamicFormInput = {
       placeholder: 'Address',
       options: { disabled: false, required: true, size: 3 },
     },
+    // {
+    //   fieldId: 'areaRegionId',
+    //   fieldType: FieldTypeEnum.DropDownList,
+    //   label: 'Region',
+    //   fieldOrder: 1,
+    //   placeholder: 'Region',
+    //   options: { disabled: false, required: true, size: 3 },
+    // },
     {
       fieldId: 'isActive',
       fieldType: FieldTypeEnum.DropDownList,

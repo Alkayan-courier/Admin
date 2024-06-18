@@ -83,7 +83,6 @@ export class OrderListAdminComponent implements OnInit {
     this.baseService
       .postItem(Controllers.Order, Actions.ListWithRevenue, request)
       .subscribe((res) => {
-        console.log(res.entities);
         this.dataSource = new MatTableDataSource(res.entities);
         this.dataSource.sort = this.sort;
         this.totalRows = res.totalCount;

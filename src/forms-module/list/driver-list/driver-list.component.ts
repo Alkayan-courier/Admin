@@ -125,52 +125,11 @@ export class DriverListComponent implements OnInit {
         userIdField.data = this.drivers;
         statusField.data = this.baseStatuses;
         this.getListSettings();
-        // this.dynamicService.getFormSettings('UserSearchForm').subscribe(res => {
-        // });
       });
   }
   public getListSettings() {
-    const columns: DynamicListColumn[] = [
-      {
-        columnId: 'phoneNumber',
-        columnValue: 'phoneNumber',
-        columnName: 'phoneNumber',
-        actions: [],
-      },
-      {
-        columnId: 'fullName',
-        columnValue: 'fullName',
-        columnName: 'fullName',
-        actions: [],
-      },
-      {
-        columnId: 'email',
-        columnValue: 'email',
-        columnName: 'email',
-        actions: [],
-      },
-      {
-        columnId: 'statusEn',
-        columnValue: 'statusEn',
-        columnName: 'statusEn',
-        actions: [],
-      },
-      {
-        columnId: 'actions',
-        columnValue: 'actions',
-        columnName: 'actions',
-        actions: [
-          { actionName: 'view', actionType: 3 },
-          { actionName: 'delete', actionType: 2 },
-          { actionName: 'edit', actionType: 1 },
-          { actionName: 'activate', actionType: 4 },
-        ],
-      },
-    ];
     this.dynamicListInput.columns = UsersList;
     this.getListData();
-    // this.dynamicService.getListSettings('DriverList').subscribe(res => {
-    // });
   }
   public getListData(pageSize?: number, pageNumber?: number) {
     let request = {
@@ -204,7 +163,7 @@ export class DriverListComponent implements OnInit {
   public serveListAction(event: ListActionClickedOutput) {
     switch (event.action) {
       case ListActionTypeEnum.Delete: {
-        const dialogRef = this.dialog.open(YesNoDialogComponent, {
+        const  dialogRef = this.dialog.open(YesNoDialogComponent, {
           width: '400px',
           data: {
             title: 'confirm',

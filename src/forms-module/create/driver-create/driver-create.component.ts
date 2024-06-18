@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
-import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
-import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
-import { BaseService } from '../../../shared/services/base.service';
+import { Component, OnInit } from "@angular/core";
+import { DynamicFormOutput } from "../../../shared/models/dynamic-form-output.model";
+import { DynamicFormInput } from "../../../shared/models/dynamic-form-input";
+import { DynamicDataService } from "../../../shared/services/dynamic-form.service";
+import { BaseService } from "../../../shared/services/base.service";
 import {
   Controllers,
   Actions,
-} from '../../../shared/global-variables/api-config';
-import { FieldListData } from '../../../shared/models/dynamic-form-field';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationService } from '../../../shared/services/notification.service';
-import { RoleTypes } from '../../../shared/enums/enums';
-import { Router } from '@angular/router';
-import { UserCreateForm } from '../../dynamic-data';
+} from "../../../shared/global-variables/api-config";
+import { FieldListData } from "../../../shared/models/dynamic-form-field";
+import { NgxSpinnerService } from "ngx-spinner";
+import { TranslateService } from "@ngx-translate/core";
+import { NotificationService } from "../../../shared/services/notification.service";
+import { RoleTypes } from "../../../shared/enums/enums";
+import { Router } from "@angular/router";
+import { UserCreateForm } from "../../dynamic-data";
 
 @Component({
-  selector: 'app-driver-create',
-  templateUrl: './driver-create.component.html',
-  styleUrls: ['./driver-create.component.css'],
+  selector: "app-driver-create",
+  templateUrl: "./driver-create.component.html",
+  styleUrls: ["./driver-create.component.css"],
 })
 export class DriverCreateComponent implements OnInit {
   public dynamicFormInput = new DynamicFormInput();
@@ -41,22 +41,22 @@ export class DriverCreateComponent implements OnInit {
     this.getFieldsData();
   }
   public serveAction(event: DynamicFormOutput) {
-    event.data['role'] = this.userRolesEnum.Driver;
+    event.data["role"] = this.userRolesEnum.Driver;
     this.baseService
       .postItemTextReponse(Controllers.User, Actions.CreateUser, event.data)
       .subscribe(
         (res) => {
           this.spinner.hide();
-          this.notification.showNotification(res, 'success');
-          this.router.navigate(['/forms/driver-list']);
+          this.notification.showNotification(res, "success");
+          this.router.navigate(["/forms/driver-list"]);
         },
         (error) => {
           if (error.status === 400) {
-            this.notification.showNotification(error.error, 'danger');
+            this.notification.showNotification(error.error, "danger");
           } else {
             this.notification.showNotification(
-              this.translate.instant('somethingWentWrong'),
-              'danger'
+              this.translate.instant("somethingWentWrong"),
+              "danger"
             );
           }
           this.spinner.hide();
@@ -65,8 +65,15 @@ export class DriverCreateComponent implements OnInit {
   }
 
   public getFieldsData() {
-    this.dynamicFormInput = UserCreateForm;
-    this.isLoading = false;
-    this.spinner.hide();
+    this.baseService.getAllForList(Controllers.AreaGroup).subscribe((res) => {
+      this.areaGroups = res;
+      this.dynamicFormInput = UserCreateForm;
+      // let areaGroupIdField = this.dynamicFormInput.formFields.find(
+      //   (x) => x.fieldId == "areaRegionId"
+      // );
+      // areaGroupIdField.data = this.areaGroups;
+      this.isLoading = false;
+      this.spinner.hide();
+    });
   }
 }

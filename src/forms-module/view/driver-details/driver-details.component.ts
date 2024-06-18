@@ -37,7 +37,6 @@ export class DriverDetailsComponent implements OnInit {
   }
   public getAsync(id: number) {
     this.baseService.getById(Controllers.User, id).subscribe(res => {
-      console.log(res);
       this.driver = res;
       this.detailsInput.dataObject = this.driver;
       this.isLoading = false;

@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import { NgxSpinnerService } from "ngx-spinner";
 import {
   Actions,
   Controllers,
-} from '../../../shared/global-variables/api-config';
-import { AuthorizeService } from '../../../auth/authorize.service';
-import { DashboardResponse } from '../../../shared/models/dashboard-model';
-import { BaseService } from '../../../shared/services/base.service';
-import { LanguageService } from '../../../shared/services/language.service';
-import { AddEndUserDialogComponent } from '../add-end-user-dialog/add-end-user-dialog.component.ts.component';
-import { MatDialog } from '@angular/material/dialog';
-import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
-import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
-import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
-import { DashboardSearchForm } from '../../../forms-module/dynamic-data';
+} from "../../../shared/global-variables/api-config";
+import { AuthorizeService } from "../../../auth/authorize.service";
+import { DashboardResponse } from "../../../shared/models/dashboard-model";
+import { BaseService } from "../../../shared/services/base.service";
+import { LanguageService } from "../../../shared/services/language.service";
+import { AddEndUserDialogComponent } from "../add-end-user-dialog/add-end-user-dialog.component.ts.component";
+import { MatDialog } from "@angular/material/dialog";
+import { DynamicDataService } from "../../../shared/services/dynamic-form.service";
+import { DynamicFormInput } from "../../../shared/models/dynamic-form-input";
+import { DynamicFormOutput } from "../../../shared/models/dynamic-form-output.model";
+import { DashboardSearchForm } from "../../../forms-module/dynamic-data";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
   public orderStatuses: DashboardResponse[] = [];
@@ -79,8 +79,8 @@ export class DashboardComponent implements OnInit {
     seq2 = 0;
     delays2 = 80;
     durations2 = 500;
-    chart.on('draw', function (data) {
-      if (data.type === 'bar') {
+    chart.on("draw", function (data) {
+      if (data.type === "bar") {
         seq2++;
         data.element.animate({
           opacity: {
@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
             dur: durations2,
             from: 0,
             to: 1,
-            easing: 'ease',
+            easing: "ease",
           },
         });
       }
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     this.spinner.show();
     const userRoleExist = this.authService
       .getLoggedInUsersRole()
-      .find((x) => x == 'DataEntry');
+      .find((x) => x == "DataEntry");
     if (userRoleExist) {
       this.isAuthorizedToView = false;
     } else {
@@ -113,19 +113,19 @@ export class DashboardComponent implements OnInit {
       .downloadExcel(Controllers.Order, Actions.DownloadExcel)
       .subscribe((res) => {
         console.log(res);
-        var a = document.createElement('a');
+        var a = document.createElement("a");
         const blob = new Blob([res.body], { type: res.body.type });
         a.href = URL.createObjectURL(blob);
-        a.download = 'Order-Details.csv';
+        a.download = "Order-Details.csv";
         a.click();
       });
   }
   addEndUserTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
-      width: '700px',
+      width: "700px",
       data: {
-        title: 'Add Test Data',
-        content: 'Add Test Data',
+        title: "Add Test Data",
+        content: "Add Test Data",
         dialogType: 1,
       },
       autoFocus: false,
@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
           clientBrandId: 11,
           clientId: 49,
         };
-        console.log('Add Record', request);
+        console.log("Add Record", request);
         this.dashboardService
           .postItem(Controllers.TestData, Actions.PostItem, request)
           .subscribe(
@@ -160,10 +160,10 @@ export class DashboardComponent implements OnInit {
   }
   addMerchantTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
-      width: '700px',
+      width: "700px",
       data: {
-        title: 'Add Test Data',
-        content: 'Add Test Data',
+        title: "Add Test Data",
+        content: "Add Test Data",
         dialogType: 2,
       },
       autoFocus: false,
@@ -173,12 +173,12 @@ export class DashboardComponent implements OnInit {
       if (res) {
         this.spinner.show();
         let request = {
-          endUserPhoneNumber: '',
+          endUserPhoneNumber: "",
           numberOfOrders: 5,
           clientBrandId: 1,
           clientId: res,
         };
-        console.log('Add Record', request);
+        console.log("Add Record", request);
         this.dashboardService
           .postItem(Controllers.TestData, Actions.PostItem, request)
           .subscribe(
@@ -198,10 +198,10 @@ export class DashboardComponent implements OnInit {
   }
   addDriverTestData() {
     const dialogRef = this.dialog.open(AddEndUserDialogComponent, {
-      width: '700px',
+      width: "700px",
       data: {
-        title: 'Add Test Data',
-        content: 'Add Test Data',
+        title: "Add Test Data",
+        content: "Add Test Data",
         dialogType: 3,
       },
       autoFocus: false,
@@ -211,7 +211,7 @@ export class DashboardComponent implements OnInit {
       if (res) {
         this.spinner.show();
         let request = {
-          endUserPhoneNumber: '',
+          endUserPhoneNumber: "",
           numberOfOrders: 5,
           clientBrandId: 11,
           driverId: res,
@@ -232,10 +232,10 @@ export class DashboardComponent implements OnInit {
             }
           );
       }
-      var a = document.createElement('a');
+      var a = document.createElement("a");
       const blob = new Blob([res.body], { type: res.body.type });
       a.href = URL.createObjectURL(blob);
-      a.download = 'Order-Details.csv';
+      a.download = "Order-Details.csv";
       a.click();
     });
   }
@@ -259,7 +259,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getDashboardData(form).subscribe(
       (res) => {
         this.orderStatuses = res;
-        console.log(this.orderStatuses);
         this.spinner.hide();
       },
       (error) => {
