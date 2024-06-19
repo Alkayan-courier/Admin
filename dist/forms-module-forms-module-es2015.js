@@ -6374,6 +6374,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_base_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/base.service */ "SOzR");
 /* harmony import */ var _shared_models_dynamic_form_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/models/dynamic-form-input */ "/l9S");
 /* harmony import */ var _shared_services_notification_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/notification.service */ "Jxek");
+/* harmony import */ var _dynamic_data__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../dynamic-data */ "WBh1");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6383,6 +6384,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -6408,38 +6410,36 @@ let AreaGroupUpdateComponent = class AreaGroupUpdateComponent {
     }
     ngOnInit() {
         this.spinner.show();
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.areagroupId = params.id;
             this.getAsync(this.areagroupId);
         });
     }
     getAsync(id) {
-        this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, id).subscribe(res => {
+        this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, id).subscribe((res) => {
             this.getFieldsData(res);
         });
     }
     getFieldsData(city) {
-        this.dynamicService.getFormSettings('AreaGroupForm').subscribe(res => {
-            this.dynamicFormInput = res;
-            this.dynamicFormInput.formFields.forEach(field => {
-                field.value = city[field.fieldId];
-            });
-            this.spinner.hide();
-            this.isLoading = false;
+        this.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_10__["AreaGroupFormUpdate"];
+        this.dynamicFormInput.formFields.forEach((field) => {
+            field.value = city[field.fieldId];
         });
+        this.spinner.hide();
+        this.isLoading = false;
     }
     serveAction(event) {
         event.data.id = Number(this.areagroupId);
-        this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.data).subscribe(res => {
+        this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.data).subscribe((res) => {
             this.spinner.hide();
-            this.notification.showNotification(res, 'success');
-            this.router.navigate(['/forms/areagroup-list']);
-        }, error => {
+            this.notification.showNotification(res, "success");
+            this.router.navigate(["/forms/areagroup-list"]);
+        }, (error) => {
             if (error.status === 400) {
-                this.notification.showNotification(error.error, 'danger');
+                this.notification.showNotification(error.error, "danger");
             }
             else {
-                this.notification.showNotification('somethingWentWrong', 'danger');
+                this.notification.showNotification("somethingWentWrong", "danger");
             }
             this.spinner.hide();
         });
@@ -6455,7 +6455,7 @@ AreaGroupUpdateComponent.ctorParameters = () => [
 ];
 AreaGroupUpdateComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
-        selector: 'app-areagroup-update',
+        selector: "app-areagroup-update",
         template: _raw_loader_areagroup_update_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_areagroup_update_component_css__WEBPACK_IMPORTED_MODULE_1__["default"]]
     }),

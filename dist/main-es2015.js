@@ -4364,7 +4364,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./src/forms-module/dynamic-data/index.ts ***!
   \************************************************/
-/*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
+/*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4392,6 +4392,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaGroupSearchForm", function() { return AreaGroupSearchForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaGroupList", function() { return AreaGroupList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaGroupForm", function() { return AreaGroupForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaGroupFormUpdate", function() { return AreaGroupFormUpdate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaSearchForm", function() { return AreaSearchForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaList", function() { return AreaList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AreaCreateForm", function() { return AreaCreateForm; });
@@ -5165,6 +5166,43 @@ const AreaGroupList = [
 ];
 const AreaGroupForm = {
     actions: [addAction],
+    formFields: [
+        {
+            fieldId: 'nameEn',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+            label: 'nameEn',
+            placeholder: 'nameEn',
+            options: { required: true, disabled: false, size: 4 },
+        },
+        {
+            fieldId: 'nameAr',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+            label: 'nameAr',
+            placeholder: 'nameAr',
+            options: { required: true, disabled: false, size: 4 },
+        },
+        {
+            fieldId: 'driverPrice',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Number,
+            label: 'driverPrice',
+            placeholder: 'driverPrice',
+            options: { required: true, disabled: false, size: 4 },
+        },
+        {
+            fieldId: 'defaultPrice',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Number,
+            label: 'defaultPrice',
+            placeholder: 'defaultPrice',
+            options: { required: true, disabled: false, size: 4 },
+        },
+    ],
+};
+const AreaGroupFormUpdate = {
+    actions: [editAction],
     formFields: [
         {
             fieldId: 'nameEn',

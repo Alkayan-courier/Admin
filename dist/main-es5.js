@@ -6812,7 +6812,7 @@
       !*** ./src/forms-module/dynamic-data/index.ts ***!
       \************************************************/
 
-    /*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
+    /*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
 
     /***/
     function WBh1(module, __webpack_exports__, __webpack_require__) {
@@ -6956,6 +6956,12 @@
 
       __webpack_require__.d(__webpack_exports__, "AreaGroupForm", function () {
         return AreaGroupForm;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "AreaGroupFormUpdate", function () {
+        return AreaGroupFormUpdate;
       });
       /* harmony export (binding) */
 
@@ -7904,6 +7910,54 @@
       }];
       var AreaGroupForm = {
         actions: [addAction],
+        formFields: [{
+          fieldId: 'nameEn',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+          label: 'nameEn',
+          placeholder: 'nameEn',
+          options: {
+            required: true,
+            disabled: false,
+            size: 4
+          }
+        }, {
+          fieldId: 'nameAr',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+          label: 'nameAr',
+          placeholder: 'nameAr',
+          options: {
+            required: true,
+            disabled: false,
+            size: 4
+          }
+        }, {
+          fieldId: 'driverPrice',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Number,
+          label: 'driverPrice',
+          placeholder: 'driverPrice',
+          options: {
+            required: true,
+            disabled: false,
+            size: 4
+          }
+        }, {
+          fieldId: 'defaultPrice',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Number,
+          label: 'defaultPrice',
+          placeholder: 'defaultPrice',
+          options: {
+            required: true,
+            disabled: false,
+            size: 4
+          }
+        }]
+      };
+      var AreaGroupFormUpdate = {
+        actions: [editAction],
         formFields: [{
           fieldId: 'nameEn',
           fieldOrder: 1,

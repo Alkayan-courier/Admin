@@ -831,6 +831,43 @@ export const AreaGroupForm: DynamicFormInput = {
     },
   ],
 };
+export const AreaGroupFormUpdate : DynamicFormInput = {
+  actions: [editAction],
+  formFields: [
+    {
+      fieldId: 'nameEn',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameEn',
+      placeholder: 'nameEn',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'nameAr',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'nameAr',
+      placeholder: 'nameAr',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'driverPrice',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Number,
+      label: 'driverPrice',
+      placeholder: 'driverPrice',
+      options: { required: true, disabled: false, size: 4 },
+    },
+    {
+      fieldId: 'defaultPrice',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Number,
+      label: 'defaultPrice',
+      placeholder: 'defaultPrice',
+      options: { required: true, disabled: false, size: 4 },
+    },
+  ],
+};
 
 export const AreaSearchForm: DynamicFormInput = {
   actions: [searchAction, resetAction],

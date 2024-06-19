@@ -11015,6 +11015,12 @@
       var _shared_services_notification_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ../../../shared/services/notification.service */
       "Jxek");
+      /* harmony import */
+
+
+      var _dynamic_data__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! ../../dynamic-data */
+      "WBh1");
 
       var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
         var c = arguments.length,
@@ -11070,40 +11076,33 @@
         }, {
           key: "getFieldsData",
           value: function getFieldsData(city) {
-            var _this103 = this;
-
-            this.dynamicService.getFormSettings('AreaGroupForm').subscribe(function (res) {
-              _this103.dynamicFormInput = res;
-
-              _this103.dynamicFormInput.formFields.forEach(function (field) {
-                field.value = city[field.fieldId];
-              });
-
-              _this103.spinner.hide();
-
-              _this103.isLoading = false;
+            this.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_10__["AreaGroupFormUpdate"];
+            this.dynamicFormInput.formFields.forEach(function (field) {
+              field.value = city[field.fieldId];
             });
+            this.spinner.hide();
+            this.isLoading = false;
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this104 = this;
+            var _this103 = this;
 
             event.data.id = Number(this.areagroupId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.data).subscribe(function (res) {
-              _this104.spinner.hide();
+              _this103.spinner.hide();
 
-              _this104.notification.showNotification(res, 'success');
+              _this103.notification.showNotification(res, "success");
 
-              _this104.router.navigate(['/forms/areagroup-list']);
+              _this103.router.navigate(["/forms/areagroup-list"]);
             }, function (error) {
               if (error.status === 400) {
-                _this104.notification.showNotification(error.error, 'danger');
+                _this103.notification.showNotification(error.error, "danger");
               } else {
-                _this104.notification.showNotification('somethingWentWrong', 'danger');
+                _this103.notification.showNotification("somethingWentWrong", "danger");
               }
 
-              _this104.spinner.hide();
+              _this103.spinner.hide();
             });
           }
         }]);
@@ -11128,7 +11127,7 @@
       };
 
       AreaGroupUpdateComponent = __decorate([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
-        selector: 'app-areagroup-update',
+        selector: "app-areagroup-update",
         template: _raw_loader_areagroup_update_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_areagroup_update_component_css__WEBPACK_IMPORTED_MODULE_1__["default"]]
       }), __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _shared_services_base_service__WEBPACK_IMPORTED_MODULE_7__["BaseService"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"], _shared_services_dynamic_form_service__WEBPACK_IMPORTED_MODULE_5__["DynamicDataService"], _shared_services_notification_service__WEBPACK_IMPORTED_MODULE_9__["NotificationService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])], AreaGroupUpdateComponent);
@@ -13342,10 +13341,10 @@
         }, {
           key: "setItems",
           value: function setItems(items) {
-            var _this105 = this;
+            var _this104 = this;
 
             this._items = items.map(function (item, index) {
-              return _this105.mapItem(item, index);
+              return _this104.mapItem(item, index);
             });
 
             if (this._ngSelect.groupBy) {
@@ -13394,21 +13393,21 @@
         }, {
           key: "findItem",
           value: function findItem(value) {
-            var _this106 = this;
+            var _this105 = this;
 
             var findBy;
 
             if (this._ngSelect.compareWith) {
               findBy = function findBy(item) {
-                return _this106._ngSelect.compareWith(item.value, value);
+                return _this105._ngSelect.compareWith(item.value, value);
               };
             } else if (this._ngSelect.bindValue) {
               findBy = function findBy(item) {
-                return !item.children && _this106.resolveNested(item.value, _this106._ngSelect.bindValue) === value;
+                return !item.children && _this105.resolveNested(item.value, _this105._ngSelect.bindValue) === value;
               };
             } else {
               findBy = function findBy(item) {
-                return item.value === value || !item.children && item.label && item.label === _this106.resolveNested(value, _this106._ngSelect.bindLabel);
+                return item.value === value || !item.children && item.label && item.label === _this105.resolveNested(value, _this105._ngSelect.bindLabel);
               };
             }
 
@@ -13455,7 +13454,7 @@
         }, {
           key: "filter",
           value: function filter(term) {
-            var _this107 = this;
+            var _this106 = this;
 
             if (!term) {
               this.resetFilteredItems();
@@ -13496,21 +13495,21 @@
 
               if (matchedItems.length > 0) {
                 (function () {
-                  var _this107$_filteredIte;
+                  var _this106$_filteredIte;
 
                   var _matchedItems$slice = matchedItems.slice(-1),
                       _matchedItems$slice2 = _slicedToArray(_matchedItems$slice, 1),
                       last = _matchedItems$slice2[0];
 
                   if (last.parent) {
-                    var head = _this107._items.find(function (x) {
+                    var head = _this106._items.find(function (x) {
                       return x === last.parent;
                     });
 
-                    _this107._filteredItems.push(head);
+                    _this106._filteredItems.push(head);
                   }
 
-                  (_this107$_filteredIte = _this107._filteredItems).push.apply(_this107$_filteredIte, matchedItems);
+                  (_this106$_filteredIte = _this106._filteredItems).push.apply(_this106$_filteredIte, matchedItems);
                 })();
               }
             }
@@ -13607,7 +13606,7 @@
         }, {
           key: "mapSelectedItems",
           value: function mapSelectedItems() {
-            var _this108 = this;
+            var _this107 = this;
 
             var multiple = this._ngSelect.multiple;
 
@@ -13632,7 +13631,7 @@
 
             if (this._ngSelect.hideSelected) {
               this._filteredItems = this.filteredItems.filter(function (x) {
-                return _this108.selectedItems.indexOf(x) === -1;
+                return _this107.selectedItems.indexOf(x) === -1;
               });
             }
           }
@@ -13748,7 +13747,7 @@
         }, {
           key: "_groupBy",
           value: function _groupBy(items, prop) {
-            var _this109 = this;
+            var _this108 = this;
 
             var groups = new Map();
 
@@ -13765,7 +13764,7 @@
                 for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
                   var item = _step4.value;
                   var children = (item.value[prop] || []).map(function (x, index) {
-                    return _this109.mapItem(x, index);
+                    return _this108.mapItem(x, index);
                   });
                   groups.set(item, children);
                 }
@@ -13812,7 +13811,7 @@
         }, {
           key: "_flatten",
           value: function _flatten(groups) {
-            var _this110 = this;
+            var _this109 = this;
 
             var isGroupByFn = isFunction(this._ngSelect.groupBy);
             var items = [];
@@ -13836,12 +13835,12 @@
                 children: undefined,
                 parent: null,
                 index: i++,
-                disabled: !_this110._ngSelect.selectableGroup,
+                disabled: !_this109._ngSelect.selectableGroup,
                 htmlId: newId()
               };
-              var groupKey = isGroupByFn ? _this110._ngSelect.bindLabel : _this110._ngSelect.groupBy;
+              var groupKey = isGroupByFn ? _this109._ngSelect.bindLabel : _this109._ngSelect.groupBy;
 
-              var groupValue = _this110._ngSelect.groupValue || function () {
+              var groupValue = _this109._ngSelect.groupValue || function () {
                 if (isObjectKey) {
                   return key.value;
                 }
@@ -14161,40 +14160,40 @@
         }, {
           key: "_handleScroll",
           value: function _handleScroll() {
-            var _this111 = this;
+            var _this110 = this;
 
             this._zone.runOutsideAngular(function () {
-              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this111.scrollElementRef.nativeElement, 'scroll').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this111._destroy$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["auditTime"])(0, SCROLL_SCHEDULER)).subscribe(function (e) {
+              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this110.scrollElementRef.nativeElement, 'scroll').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this110._destroy$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["auditTime"])(0, SCROLL_SCHEDULER)).subscribe(function (e) {
                 var path = e.path || e.composedPath && e.composedPath();
                 var scrollTop = !path || path.length === 0 ? e.target.scrollTop : path[0].scrollTop;
 
-                _this111._onContentScrolled(scrollTop);
+                _this110._onContentScrolled(scrollTop);
               });
             });
           }
         }, {
           key: "_handleOutsideClick",
           value: function _handleOutsideClick() {
-            var _this112 = this;
+            var _this111 = this;
 
             if (!this._document) {
               return;
             }
 
             this._zone.runOutsideAngular(function () {
-              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this112._document, 'touchstart', {
+              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this111._document, 'touchstart', {
                 capture: true
-              }), Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this112._document, 'mousedown', {
+              }), Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["fromEvent"])(_this111._document, 'mousedown', {
                 capture: true
-              })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this112._destroy$)).subscribe(function ($event) {
-                return _this112._checkToClose($event);
+              })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this111._destroy$)).subscribe(function ($event) {
+                return _this111._checkToClose($event);
               });
             });
           }
         }, {
           key: "_checkToClose",
           value: function _checkToClose($event) {
-            var _this113 = this;
+            var _this112 = this;
 
             if (this._select.contains($event.target) || this._dropdown.contains($event.target)) {
               return;
@@ -14207,7 +14206,7 @@
             }
 
             this._zone.run(function () {
-              return _this113.outsideClick.emit();
+              return _this112.outsideClick.emit();
             });
           }
         }, {
@@ -14228,7 +14227,7 @@
         }, {
           key: "_updateItems",
           value: function _updateItems(firstChange) {
-            var _this114 = this;
+            var _this113 = this;
 
             this.update.emit(this.items);
 
@@ -14238,29 +14237,29 @@
 
             this._zone.runOutsideAngular(function () {
               Promise.resolve().then(function () {
-                var panelHeight = _this114._scrollablePanel.clientHeight;
+                var panelHeight = _this113._scrollablePanel.clientHeight;
 
-                _this114._panelService.setDimensions(0, panelHeight);
+                _this113._panelService.setDimensions(0, panelHeight);
 
-                _this114._handleDropdownPosition();
+                _this113._handleDropdownPosition();
 
-                _this114.scrollTo(_this114.markedItem, firstChange);
+                _this113.scrollTo(_this113.markedItem, firstChange);
               });
             });
           }
         }, {
           key: "_updateItemsRange",
           value: function _updateItemsRange(firstChange) {
-            var _this115 = this;
+            var _this114 = this;
 
             this._zone.runOutsideAngular(function () {
-              _this115._measureDimensions().then(function () {
+              _this114._measureDimensions().then(function () {
                 if (firstChange) {
-                  _this115._renderItemsRange(_this115._startOffset);
+                  _this114._renderItemsRange(_this114._startOffset);
 
-                  _this115._handleDropdownPosition();
+                  _this114._handleDropdownPosition();
                 } else {
-                  _this115._renderItemsRange();
+                  _this114._renderItemsRange();
                 }
               });
             });
@@ -14301,7 +14300,7 @@
         }, {
           key: "_renderItemsRange",
           value: function _renderItemsRange() {
-            var _this116 = this;
+            var _this115 = this;
 
             var scrollTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -14318,9 +14317,9 @@
             this._contentPanel.style.transform = "translateY(".concat(range.topPadding, "px)");
 
             this._zone.run(function () {
-              _this116.update.emit(_this116.items.slice(range.start, range.end));
+              _this115.update.emit(_this115.items.slice(range.start, range.end));
 
-              _this116.scroll.emit({
+              _this115.scroll.emit({
                 start: range.start,
                 end: range.end
               });
@@ -14334,7 +14333,7 @@
         }, {
           key: "_measureDimensions",
           value: function _measureDimensions() {
-            var _this117 = this;
+            var _this116 = this;
 
             if (this._panelService.dimensions.itemHeight > 0 || this.itemsLength === 0) {
               return Promise.resolve(this._panelService.dimensions);
@@ -14345,21 +14344,21 @@
 
             this.update.emit([first]);
             return Promise.resolve().then(function () {
-              var option = _this117._dropdown.querySelector("#".concat(first.htmlId));
+              var option = _this116._dropdown.querySelector("#".concat(first.htmlId));
 
               var optionHeight = option.clientHeight;
-              _this117._virtualPadding.style.height = "".concat(optionHeight * _this117.itemsLength, "px");
-              var panelHeight = _this117._scrollablePanel.clientHeight;
+              _this116._virtualPadding.style.height = "".concat(optionHeight * _this116.itemsLength, "px");
+              var panelHeight = _this116._scrollablePanel.clientHeight;
 
-              _this117._panelService.setDimensions(optionHeight, panelHeight);
+              _this116._panelService.setDimensions(optionHeight, panelHeight);
 
-              return _this117._panelService.dimensions;
+              return _this116._panelService.dimensions;
             });
           }
         }, {
           key: "_fireScrollToEnd",
           value: function _fireScrollToEnd(scrollTop) {
-            var _this118 = this;
+            var _this117 = this;
 
             if (this._scrollToEndFired || scrollTop === 0) {
               return;
@@ -14369,7 +14368,7 @@
 
             if (scrollTop + this._dropdown.clientHeight >= padding.clientHeight) {
               this._zone.run(function () {
-                return _this118.scrollToEnd.emit();
+                return _this117.scrollToEnd.emit();
               });
 
               this._scrollToEndFired = true;
@@ -14890,7 +14889,7 @@
 
       var NgSelectComponent = /*#__PURE__*/function () {
         function NgSelectComponent(classes, autoFocus, config, newSelectionModel, _elementRef, _cd, _console) {
-          var _this119 = this;
+          var _this118 = this;
 
           _classCallCheck(this, NgSelectComponent);
 
@@ -14955,16 +14954,16 @@
           this._onTouched = function () {};
 
           this.clearItem = function (item) {
-            var option = _this119.selectedItems.find(function (x) {
+            var option = _this118.selectedItems.find(function (x) {
               return x.value === item;
             });
 
-            _this119.unselect(option);
+            _this118.unselect(option);
           };
 
           this.trackByOption = function (_, item) {
-            if (_this119.trackByFn) {
-              return _this119.trackByFn(item.value);
+            if (_this118.trackByFn) {
+              return _this118.trackByFn(item.value);
             }
 
             return item;
@@ -15359,7 +15358,7 @@
         }, {
           key: "selectTag",
           value: function selectTag() {
-            var _this120 = this;
+            var _this119 = this;
 
             var tag;
 
@@ -15370,12 +15369,12 @@
             }
 
             var handleTag = function handleTag(item) {
-              return _this120._isTypeahead || !_this120.isOpen ? _this120.itemsList.mapItem(item, null) : _this120.itemsList.addItem(item);
+              return _this119._isTypeahead || !_this119.isOpen ? _this119.itemsList.mapItem(item, null) : _this119.itemsList.addItem(item);
             };
 
             if (isPromise(tag)) {
               tag.then(function (item) {
-                return _this120.select(handleTag(item));
+                return _this119.select(handleTag(item));
               })["catch"](function () {});
             } else if (tag) {
               this.select(handleTag(tag));
@@ -15533,10 +15532,10 @@
         }, {
           key: "_setItemsFromNgOptions",
           value: function _setItemsFromNgOptions() {
-            var _this121 = this;
+            var _this120 = this;
 
             var mapNgOptions = function mapNgOptions(options) {
-              _this121.items = options.map(function (option) {
+              _this120.items = options.map(function (option) {
                 return {
                   $ngOptionValue: option.value,
                   $ngOptionLabel: option.elementRef.nativeElement.innerHTML,
@@ -15544,31 +15543,31 @@
                 };
               });
 
-              _this121.itemsList.setItems(_this121.items);
+              _this120.itemsList.setItems(_this120.items);
 
-              if (_this121.hasValue) {
-                _this121.itemsList.mapSelectedItems();
+              if (_this120.hasValue) {
+                _this120.itemsList.mapSelectedItems();
               }
 
-              _this121.detectChanges();
+              _this120.detectChanges();
             };
 
             var handleOptionChange = function handleOptionChange() {
-              var changedOrDestroyed = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(_this121.ngOptions.changes, _this121._destroy$);
-              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"]).apply(void 0, _toConsumableArray(_this121.ngOptions.map(function (option) {
+              var changedOrDestroyed = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"])(_this120.ngOptions.changes, _this120._destroy$);
+              Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["merge"]).apply(void 0, _toConsumableArray(_this120.ngOptions.map(function (option) {
                 return option.stateChange$;
               }))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(changedOrDestroyed)).subscribe(function (option) {
-                var item = _this121.itemsList.findItem(option.value);
+                var item = _this120.itemsList.findItem(option.value);
 
                 item.disabled = option.disabled;
                 item.label = option.label || item.label;
 
-                _this121._cd.detectChanges();
+                _this120._cd.detectChanges();
               });
             };
 
             this.ngOptions.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["startWith"])(this.ngOptions), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroy$)).subscribe(function (options) {
-              _this121.bindLabel = _this121._defaultLabel;
+              _this120.bindLabel = _this120._defaultLabel;
               mapNgOptions(options);
               handleOptionChange();
             });
@@ -15576,15 +15575,15 @@
         }, {
           key: "_isValidWriteValue",
           value: function _isValidWriteValue(value) {
-            var _this122 = this;
+            var _this121 = this;
 
             if (!isDefined(value) || this.multiple && value === '' || Array.isArray(value) && value.length === 0) {
               return false;
             }
 
             var validateBinding = function validateBinding(item) {
-              if (!isDefined(_this122.compareWith) && isObject(item) && _this122.bindValue) {
-                _this122._console.warn("Setting object(".concat(JSON.stringify(item), ") as your model with bindValue is not allowed unless [compareWith] is used."));
+              if (!isDefined(_this121.compareWith) && isObject(item) && _this121.bindValue) {
+                _this121._console.warn("Setting object(".concat(JSON.stringify(item), ") as your model with bindValue is not allowed unless [compareWith] is used."));
 
                 return false;
               }
@@ -15609,29 +15608,29 @@
         }, {
           key: "_handleWriteValue",
           value: function _handleWriteValue(ngModel) {
-            var _this123 = this;
+            var _this122 = this;
 
             if (!this._isValidWriteValue(ngModel)) {
               return;
             }
 
             var select = function select(val) {
-              var item = _this123.itemsList.findItem(val);
+              var item = _this122.itemsList.findItem(val);
 
               if (item) {
-                _this123.itemsList.select(item);
+                _this122.itemsList.select(item);
               } else {
                 var isValObject = isObject(val);
-                var isPrimitive = !isValObject && !_this123.bindValue;
+                var isPrimitive = !isValObject && !_this122.bindValue;
 
                 if (isValObject || isPrimitive) {
-                  _this123.itemsList.select(_this123.itemsList.mapItem(val, null));
-                } else if (_this123.bindValue) {
+                  _this122.itemsList.select(_this122.itemsList.mapItem(val, null));
+                } else if (_this122.bindValue) {
                   var _item2;
 
-                  item = (_item2 = {}, _defineProperty(_item2, _this123.bindLabel, null), _defineProperty(_item2, _this123.bindValue, val), _item2);
+                  item = (_item2 = {}, _defineProperty(_item2, _this122.bindLabel, null), _defineProperty(_item2, _this122.bindValue, val), _item2);
 
-                  _this123.itemsList.select(_this123.itemsList.mapItem(item, null));
+                  _this122.itemsList.select(_this122.itemsList.mapItem(item, null));
                 }
               }
             };
@@ -15647,34 +15646,34 @@
         }, {
           key: "_handleKeyPresses",
           value: function _handleKeyPresses() {
-            var _this124 = this;
+            var _this123 = this;
 
             if (this.searchable) {
               return;
             }
 
             this._keyPress$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this._destroy$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (letter) {
-              return _this124._pressedKeys.push(letter);
+              return _this123._pressedKeys.push(letter);
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["filter"])(function () {
-              return _this124._pressedKeys.length > 0;
+              return _this123._pressedKeys.length > 0;
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function () {
-              return _this124._pressedKeys.join('');
+              return _this123._pressedKeys.join('');
             })).subscribe(function (term) {
-              var item = _this124.itemsList.findByLabel(term);
+              var item = _this123.itemsList.findByLabel(term);
 
               if (item) {
-                if (_this124.isOpen) {
-                  _this124.itemsList.markItem(item);
+                if (_this123.isOpen) {
+                  _this123.itemsList.markItem(item);
 
-                  _this124._scrollToMarked();
+                  _this123._scrollToMarked();
 
-                  _this124._cd.markForCheck();
+                  _this123._cd.markForCheck();
                 } else {
-                  _this124.select(item);
+                  _this123.select(item);
                 }
               }
 
-              _this124._pressedKeys = [];
+              _this123._pressedKeys = [];
             });
           }
         }, {
@@ -17183,7 +17182,7 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this125 = this;
+            var _this124 = this;
 
             var formData = new FormData();
             Object.entries(event.data).forEach(function (element) {
@@ -17197,19 +17196,19 @@
               }
             });
             this.baseService.postFormItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, formData).subscribe(function (res) {
-              _this125.spinner.hide();
+              _this124.spinner.hide();
 
-              _this125.notification.showNotification(res, 'success');
+              _this124.notification.showNotification(res, 'success');
 
-              _this125.router.navigate(['/forms/order-status-list']);
+              _this124.router.navigate(['/forms/order-status-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this125.notification.showNotification(error.error, 'danger');
+                _this124.notification.showNotification(error.error, 'danger');
               } else {
-                _this125.notification.showNotification(_this125.translate.instant('somethingWentWrong'), 'danger');
+                _this124.notification.showNotification(_this124.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this125.spinner.hide();
+              _this124.spinner.hide();
             });
           }
         }, {
@@ -17448,22 +17447,22 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this126 = this;
+            var _this125 = this;
 
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, event.data).subscribe(function (res) {
-              _this126.spinner.hide();
+              _this125.spinner.hide();
 
-              _this126.notification.showOriginalNotification(res, 'success');
+              _this125.notification.showOriginalNotification(res, 'success');
 
-              _this126.router.navigate(['/forms/areagroup-list']);
+              _this125.router.navigate(['/forms/areagroup-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this126.notification.showNotification(error.error, 'danger');
+                _this125.notification.showNotification(error.error, 'danger');
               } else {
-                _this126.notification.showNotification(_this126.translate.instant('somethingWentWrong'), 'danger');
+                _this125.notification.showNotification(_this125.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this126.spinner.hide();
+              _this125.spinner.hide();
             });
           }
         }, {
@@ -17691,27 +17690,43 @@
         }, {
           key: "getListSettings",
           value: function getListSettings() {
-            var _this127 = this;
+            var _this126 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
-              _this127.cities = res;
-              _this127.dynamicListInput.columns = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["OrderStatusList"];
+              _this126.cities = res;
+              _this126.dynamicListInput.columns = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["OrderStatusList"];
 
-              _this127.getListData();
+              _this126.getListData();
             });
           }
         }, {
           key: "getListData",
           value: function getListData(pageSize, pageNumber) {
-            var _this128 = this;
+            var _this127 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
               pageNumber: pageNumber ? pageNumber : this.pageNumber
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, request).subscribe(function (res) {
-              _this128.cities = res.entities;
-              _this128.dynamicListInput.data = _this128.cities;
+              _this127.cities = res.entities;
+              _this127.dynamicListInput.data = _this127.cities;
+              _this127.dynamicListInput.totalCount = res.totalCount;
+              _this127.isLoading = false;
+
+              _this127.spinner.hide();
+            });
+          }
+        }, {
+          key: "serveAction",
+          value: function serveAction(event) {
+            var _this128 = this;
+
+            event.data.pageSize = this.pageSize;
+            event.data.pageNumber = this.pageNumber;
+            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
+              _this128.areasList = res.entities;
+              _this128.dynamicListInput.data = _this128.areasList;
               _this128.dynamicListInput.totalCount = res.totalCount;
               _this128.isLoading = false;
 
@@ -17719,25 +17734,9 @@
             });
           }
         }, {
-          key: "serveAction",
-          value: function serveAction(event) {
-            var _this129 = this;
-
-            event.data.pageSize = this.pageSize;
-            event.data.pageNumber = this.pageNumber;
-            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
-              _this129.areasList = res.entities;
-              _this129.dynamicListInput.data = _this129.areasList;
-              _this129.dynamicListInput.totalCount = res.totalCount;
-              _this129.isLoading = false;
-
-              _this129.spinner.hide();
-            });
-          }
-        }, {
           key: "serveListAction",
           value: function serveListAction(event) {
-            var _this130 = this;
+            var _this129 = this;
 
             switch (event.action) {
               case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_9__["ListActionTypeEnum"].Delete:
@@ -17751,26 +17750,26 @@
                   });
                   dialogRef.afterClosed().subscribe(function (res) {
                     if (res) {
-                      _this130.spinner.show();
+                      _this129.spinner.show();
 
-                      _this130.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, event.entityId).subscribe(function (res) {
-                        _this130.getListData(_this130.pageSize, _this130.pageNumber);
+                      _this129.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus, event.entityId).subscribe(function (res) {
+                        _this129.getListData(_this129.pageSize, _this129.pageNumber);
 
-                        _this130.isLoading = false;
+                        _this129.isLoading = false;
 
-                        _this130.spinner.hide();
+                        _this129.spinner.hide();
 
                         console.log(res);
 
-                        _this130.notification.showNotification(res, 'success');
+                        _this129.notification.showNotification(res, 'success');
                       }, function (error) {
                         if (error.status === 400) {
-                          _this130.notification.showNotification(error.error, 'danger');
+                          _this129.notification.showNotification(error.error, 'danger');
                         } else {
-                          _this130.notification.showNotification('somethingWentWrong', 'danger');
+                          _this129.notification.showNotification('somethingWentWrong', 'danger');
                         }
 
-                        _this130.spinner.hide();
+                        _this129.spinner.hide();
                       });
                     }
                   });
@@ -18050,68 +18049,68 @@
         }, {
           key: "getFormData",
           value: function getFormData() {
-            var _this131 = this;
+            var _this130 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order).subscribe(function (res) {
-              _this131.orders = res;
+              _this130.orders = res;
 
-              _this131.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].ClientBrand).subscribe(function (res) {
-                _this131.clientBrands = res;
-                _this131.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["OrderSearchForm"];
+              _this130.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].ClientBrand).subscribe(function (res) {
+                _this130.clientBrands = res;
+                _this130.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["OrderSearchForm"];
                 var storedForm = JSON.parse(sessionStorage.getItem('searchForm'));
 
                 if (storedForm) {
-                  _this131.dynamicFormInput.formFields.find(function (x) {
+                  _this130.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == 'fromDate';
                   }).value = storedForm.fromDate;
-                  _this131.dynamicFormInput.formFields.find(function (x) {
+                  _this130.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == 'toDate';
                   }).value = storedForm.toDate;
                 }
 
-                _this131.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
-                  _this131.areas = res;
+                _this130.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
+                  _this130.areas = res;
 
-                  _this131.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this131.userRolesEnum.Merchant).subscribe(function (res) {
-                    _this131.clients = res;
+                  _this130.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this130.userRolesEnum.Merchant).subscribe(function (res) {
+                    _this130.clients = res;
 
-                    _this131.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this131.userRolesEnum.Driver).subscribe(function (res) {
-                      _this131.drivers = res;
+                    _this130.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this130.userRolesEnum.Driver).subscribe(function (res) {
+                      _this130.drivers = res;
 
-                      _this131.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
-                        _this131.orderStatuses = res;
+                      _this130.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
+                        _this130.orderStatuses = res;
 
-                        var areaIdField = _this131.dynamicFormInput.formFields.find(function (x) {
+                        var areaIdField = _this130.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'areaId';
                         });
 
-                        areaIdField.data = _this131.areas;
+                        areaIdField.data = _this130.areas;
 
-                        var clientIdField = _this131.dynamicFormInput.formFields.find(function (x) {
+                        var clientIdField = _this130.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'clientId';
                         });
 
-                        clientIdField.data = _this131.clients;
+                        clientIdField.data = _this130.clients;
 
-                        var driverIdField = _this131.dynamicFormInput.formFields.find(function (x) {
+                        var driverIdField = _this130.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'driverId';
                         });
 
-                        driverIdField.data = _this131.drivers;
+                        driverIdField.data = _this130.drivers;
 
-                        var orderStatusIdField = _this131.dynamicFormInput.formFields.find(function (x) {
+                        var orderStatusIdField = _this130.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'orderStatusId';
                         });
 
-                        orderStatusIdField.data = _this131.orderStatuses;
+                        orderStatusIdField.data = _this130.orderStatuses;
 
-                        var clientBrandIdField = _this131.dynamicFormInput.formFields.find(function (x) {
+                        var clientBrandIdField = _this130.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'clientBrandId';
                         });
 
-                        clientBrandIdField.data = _this131.clientBrands;
+                        clientBrandIdField.data = _this130.clientBrands;
 
-                        _this131.getListSettings();
+                        _this130.getListSettings();
                       });
                     });
                   });
@@ -18128,13 +18127,31 @@
         }, {
           key: "getListData",
           value: function getListData(pageSize, pageNumber) {
-            var _this132 = this;
+            var _this131 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
               pageNumber: pageNumber ? pageNumber : this.pageNumber
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].List, request).subscribe(function (res) {
+              _this131.orders = res.entities;
+              _this131.dynamicListInput.data = _this131.orders;
+              _this131.dynamicListInput.totalCount = res.totalCount;
+              _this131.isLoading = false;
+
+              _this131.spinner.hide();
+            });
+          }
+        }, {
+          key: "serveAction",
+          value: function serveAction(event) {
+            var _this132 = this;
+
+            event.data.pageSize = this.pageSize;
+            event.data.pageNumber = this.pageNumber;
+            console.log(event.data);
+            sessionStorage.setItem('searchForm', JSON.stringify(event.data));
+            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
               _this132.orders = res.entities;
               _this132.dynamicListInput.data = _this132.orders;
               _this132.dynamicListInput.totalCount = res.totalCount;
@@ -18144,27 +18161,9 @@
             });
           }
         }, {
-          key: "serveAction",
-          value: function serveAction(event) {
-            var _this133 = this;
-
-            event.data.pageSize = this.pageSize;
-            event.data.pageNumber = this.pageNumber;
-            console.log(event.data);
-            sessionStorage.setItem('searchForm', JSON.stringify(event.data));
-            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
-              _this133.orders = res.entities;
-              _this133.dynamicListInput.data = _this133.orders;
-              _this133.dynamicListInput.totalCount = res.totalCount;
-              _this133.isLoading = false;
-
-              _this133.spinner.hide();
-            });
-          }
-        }, {
           key: "serveListAction",
           value: function serveListAction(event) {
-            var _this134 = this;
+            var _this133 = this;
 
             switch (event.action) {
               case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_9__["ListActionTypeEnum"].Delete:
@@ -18178,24 +18177,24 @@
                   });
                   dialogRef.afterClosed().subscribe(function (res) {
                     if (res) {
-                      _this134.spinner.show();
+                      _this133.spinner.show();
 
-                      _this134.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId).subscribe(function (res) {
-                        _this134.getListData(_this134.pageSize, _this134.pageNumber);
+                      _this133.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId).subscribe(function (res) {
+                        _this133.getListData(_this133.pageSize, _this133.pageNumber);
 
-                        _this134.isLoading = false;
+                        _this133.isLoading = false;
 
-                        _this134.spinner.hide();
+                        _this133.spinner.hide();
 
-                        _this134.notification.showNotification(res, 'success');
+                        _this133.notification.showNotification(res, 'success');
                       }, function (error) {
                         if (error.status === 400) {
-                          _this134.notification.showNotification(error.error, 'danger');
+                          _this133.notification.showNotification(error.error, 'danger');
                         } else {
-                          _this134.notification.showNotification('somethingWentWrong', 'danger');
+                          _this133.notification.showNotification('somethingWentWrong', 'danger');
                         }
 
-                        _this134.spinner.hide();
+                        _this133.spinner.hide();
                       });
                     }
                   });
@@ -18221,7 +18220,7 @@
         }, {
           key: "readUrl",
           value: function readUrl(event) {
-            var _this135 = this;
+            var _this134 = this;
 
             this.spinner.show();
 
@@ -18233,21 +18232,21 @@
               var formData = new FormData();
               formData.append('postedFile', event.target.files[0]);
               this.baseService.importFromExcel(formData).subscribe(function (res) {
-                _this135.excelImporterInput.nativeElement.value = '';
+                _this134.excelImporterInput.nativeElement.value = '';
 
-                _this135.notification.showNotification(res, 'success');
+                _this134.notification.showNotification(res, 'success');
 
-                _this135.getListData(_this135.pageSize, _this135.pageNumber);
+                _this134.getListData(_this134.pageSize, _this134.pageNumber);
 
-                _this135.spinner.hide();
+                _this134.spinner.hide();
               }, function (error) {
                 if (error.status === 400) {
-                  _this135.notification.showNotification(error.error, 'danger');
+                  _this134.notification.showNotification(error.error, 'danger');
                 } else {
-                  _this135.notification.showNotification('somethingWentWrong', 'danger');
+                  _this134.notification.showNotification('somethingWentWrong', 'danger');
                 }
 
-                _this135.spinner.hide();
+                _this134.spinner.hide();
               });
             }
           }
@@ -18421,12 +18420,12 @@
         _createClass(OrderUpdateComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this136 = this;
+            var _this135 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this136.Id = params.id;
-              _this136.orderTasks = [{
+              _this135.Id = params.id;
+              _this135.orderTasks = [{
                 value: 0,
                 viewValueEn: "Get From Merchant",
                 viewValueAr: "احضار من التاجر"
@@ -18439,7 +18438,7 @@
                 viewValueEn: "Get And Submit",
                 viewValueAr: "احضار وتأكيد"
               }];
-              _this136.deliveryFeesOn = [{
+              _this135.deliveryFeesOn = [{
                 value: 1,
                 viewValueEn: "Delivery on Merchant",
                 viewValueAr: "توصيل على التاجر"
@@ -18449,16 +18448,16 @@
                 viewValueAr: "توصيل على المستلم"
               }];
 
-              _this136.getAsync(_this136.Id);
+              _this135.getAsync(_this135.Id);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this137 = this;
+            var _this136 = this;
 
             this.baseService.getForUpdate(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, id).subscribe(function (res) {
-              _this137.getFieldsData(res);
+              _this136.getFieldsData(res);
             });
           }
         }, {
@@ -18469,52 +18468,52 @@
         }, {
           key: "getFieldsData",
           value: function getFieldsData(client) {
-            var _this138 = this;
+            var _this137 = this;
 
             this.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_11__["OrderUpdateForm"];
             this.dynamicFormInput.formFields.forEach(function (field) {
               field.value = client[field.fieldId];
             });
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
-              _this138.areas = res;
+              _this137.areas = res;
 
-              _this138.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, "role", _this138.userRolesEnum.Merchant).subscribe(function (res) {
-                _this138.clients = res;
+              _this137.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, "role", _this137.userRolesEnum.Merchant).subscribe(function (res) {
+                _this137.clients = res;
 
-                _this138.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
-                  _this138.orderStatuses = res;
+                _this137.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
+                  _this137.orderStatuses = res;
 
-                  var areaIdField = _this138.dynamicFormInput.formFields.find(function (x) {
+                  var areaIdField = _this137.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == "areaId";
                   });
 
-                  areaIdField.data = _this138.areas;
+                  areaIdField.data = _this137.areas;
 
-                  var clientIdField = _this138.dynamicFormInput.formFields.find(function (x) {
+                  var clientIdField = _this137.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == "clientId";
                   });
 
-                  clientIdField.data = _this138.clients;
+                  clientIdField.data = _this137.clients;
 
-                  var orderStatusIdField = _this138.dynamicFormInput.formFields.find(function (x) {
+                  var orderStatusIdField = _this137.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == "orderStatusId";
                   });
 
-                  orderStatusIdField.data = _this138.orderStatuses;
+                  orderStatusIdField.data = _this137.orderStatuses;
 
-                  var taskIdField = _this138.dynamicFormInput.formFields.find(function (x) {
+                  var taskIdField = _this137.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == "orderTaskId";
                   });
 
-                  var deliveryFeesOn = _this138.dynamicFormInput.formFields.find(function (x) {
+                  var deliveryFeesOn = _this137.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == "deliveryFeesOn";
                   });
 
-                  deliveryFeesOn.data = _this138.deliveryFeesOn;
-                  taskIdField.data = _this138.orderTasks;
-                  _this138.isLoading = false;
+                  deliveryFeesOn.data = _this137.deliveryFeesOn;
+                  taskIdField.data = _this137.orderTasks;
+                  _this137.isLoading = false;
 
-                  _this138.spinner.hide();
+                  _this137.spinner.hide();
                 });
               });
             });
@@ -18522,24 +18521,24 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this139 = this;
+            var _this138 = this;
 
             event.data.id = Number(this.Id);
             console.log(event.data);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.data).subscribe(function (res) {
-              _this139.spinner.hide();
+              _this138.spinner.hide();
 
-              _this139.notification.showNotification(res, "success");
+              _this138.notification.showNotification(res, "success");
 
-              _this139.router.navigate(["/forms/order-list"]);
+              _this138.router.navigate(["/forms/order-list"]);
             }, function (error) {
               if (error.status === 400) {
-                _this139.notification.showNotification(error.error, "danger");
+                _this138.notification.showNotification(error.error, "danger");
               } else {
-                _this139.notification.showNotification("somethingWentWrong", "danger");
+                _this138.notification.showNotification("somethingWentWrong", "danger");
               }
 
-              _this139.spinner.hide();
+              _this138.spinner.hide();
             });
           }
         }]);
@@ -18697,22 +18696,22 @@
         _createClass(PromoCodeUpdateComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this140 = this;
+            var _this139 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this140.promoCodeId = params.id;
+              _this139.promoCodeId = params.id;
 
-              _this140.getAsync(_this140.promoCodeId);
+              _this139.getAsync(_this139.promoCodeId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this141 = this;
+            var _this140 = this;
 
             this.baseService.getByIdForUpdate(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].PromoCode, id).subscribe(function (res) {
-              _this141.getFieldsData(res);
+              _this140.getFieldsData(res);
             });
           }
         }, {
@@ -18738,23 +18737,23 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this142 = this;
+            var _this141 = this;
 
             event.data.id = Number(this.promoCodeId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].PromoCode, event.data).subscribe(function (res) {
-              _this142.spinner.hide();
+              _this141.spinner.hide();
 
-              _this142.notification.showNotification(res, 'success');
+              _this141.notification.showNotification(res, 'success');
 
-              _this142.router.navigate(['/forms/promo-code-list']);
+              _this141.router.navigate(['/forms/promo-code-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this142.notification.showNotification(error.error, 'danger');
+                _this141.notification.showNotification(error.error, 'danger');
               } else {
-                _this142.notification.showNotification('somethingWentWrong', 'danger');
+                _this141.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this142.spinner.hide();
+              _this141.spinner.hide();
             });
           }
         }]);
@@ -19057,30 +19056,30 @@
         _createClass(RecordDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this143 = this;
+            var _this142 = this;
 
             this.route.params.subscribe(function (params) {
-              _this143.recordId = params.id;
+              _this142.recordId = params.id;
 
-              _this143.getAsync(_this143.recordId);
+              _this142.getAsync(_this142.recordId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this144 = this;
+            var _this143 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].Record, id).subscribe(function (res) {
               console.log(res);
-              _this144.record = res;
-              _this144.detailsInput.dataObject = _this144.record;
-              _this144.isLoading = false;
+              _this143.record = res;
+              _this143.detailsInput.dataObject = _this143.record;
+              _this143.isLoading = false;
             });
           }
         }, {
           key: "openAvailableDriversDialog",
           value: function openAvailableDriversDialog() {
-            var _this145 = this;
+            var _this144 = this;
 
             var dialogRef = this.dialog.open(_shared_shared_components_available_drivers_dialog_available_drivers_dialog_component__WEBPACK_IMPORTED_MODULE_11__["AvailableDriversDialogComponent"], {
               width: '700px',
@@ -19092,30 +19091,30 @@
             });
             dialogRef.afterClosed().subscribe(function (res) {
               if (res) {
-                _this145.spinner.show();
+                _this144.spinner.show();
 
                 var request = {
                   DriverId: res,
-                  RecordId: _this145.recordId
+                  RecordId: _this144.recordId
                 };
                 console.log('Assign Record', request);
 
-                _this145.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].Record, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Actions"].AssignRecordToDriver, request).subscribe(function (res) {
+                _this144.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].Record, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Actions"].AssignRecordToDriver, request).subscribe(function (res) {
                   console.log(res);
 
-                  _this145.spinner.hide();
+                  _this144.spinner.hide();
 
-                  _this145.getAsync(_this145.recordId);
+                  _this144.getAsync(_this144.recordId);
 
-                  _this145.notification.showNotification(res, 'success');
+                  _this144.notification.showNotification(res, 'success');
                 }, function (error) {
                   if (error.status === 400) {
-                    _this145.notification.showNotification(error.error, 'danger');
+                    _this144.notification.showNotification(error.error, 'danger');
                   } else {
-                    _this145.notification.showNotification('somethingWentWrong', 'danger');
+                    _this144.notification.showNotification('somethingWentWrong', 'danger');
                   }
 
-                  _this145.spinner.hide();
+                  _this144.spinner.hide();
                 });
               }
             });
@@ -19323,70 +19322,70 @@
         }, {
           key: "getFormData",
           value: function getFormData() {
-            var _this146 = this;
+            var _this145 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order).subscribe(function (res) {
-              _this146.orders = res;
+              _this145.orders = res;
 
-              _this146.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].ClientBrand).subscribe(function (res) {
-                _this146.clientBrands = res;
-                _this146.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_15__["PostponedOrdersSearchForm"];
+              _this145.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].ClientBrand).subscribe(function (res) {
+                _this145.clientBrands = res;
+                _this145.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_15__["PostponedOrdersSearchForm"];
                 var storedForm = JSON.parse(sessionStorage.getItem('searchForm'));
 
                 if (storedForm) {
-                  _this146.dynamicFormInput.formFields.find(function (x) {
+                  _this145.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == 'fromDate';
                   }).value = storedForm.fromDate;
-                  _this146.dynamicFormInput.formFields.find(function (x) {
+                  _this145.dynamicFormInput.formFields.find(function (x) {
                     return x.fieldId == 'toDate';
                   }).value = storedForm.toDate;
                 }
 
-                console.log(_this146.dynamicFormInput.formFields);
+                console.log(_this145.dynamicFormInput.formFields);
 
-                _this146.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
-                  _this146.areas = res;
+                _this145.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
+                  _this145.areas = res;
 
-                  _this146.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this146.userRolesEnum.Merchant).subscribe(function (res) {
-                    _this146.clients = res;
+                  _this145.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this145.userRolesEnum.Merchant).subscribe(function (res) {
+                    _this145.clients = res;
 
-                    _this146.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this146.userRolesEnum.Driver).subscribe(function (res) {
-                      _this146.drivers = res;
+                    _this145.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', _this145.userRolesEnum.Driver).subscribe(function (res) {
+                      _this145.drivers = res;
 
-                      _this146.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
-                        _this146.orderStatuses = res;
+                      _this145.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
+                        _this145.orderStatuses = res;
 
-                        var areaIdField = _this146.dynamicFormInput.formFields.find(function (x) {
+                        var areaIdField = _this145.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'areaId';
                         });
 
-                        areaIdField.data = _this146.areas;
+                        areaIdField.data = _this145.areas;
 
-                        var clientIdField = _this146.dynamicFormInput.formFields.find(function (x) {
+                        var clientIdField = _this145.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'clientId';
                         });
 
-                        clientIdField.data = _this146.clients;
+                        clientIdField.data = _this145.clients;
 
-                        var driverIdField = _this146.dynamicFormInput.formFields.find(function (x) {
+                        var driverIdField = _this145.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'driverId';
                         });
 
-                        driverIdField.data = _this146.drivers;
+                        driverIdField.data = _this145.drivers;
 
-                        var orderStatusIdField = _this146.dynamicFormInput.formFields.find(function (x) {
+                        var orderStatusIdField = _this145.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'orderStatusId';
                         });
 
-                        orderStatusIdField.data = _this146.orderStatuses;
+                        orderStatusIdField.data = _this145.orderStatuses;
 
-                        var clientBrandIdField = _this146.dynamicFormInput.formFields.find(function (x) {
+                        var clientBrandIdField = _this145.dynamicFormInput.formFields.find(function (x) {
                           return x.fieldId == 'clientBrandId';
                         });
 
-                        clientBrandIdField.data = _this146.clientBrands;
+                        clientBrandIdField.data = _this145.clientBrands;
 
-                        _this146.getListSettings();
+                        _this145.getListSettings();
                       });
                     });
                   });
@@ -19403,7 +19402,7 @@
         }, {
           key: "getListData",
           value: function getListData(pageSize, pageNumber) {
-            var _this147 = this;
+            var _this146 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
@@ -19413,32 +19412,32 @@
               orderStatusId: this.statusId
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].List, request).subscribe(function (res) {
-              _this147.orders = res.entities;
-              _this147.dynamicListInput.data = _this147.orders;
-              _this147.dynamicListInput.totalCount = res.totalCount;
-              _this147.isLoading = false;
+              _this146.orders = res.entities;
+              _this146.dynamicListInput.data = _this146.orders;
+              _this146.dynamicListInput.totalCount = res.totalCount;
+              _this146.isLoading = false;
 
-              _this147.spinner.hide();
+              _this146.spinner.hide();
             });
           }
         }, {
           key: "ReactivateAll",
           value: function ReactivateAll() {
-            var _this148 = this;
+            var _this147 = this;
 
             this.spinner.show();
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].ReactivateAll, null).subscribe(function (res) {
-              _this148.spinner.hide();
+              _this147.spinner.hide();
 
-              _this148.notification.showNotification(res, 'success');
+              _this147.notification.showNotification(res, 'success');
 
-              _this148.getListData();
+              _this147.getListData();
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this149 = this;
+            var _this148 = this;
 
             if (event === null) {
               this.ReactivateAll();
@@ -19447,19 +19446,19 @@
               event.data.pageNumber = this.pageNumber;
               console.log(event.data);
               this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
-                _this149.orders = res.entities;
-                _this149.dynamicListInput.data = _this149.orders;
-                _this149.dynamicListInput.totalCount = res.totalCount;
-                _this149.isLoading = false;
+                _this148.orders = res.entities;
+                _this148.dynamicListInput.data = _this148.orders;
+                _this148.dynamicListInput.totalCount = res.totalCount;
+                _this148.isLoading = false;
 
-                _this149.spinner.hide();
+                _this148.spinner.hide();
               });
             }
           }
         }, {
           key: "serveListAction",
           value: function serveListAction(event) {
-            var _this150 = this;
+            var _this149 = this;
 
             switch (event.action) {
               case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_9__["ListActionTypeEnum"].Delete:
@@ -19473,24 +19472,24 @@
                   });
                   dialogRef.afterClosed().subscribe(function (res) {
                     if (res) {
-                      _this150.spinner.show();
+                      _this149.spinner.show();
 
-                      _this150.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId).subscribe(function (res) {
-                        _this150.getListData(_this150.pageSize, _this150.pageNumber);
+                      _this149.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId).subscribe(function (res) {
+                        _this149.getListData(_this149.pageSize, _this149.pageNumber);
 
-                        _this150.isLoading = false;
+                        _this149.isLoading = false;
 
-                        _this150.spinner.hide();
+                        _this149.spinner.hide();
 
-                        _this150.notification.showNotification(res, 'success');
+                        _this149.notification.showNotification(res, 'success');
                       }, function (error) {
                         if (error.status === 400) {
-                          _this150.notification.showNotification(error.error, 'danger');
+                          _this149.notification.showNotification(error.error, 'danger');
                         } else {
-                          _this150.notification.showNotification('somethingWentWrong', 'danger');
+                          _this149.notification.showNotification('somethingWentWrong', 'danger');
                         }
 
-                        _this150.spinner.hide();
+                        _this149.spinner.hide();
                       });
                     }
                   });
@@ -19506,15 +19505,15 @@
               case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_9__["ListActionTypeEnum"].Reactivate:
                 {
                   this.baseService.reactivate(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].Reactivate, event.entityId).subscribe(function (res) {
-                    _this150.notification.showNotification(res, 'success');
+                    _this149.notification.showNotification(res, 'success');
                   }, function (error) {
                     if (error.status === 400) {
-                      _this150.notification.showNotification(error.error, 'danger');
+                      _this149.notification.showNotification(error.error, 'danger');
                     } else {
-                      _this150.notification.showNotification('somethingWentWrong', 'danger');
+                      _this149.notification.showNotification('somethingWentWrong', 'danger');
                     }
 
-                    _this150.spinner.hide();
+                    _this149.spinner.hide();
                   });
                   break;
                 }
@@ -19724,24 +19723,24 @@
         _createClass(EmployeeDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this151 = this;
+            var _this150 = this;
 
             this.route.params.subscribe(function (params) {
-              _this151.employeeId = params.id;
+              _this150.employeeId = params.id;
 
-              _this151.getAsync(_this151.employeeId);
+              _this150.getAsync(_this150.employeeId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this152 = this;
+            var _this151 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].User, id).subscribe(function (res) {
               console.log(res);
-              _this152.employee = res;
-              _this152.detailsInput.dataObject = _this152.employee;
-              _this152.isLoading = false;
+              _this151.employee = res;
+              _this151.detailsInput.dataObject = _this151.employee;
+              _this151.isLoading = false;
             });
           }
         }]);
@@ -19950,46 +19949,46 @@
         _createClass(CityDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this153 = this;
+            var _this152 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this153.cityId = params.id;
+              _this152.cityId = params.id;
 
-              _this153.getAsync(_this153.cityId);
+              _this152.getAsync(_this152.cityId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this154 = this;
+            var _this153 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].City, id).subscribe(function (res) {
-              _this154.area = res;
-              _this154.detailsInput.dataObject = _this154.area;
-              _this154.isLoading = false;
+              _this153.area = res;
+              _this153.detailsInput.dataObject = _this153.area;
+              _this153.isLoading = false;
 
-              _this154.spinner.hide();
+              _this153.spinner.hide();
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this155 = this;
+            var _this154 = this;
 
             event.data.id = Number(this.cityId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].Area, event.data).subscribe(function (res) {
-              _this155.spinner.hide();
+              _this154.spinner.hide();
 
-              _this155.notification.showNotification('cityUpdatedSuccess', 'success');
+              _this154.notification.showNotification('cityUpdatedSuccess', 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this155.notification.showNotification(error.error, 'danger');
+                _this154.notification.showNotification(error.error, 'danger');
               } else {
-                _this155.notification.showNotification('somethingWentWrong', 'danger');
+                _this154.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this155.spinner.hide();
+              _this154.spinner.hide();
             });
           }
         }]);
@@ -20222,11 +20221,11 @@
         }, {
           key: "getAllRecords",
           value: function getAllRecords() {
-            var _this156 = this;
+            var _this155 = this;
 
             this.baseService.getAll(_src_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_9__["Controllers"].Record).subscribe(function (res) {
               console.log('Records', res);
-              _this156.recordList = res;
+              _this155.recordList = res;
             }, function (error) {});
           }
         }, {
@@ -20252,11 +20251,11 @@
         }, {
           key: "getAllAreaGroups",
           value: function getAllAreaGroups() {
-            var _this157 = this;
+            var _this156 = this;
 
             this.baseService.getAllItems(_src_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_9__["Controllers"].AreaGroup).subscribe(function (res) {
               console.log('Area Groups', res);
-              _this157.areaGroups = res;
+              _this156.areaGroups = res;
             });
           }
         }]);
@@ -20418,24 +20417,24 @@
         _createClass(RoundDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this158 = this;
+            var _this157 = this;
 
             this.route.params.subscribe(function (params) {
-              _this158.recordId = params.id;
+              _this157.recordId = params.id;
 
-              _this158.getAsync(_this158.recordId);
+              _this157.getAsync(_this157.recordId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this159 = this;
+            var _this158 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].FinancialRound, id).subscribe(function (res) {
               console.log(res);
-              _this159.record = res;
-              _this159.detailsInput.dataObject = _this159.record;
-              _this159.isLoading = false;
+              _this158.record = res;
+              _this158.detailsInput.dataObject = _this158.record;
+              _this158.isLoading = false;
             });
           }
         }]);
@@ -20693,48 +20692,48 @@
         _createClass(AreaGroupDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this160 = this;
+            var _this159 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this160.areagroupId = params.id;
+              _this159.areagroupId = params.id;
 
-              _this160.getAsync(_this160.areagroupId);
+              _this159.getAsync(_this159.areagroupId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this161 = this;
+            var _this160 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, id).subscribe(function (res) {
-              _this161.area = res;
-              _this161.detailsInput.dataObject = _this161.area;
-              _this161.isLoading = false;
+              _this160.area = res;
+              _this160.detailsInput.dataObject = _this160.area;
+              _this160.isLoading = false;
 
-              _this161.spinner.hide();
+              _this160.spinner.hide();
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this162 = this;
+            var _this161 = this;
 
             event.data.id = Number(this.areagroupId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.data).subscribe(function (res) {
-              _this162.spinner.hide();
+              _this161.spinner.hide();
 
-              console.log(_this162.translate.getDefaultLang());
+              console.log(_this161.translate.getDefaultLang());
 
-              _this162.notification.showNotification('areagroupUpdatedSuccess', 'success');
+              _this161.notification.showNotification('areagroupUpdatedSuccess', 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this162.notification.showNotification(error.error, 'danger');
+                _this161.notification.showNotification(error.error, 'danger');
               } else {
-                _this162.notification.showNotification('somethingWentWrong', 'danger');
+                _this161.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this162.spinner.hide();
+              _this161.spinner.hide();
             });
           }
         }]);
@@ -20984,22 +20983,22 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this163 = this;
+            var _this162 = this;
 
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].PromoCode, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, event.data).subscribe(function (res) {
-              _this163.spinner.hide();
+              _this162.spinner.hide();
 
-              _this163.notification.showNotification(res, 'success');
+              _this162.notification.showNotification(res, 'success');
 
-              _this163.router.navigate(['/forms/promo-code-list']);
+              _this162.router.navigate(['/forms/promo-code-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this163.notification.showNotification(error.error, 'danger');
+                _this162.notification.showNotification(error.error, 'danger');
               } else {
-                _this163.notification.showNotification(_this163.translate.instant('somethingWentWrong'), 'danger');
+                _this162.notification.showNotification(_this162.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this163.spinner.hide();
+              _this162.spinner.hide();
             });
           }
         }, {
@@ -21251,40 +21250,40 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this164 = this;
+            var _this163 = this;
 
             event.data["role"] = this.userRolesEnum.Driver;
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].CreateUser, event.data).subscribe(function (res) {
-              _this164.spinner.hide();
+              _this163.spinner.hide();
 
-              _this164.notification.showNotification(res, "success");
+              _this163.notification.showNotification(res, "success");
 
-              _this164.router.navigate(["/forms/driver-list"]);
+              _this163.router.navigate(["/forms/driver-list"]);
             }, function (error) {
               if (error.status === 400) {
-                _this164.notification.showNotification(error.error, "danger");
+                _this163.notification.showNotification(error.error, "danger");
               } else {
-                _this164.notification.showNotification(_this164.translate.instant("somethingWentWrong"), "danger");
+                _this163.notification.showNotification(_this163.translate.instant("somethingWentWrong"), "danger");
               }
 
-              _this164.spinner.hide();
+              _this163.spinner.hide();
             });
           }
         }, {
           key: "getFieldsData",
           value: function getFieldsData() {
-            var _this165 = this;
+            var _this164 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup).subscribe(function (res) {
-              _this165.areaGroups = res;
-              _this165.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_12__["UserCreateForm"]; // let areaGroupIdField = this.dynamicFormInput.formFields.find(
+              _this164.areaGroups = res;
+              _this164.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_12__["UserCreateForm"]; // let areaGroupIdField = this.dynamicFormInput.formFields.find(
               //   (x) => x.fieldId == "areaRegionId"
               // );
               // areaGroupIdField.data = this.areaGroups;
 
-              _this165.isLoading = false;
+              _this164.isLoading = false;
 
-              _this165.spinner.hide();
+              _this164.spinner.hide();
             });
           }
         }]);
@@ -21468,22 +21467,22 @@
         _createClass(CityUpdateComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this166 = this;
+            var _this165 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this166.cityId = params.id;
+              _this165.cityId = params.id;
 
-              _this166.getAsync(_this166.cityId);
+              _this165.getAsync(_this165.cityId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this167 = this;
+            var _this166 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].City, id).subscribe(function (res) {
-              _this167.getFieldsData(res);
+              _this166.getFieldsData(res);
             });
           }
         }, {
@@ -21499,23 +21498,23 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this168 = this;
+            var _this167 = this;
 
             event.data.id = Number(this.cityId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].City, event.data).subscribe(function (res) {
-              _this168.spinner.hide();
+              _this167.spinner.hide();
 
-              _this168.notification.showNotification(res, 'success');
+              _this167.notification.showNotification(res, 'success');
 
-              _this168.router.navigate(['/forms/city-list']);
+              _this167.router.navigate(['/forms/city-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this168.notification.showNotification(error.error, 'danger');
+                _this167.notification.showNotification(error.error, 'danger');
               } else {
-                _this168.notification.showNotification('somethingWentWrong', 'danger');
+                _this167.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this168.spinner.hide();
+              _this167.spinner.hide();
             });
           }
         }]);
@@ -21669,12 +21668,12 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this169 = this;
+            var _this168 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this169.clientId = params.id;
-              _this169.baseStatuses = [{
+              _this168.clientId = params.id;
+              _this168.baseStatuses = [{
                 value: true,
                 viewValueEn: 'Active',
                 viewValueAr: 'نشط'
@@ -21684,25 +21683,25 @@
                 viewValueAr: 'غير نشط'
               }];
 
-              _this169.getAsync(_this169.clientId);
+              _this168.getAsync(_this168.clientId);
             });
             this.spinner.show();
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this170 = this;
+            var _this169 = this;
 
             this.baseService.getClientById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, id).subscribe(function (res) {
               console.log(res);
 
-              _this170.getFieldsData(res);
+              _this169.getFieldsData(res);
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this171 = this;
+            var _this170 = this;
 
             event.data['role'] = this.userRolesEnum.Merchant;
             event.data.id = Number(this.clientId);
@@ -21722,15 +21721,15 @@
               }
             });
             this.baseService.postFormItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].UpdateMerchant, formData).subscribe(function (res) {
-              _this171.spinner.hide();
+              _this170.spinner.hide();
 
-              _this171.notification.showNotification(res, 'success');
+              _this170.notification.showNotification(res, 'success');
 
-              _this171.router.navigate(['/forms/client-list']);
+              _this170.router.navigate(['/forms/client-list']);
             }, function (error) {
-              _this171.spinner.hide();
+              _this170.spinner.hide();
 
-              _this171.notification.showNotification(error.error, 'danger');
+              _this170.notification.showNotification(error.error, 'danger');
             });
           }
         }, {
@@ -22095,41 +22094,41 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this172 = this;
+            var _this171 = this;
 
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].CreateUser, event.data).subscribe(function (res) {
-              _this172.spinner.hide();
+              _this171.spinner.hide();
 
-              _this172.notification.showNotification(res, 'success');
+              _this171.notification.showNotification(res, 'success');
 
-              _this172.router.navigate(['/forms/employee-list']);
+              _this171.router.navigate(['/forms/employee-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this172.notification.showNotification(error.error, 'danger');
+                _this171.notification.showNotification(error.error, 'danger');
               } else {
-                _this172.notification.showNotification(_this172.translate.instant('somethingWentWrong'), 'danger');
+                _this171.notification.showNotification(_this171.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this172.spinner.hide();
+              _this171.spinner.hide();
             });
           }
         }, {
           key: "getFieldsData",
           value: function getFieldsData() {
-            var _this173 = this;
+            var _this172 = this;
 
             this.baseService.getEmployeeRoles().subscribe(function (res) {
-              _this173.roles = res;
-              _this173.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_12__["EmployeeCreateForm"];
+              _this172.roles = res;
+              _this172.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_12__["EmployeeCreateForm"];
 
-              var roleField = _this173.dynamicFormInput.formFields.find(function (x) {
+              var roleField = _this172.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'role';
               });
 
-              roleField.data = _this173.roles;
-              _this173.isLoading = false;
+              roleField.data = _this172.roles;
+              _this172.isLoading = false;
 
-              _this173.spinner.hide();
+              _this172.spinner.hide();
             });
           }
         }]);
@@ -22358,46 +22357,46 @@
         _createClass(PromoCodeDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this174 = this;
+            var _this173 = this;
 
             this.route.params.subscribe(function (params) {
-              _this174.promoCodeId = params.id;
+              _this173.promoCodeId = params.id;
 
-              _this174.getAsync(_this174.promoCodeId);
+              _this173.getAsync(_this173.promoCodeId);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this175 = this;
+            var _this174 = this;
 
             this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].PromoCode, id).subscribe(function (res) {
               console.log(res);
-              _this175.promoCode = res;
-              _this175.detailsInput.dataObject = _this175.promoCode;
-              _this175.isLoading = false;
+              _this174.promoCode = res;
+              _this174.detailsInput.dataObject = _this174.promoCode;
+              _this174.isLoading = false;
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this176 = this;
+            var _this175 = this;
 
             event.data.id = Number(this.promoCodeId);
             this.baseService.editItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].PromoCode, event.data).subscribe(function (res) {
-              _this176.spinner.hide();
+              _this175.spinner.hide();
 
-              console.log(_this176.translate.getDefaultLang());
+              console.log(_this175.translate.getDefaultLang());
 
-              _this176.notification.showNotification('promoCodeUpdatedSuccess', 'success');
+              _this175.notification.showNotification('promoCodeUpdatedSuccess', 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this176.notification.showNotification(error.error, 'danger');
+                _this175.notification.showNotification(error.error, 'danger');
               } else {
-                _this176.notification.showNotification('somethingWentWrong', 'danger');
+                _this175.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this176.spinner.hide();
+              _this175.spinner.hide();
             });
           }
         }]);
@@ -22601,37 +22600,53 @@
         }, {
           key: "getFormData",
           value: function getFormData() {
-            var _this177 = this;
+            var _this176 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup).subscribe(function (res) {
-              _this177.cities = res;
-              _this177.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["AreaGroupSearchForm"];
+              _this176.cities = res;
+              _this176.dynamicFormInput = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["AreaGroupSearchForm"];
             });
           }
         }, {
           key: "getListSettings",
           value: function getListSettings() {
-            var _this178 = this;
+            var _this177 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup).subscribe(function (res) {
-              _this178.cities = res;
-              _this178.dynamicListInput.columns = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["AreaGroupList"];
+              _this177.cities = res;
+              _this177.dynamicListInput.columns = _dynamic_data__WEBPACK_IMPORTED_MODULE_14__["AreaGroupList"];
 
-              _this178.getListData();
+              _this177.getListData();
             });
           }
         }, {
           key: "getListData",
           value: function getListData(pageSize, pageNumber) {
-            var _this179 = this;
+            var _this178 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
               pageNumber: pageNumber ? pageNumber : this.pageNumber
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, request).subscribe(function (res) {
-              _this179.cities = res.entities;
-              _this179.dynamicListInput.data = _this179.cities;
+              _this178.cities = res.entities;
+              _this178.dynamicListInput.data = _this178.cities;
+              _this178.dynamicListInput.totalCount = res.totalCount;
+              _this178.isLoading = false;
+
+              _this178.spinner.hide();
+            });
+          }
+        }, {
+          key: "serveAction",
+          value: function serveAction(event) {
+            var _this179 = this;
+
+            event.data.pageSize = this.pageSize;
+            event.data.pageNumber = this.pageNumber;
+            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
+              _this179.areasList = res.entities;
+              _this179.dynamicListInput.data = _this179.areasList;
               _this179.dynamicListInput.totalCount = res.totalCount;
               _this179.isLoading = false;
 
@@ -22639,25 +22654,9 @@
             });
           }
         }, {
-          key: "serveAction",
-          value: function serveAction(event) {
-            var _this180 = this;
-
-            event.data.pageSize = this.pageSize;
-            event.data.pageNumber = this.pageNumber;
-            this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, event.data).subscribe(function (res) {
-              _this180.areasList = res.entities;
-              _this180.dynamicListInput.data = _this180.areasList;
-              _this180.dynamicListInput.totalCount = res.totalCount;
-              _this180.isLoading = false;
-
-              _this180.spinner.hide();
-            });
-          }
-        }, {
           key: "serveListAction",
           value: function serveListAction(event) {
-            var _this181 = this;
+            var _this180 = this;
 
             switch (event.action) {
               case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_9__["ListActionTypeEnum"].Delete:
@@ -22671,24 +22670,24 @@
                   });
                   dialogRef.afterClosed().subscribe(function (res) {
                     if (res) {
-                      _this181.spinner.show();
+                      _this180.spinner.show();
 
-                      _this181.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.entityId).subscribe(function (res) {
-                        _this181.getListData(_this181.pageSize, _this181.pageNumber);
+                      _this180.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].AreaGroup, event.entityId).subscribe(function (res) {
+                        _this180.getListData(_this180.pageSize, _this180.pageNumber);
 
-                        _this181.isLoading = false;
+                        _this180.isLoading = false;
 
-                        _this181.spinner.hide();
+                        _this180.spinner.hide();
 
-                        _this181.notification.showNotification(res, 'success');
+                        _this180.notification.showNotification(res, 'success');
                       }, function (error) {
                         if (error.status === 400) {
-                          _this181.notification.showNotification(error.error, 'danger');
+                          _this180.notification.showNotification(error.error, 'danger');
                         } else {
-                          _this181.notification.showNotification('somethingWentWrong', 'danger');
+                          _this180.notification.showNotification('somethingWentWrong', 'danger');
                         }
 
-                        _this181.spinner.hide();
+                        _this180.spinner.hide();
                       });
                     }
                   });
@@ -23010,37 +23009,37 @@
         }, {
           key: "getListData",
           value: function getListData(pageSize, pageNumber) {
-            var _this182 = this;
+            var _this181 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
               pageNumber: pageNumber ? pageNumber : this.pageNumber
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].ListWithRevenue, request).subscribe(function (res) {
-              _this182.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_14__["MatTableDataSource"](res.entities);
-              _this182.dataSource.sort = _this182.sort;
-              _this182.totalRows = res.totalCount;
-              _this182.isLoading = false;
+              _this181.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_14__["MatTableDataSource"](res.entities);
+              _this181.dataSource.sort = _this181.sort;
+              _this181.totalRows = res.totalCount;
+              _this181.isLoading = false;
 
-              _this182.spinner.hide();
+              _this181.spinner.hide();
             });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this183 = this;
+            var _this182 = this;
 
             event.data.pageSize = this.pageSize;
             event.data.pageNumber = this.pageNumber;
             sessionStorage.setItem('searchForm', JSON.stringify(this.filterForm.value));
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].ListWithRevenue, event.data).subscribe(function (res) {
               console.log(res.entities);
-              _this183.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_14__["MatTableDataSource"](res.entities);
-              _this183.dataSource.sort = _this183.sort;
-              _this183.totalRows = res.totalCount;
-              _this183.isLoading = false;
+              _this182.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_14__["MatTableDataSource"](res.entities);
+              _this182.dataSource.sort = _this182.sort;
+              _this182.totalRows = res.totalCount;
+              _this182.isLoading = false;
 
-              _this183.spinner.hide();
+              _this182.spinner.hide();
             });
           }
         }, {
@@ -23109,17 +23108,17 @@
         }, {
           key: "masterToggle",
           value: function masterToggle() {
-            var _this184 = this;
+            var _this183 = this;
 
             this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(function (row) {
-              return _this184.selection.select(row);
+              return _this183.selection.select(row);
             });
             console.log(this.selection.selected);
           }
         }, {
           key: "openDialog",
           value: function openDialog() {
-            var _this185 = this;
+            var _this184 = this;
 
             var dialogRef = this.dialog.open(_forms_module_move_orders_dialog_move_orders_dialog_component__WEBPACK_IMPORTED_MODULE_18__["MoveOrdersDialogComponent"], {
               width: '600px'
@@ -23127,12 +23126,12 @@
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
                 var dialogResult = result;
-                dialogResult.orders = _this185.selection.selected;
-                dialogResult.recordDate = _this185.convertToUTC(dialogResult.recordDate);
+                dialogResult.orders = _this184.selection.selected;
+                dialogResult.recordDate = _this184.convertToUTC(dialogResult.recordDate);
                 console.log(dialogResult);
 
-                _this185.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Record, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].MoveOrders, dialogResult).subscribe(function (res) {
-                  _this185.notification.showNotification(_this185.translate.instant('ordersMovedSuccess'), 'success');
+                _this184.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Record, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].MoveOrders, dialogResult).subscribe(function (res) {
+                  _this184.notification.showNotification(_this184.translate.instant('ordersMovedSuccess'), 'success');
                 });
               }
             });
@@ -23174,94 +23173,94 @@
         }, {
           key: "getALlClients",
           value: function getALlClients() {
-            var _this186 = this;
+            var _this185 = this;
 
             this.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', this.userRolesEnum.Merchant).subscribe(function (res) {
-              _this186.clients = res;
+              _this185.clients = res;
 
-              _this186.getAllDrivers();
+              _this185.getAllDrivers();
             }, function (error) {
-              _this186.notification.showNotification(error.error, 'Failed');
+              _this185.notification.showNotification(error.error, 'Failed');
             });
           }
         }, {
           key: "getALlAreas",
           value: function getALlAreas() {
-            var _this187 = this;
+            var _this186 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Area).subscribe(function (res) {
-              _this187.areas = res;
+              _this186.areas = res;
 
-              _this187.getAllBrands();
+              _this186.getAllBrands();
             }, function (error) {
-              _this187.notification.showNotification(error.error, 'Failed');
+              _this186.notification.showNotification(error.error, 'Failed');
             });
           }
         }, {
           key: "getAllDrivers",
           value: function getAllDrivers() {
-            var _this188 = this;
+            var _this187 = this;
 
             this.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetAllItems, 'role', this.userRolesEnum.Driver).subscribe(function (res) {
-              _this188.drivers = res;
+              _this187.drivers = res;
 
-              _this188.getALlAreas();
+              _this187.getALlAreas();
             }, function (error) {
-              _this188.notification.showNotification(error.error, 'Failed');
+              _this187.notification.showNotification(error.error, 'Failed');
             });
           }
         }, {
           key: "getAllBrands",
           value: function getAllBrands() {
-            var _this189 = this;
+            var _this188 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].ClientBrand).subscribe(function (res) {
-              _this189.clientBrands = res;
+              _this188.clientBrands = res;
 
-              var areaIdField = _this189.dynamicFormInput.formFields.find(function (x) {
+              var areaIdField = _this188.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'areaId';
               });
 
-              areaIdField.data = _this189.areas;
+              areaIdField.data = _this188.areas;
 
-              var clientIdField = _this189.dynamicFormInput.formFields.find(function (x) {
+              var clientIdField = _this188.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'clientId';
               });
 
-              clientIdField.data = _this189.clients;
+              clientIdField.data = _this188.clients;
 
-              var driverIdField = _this189.dynamicFormInput.formFields.find(function (x) {
+              var driverIdField = _this188.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'driverId';
               });
 
-              driverIdField.data = _this189.drivers;
+              driverIdField.data = _this188.drivers;
 
-              var orderStatusIdField = _this189.dynamicFormInput.formFields.find(function (x) {
+              var orderStatusIdField = _this188.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'orderStatusId';
               });
 
-              orderStatusIdField.data = _this189.orderStatuses;
+              orderStatusIdField.data = _this188.orderStatuses;
 
-              var clientBrandIdField = _this189.dynamicFormInput.formFields.find(function (x) {
+              var clientBrandIdField = _this188.dynamicFormInput.formFields.find(function (x) {
                 return x.fieldId == 'clientBrandId';
               });
 
-              clientBrandIdField.data = _this189.clientBrands;
+              clientBrandIdField.data = _this188.clientBrands;
 
-              _this189.getListData();
+              _this188.getListData();
             });
           }
         }, {
           key: "getAllStatuses",
           value: function getAllStatuses() {
-            var _this190 = this;
+            var _this189 = this;
 
             this.baseService.getAllForList(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderStatus).subscribe(function (res) {
-              _this190.orderStatuses = res;
+              _this189.orderStatuses = res;
 
-              _this190.getALlClients();
+              _this189.getALlClients();
             }, function (error) {
-              _this190.notification.showNotification(error.error, 'Failed');
+              _this189.notification.showNotification(error.error, 'Failed');
             });
           }
         }, {
@@ -23299,7 +23298,7 @@
         }, {
           key: "changeOrderStatus",
           value: function changeOrderStatus(event, id) {
-            var _this191 = this;
+            var _this190 = this;
 
             console.log(event, id);
             var request = {
@@ -23307,15 +23306,15 @@
               id: id
             };
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].UpdateDetails, request).subscribe(function (response) {
-              _this191.notification.showNotification(response, 'success');
+              _this190.notification.showNotification(response, 'success');
             }, function (error) {
-              _this191.notification.showNotification('somethingWentWrong', 'failed');
+              _this190.notification.showNotification('somethingWentWrong', 'failed');
             });
           }
         }, {
           key: "changeOrderPrice",
           value: function changeOrderPrice(event, id) {
-            var _this192 = this;
+            var _this191 = this;
 
             console.log(event, id);
             var request = {
@@ -23323,17 +23322,17 @@
               orderTotalPrice: event.target.value
             };
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].UpdateDetails, request).subscribe(function (response) {
-              _this192.notification.showNotification(response, 'success');
+              _this191.notification.showNotification(response, 'success');
             }, function (error) {
               console.log(error);
 
-              _this192.notification.showNotification('somethingWentWrong', 'failed');
+              _this191.notification.showNotification('somethingWentWrong', 'failed');
             });
           }
         }, {
           key: "changeOrderItemDescription",
           value: function changeOrderItemDescription(event, id) {
-            var _this193 = this;
+            var _this192 = this;
 
             console.log(event, id);
             var request = {
@@ -23343,9 +23342,9 @@
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].UpdateDetails, request).subscribe(function (response) {
               console.log(response);
 
-              _this193.notification.showNotification(response, 'success');
+              _this192.notification.showNotification(response, 'success');
             }, function (error) {
-              _this193.notification.showNotification('somethingWentWrong', 'failed');
+              _this192.notification.showNotification('somethingWentWrong', 'failed');
             });
           }
         }, {
@@ -23616,7 +23615,7 @@
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this194 = this;
+            var _this193 = this;
 
             event.data['role'] = this.userRolesEnum.Merchant;
             var formData = new FormData();
@@ -23635,21 +23634,21 @@
               }
             });
             this.baseService.postFormItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Actions"].CreateClient, formData).subscribe(function (res) {
-              _this194.spinner.hide();
+              _this193.spinner.hide();
 
-              console.log(_this194.translate.getDefaultLang());
+              console.log(_this193.translate.getDefaultLang());
 
-              _this194.notification.showNotification(res, 'success');
+              _this193.notification.showNotification(res, 'success');
 
-              _this194.router.navigate(['/forms/client-list']);
+              _this193.router.navigate(['/forms/client-list']);
             }, function (error) {
               if (error.status === 400) {
-                _this194.notification.showNotification(error.error, 'danger');
+                _this193.notification.showNotification(error.error, 'danger');
               } else {
-                _this194.notification.showNotification(_this194.translate.instant('somethingWentWrong'), 'danger');
+                _this193.notification.showNotification(_this193.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this194.spinner.hide();
+              _this193.spinner.hide();
             });
           }
         }, {
