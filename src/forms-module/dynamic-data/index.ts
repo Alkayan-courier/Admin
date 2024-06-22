@@ -576,6 +576,12 @@ export const RecordList: DynamicListColumn[] = [
     columnValue: 'recordDate',
     actions: [],
   },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [{ actionName: 'view', actionType: 3 }],
+  },
 ];
 
 export const FinancialRoundSearchForm: DynamicFormInput = {
