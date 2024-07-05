@@ -16,29 +16,30 @@ import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicDataService } from '../../../shared/services/dynamic-form.service';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddNoteForm } from '../../../forms-module/dynamic-data';
 
 export interface DialogData {
   title: string;
   content: string;
-  orderId:string
+  orderId: string;
 }
 @Component({
   selector: 'app-add-note-dialog',
   templateUrl: './add-note-dialog.component.html',
-  styleUrls: ['./add-note-dialog.component.css']
+  styleUrls: ['./add-note-dialog.component.css'],
 })
 export class AddNoteDialogComponent implements OnInit {
   selectedDriver: any;
   filteredOptions: any;
- 
-  orderId : any;
-    public dynamicFormInput = new DynamicFormInput();
+
+  orderId: any;
+  public dynamicFormInput = new DynamicFormInput();
   public isLoading = true;
   filterForm = new FormGroup({
     orderId: new FormControl(),
-    orderNoteText: new FormControl(), 
-    uploadFile :  new FormControl()
-  })
+    orderNoteText: new FormControl(),
+    uploadFile: new FormControl(),
+  });
   public selectedFile;
   public filesWrapper: any[] = [];
   public get userRolesEnum(): typeof RoleTypes {
@@ -51,60 +52,65 @@ export class AddNoteDialogComponent implements OnInit {
     public baseService: BaseService,
     private notification: NotificationService,
     private translate: TranslateService,
-    private spinner: NgxSpinnerService, 
-     private dynamicService: DynamicDataService,
-     private router: ActivatedRoute
-  ) {
-
-  }
+    private spinner: NgxSpinnerService,
+    private dynamicService: DynamicDataService,
+    private router: ActivatedRoute
+  ) {}
   ngOnInit(): void {
     console.log(this.data);
-  this.orderId = this.data.orderId;
+    this.orderId = this.data.orderId;
     this.spinner.show();
     this.getFieldsData();
-  
   }
-  public getFieldsData() {  
-        this.dynamicService.getFormSettings('AddNoteForm').subscribe(res => {
-          this.dynamicFormInput = res;
-          this.isLoading = false;
-          this.spinner.hide();
-        });  
+  public getFieldsData() {
+    this.dynamicFormInput = AddNoteForm;
+    this.isLoading = false;
+    this.spinner.hide();
+    // this.dynamicService.getFormSettings('AddNoteForm').subscribe((res) => {
+    // });
   }
   public serveAction(event: DynamicFormOutput) {
-    if(event.data.orderNoteText =='' && event.data.file ==''){
- this.spinner.hide();
- this.notification.showNotification(this.translate.instant('oneFieldShouldBeFilled'), 'danger');
-    }
-   else{
-     
-    let formData=new FormData();
-    console.log(event.data);
-    Object.entries(event.data).forEach(element => {
-      var file;
-      if (element[0] == 'file') {
-        file = element[1] as Blob;
-        formData.append(element[0], file);
-      }
-      else{
-        formData.append(element[0], element[1] as string);
-      }
-    });
-    formData.append('orderId',this.orderId);
-console.log(formData);
-    this.baseService.postFormItem(Controllers.OrderNotes, Actions.PostItem, formData).subscribe(res => {
-      this.spinner.hide(); this.dialogRef.close();
-      this.notification.showNotification(res, 'success');
-    }, error => {
-      if (error.status === 400) {
-        this.notification.showNotification(error.error, 'danger');
-      }
-      else {
-        this.notification.showNotification(this.translate.instant('somethingWentWrong'), 'danger');
-      }
+    if (event.data.orderNoteText == '' && event.data.file == '') {
       this.spinner.hide();
-    })
-  }
+      this.notification.showNotification(
+        this.translate.instant('oneFieldShouldBeFilled'),
+        'danger'
+      );
+    } else {
+      let formData = new FormData();
+      console.log(event.data);
+      Object.entries(event.data).forEach((element) => {
+        var file;
+        if (element[0] == 'file') {
+          file = element[1] as Blob;
+          formData.append(element[0], file);
+        } else {
+          formData.append(element[0], element[1] as string);
+        }
+      });
+      formData.append('orderId', this.orderId);
+      console.log(formData);
+      this.baseService
+        .postFormItem(Controllers.OrderNotes, Actions.PostItem, formData)
+        .subscribe(
+          (res) => {
+            this.spinner.hide();
+            this.dialogRef.close();
+            this.notification.showNotification(res, 'success');
+          },
+          (error) => {
+            if (error.status === 400) {
+              this.notification.showNotification(error.error, 'danger');
+            } else {
+              this.notification.showNotification(
+                this.translate.instant('somethingWentWrong'),
+                'danger'
+              );
+            }
+            this.spinner.hide();
+          }
+        );
+    }
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -112,5 +118,4 @@ console.log(formData);
   onDriverSelected(driverId: number) {
     this.dialogRef.close(driverId);
   }
-
 }

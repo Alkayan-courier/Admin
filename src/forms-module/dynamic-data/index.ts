@@ -33,7 +33,7 @@ const editAction: FormAction = {
   actionType: ActionTypeEnum.Submit,
   isDisableAllowed: true,
 };
-export const  UserCreateForm: DynamicFormInput = {
+export const UserCreateForm: DynamicFormInput = {
   actions: [addAction],
   formFields: [
     {
@@ -837,7 +837,7 @@ export const AreaGroupForm: DynamicFormInput = {
     },
   ],
 };
-export const AreaGroupFormUpdate : DynamicFormInput = {
+export const AreaGroupFormUpdate: DynamicFormInput = {
   actions: [editAction],
   formFields: [
     {
@@ -1280,6 +1280,28 @@ export const DashboardSearchForm: DynamicFormInput = {
       label: 'name',
       placeholder: 'name',
       options: { disabled: false, required: false, size: 4 },
+    },
+  ],
+};
+
+export const AddNoteForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'OrderNoteText',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'note',
+      placeholder: 'note',
+      options: { disabled: false, required: true, size: 12 },
+    },
+    {
+      fieldId: 'File',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.File,
+      label: 'file',
+      placeholder: 'file',
+      options: { disabled: false, required: false, size: 12 },
     },
   ],
 };

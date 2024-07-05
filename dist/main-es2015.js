@@ -348,9 +348,9 @@ let DashboardComponent = class DashboardComponent {
                 let request = {
                     endUserPhoneNumber: "",
                     numberOfOrders: 5,
-                    clientBrandId: 11,
+                    clientBrandId: 10,
                     driverId: res,
-                    clientId: null,
+                    clientId: 5,
                 };
                 this.dashboardService
                     .postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Controllers"].TestData, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_5__["Actions"].PostItem, request)
@@ -4954,6 +4954,12 @@ const RecordList = [
         columnName: 'recordDate',
         columnValue: 'recordDate',
         actions: [],
+    },
+    {
+        columnId: 'actions',
+        columnName: 'actions',
+        columnValue: 'actions',
+        actions: [{ actionName: 'view', actionType: 3 }],
     },
 ];
 const FinancialRoundSearchForm = {
