@@ -1296,6 +1296,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_models_dynamic_form_input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../shared/models/dynamic-form-input */ "/l9S");
 /* harmony import */ var _shared_services_dynamic_form_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../shared/services/dynamic-form.service */ "aW8j");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _forms_module_dynamic_data__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../forms-module/dynamic-data */ "WBh1");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1305,6 +1306,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1336,7 +1338,7 @@ let AddNoteDialogComponent = class AddNoteDialogComponent {
         this.filterForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormGroup"]({
             orderId: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](),
             orderNoteText: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](),
-            uploadFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]()
+            uploadFile: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"](),
         });
         this.filesWrapper = [];
     }
@@ -1350,11 +1352,11 @@ let AddNoteDialogComponent = class AddNoteDialogComponent {
         this.getFieldsData();
     }
     getFieldsData() {
-        this.dynamicService.getFormSettings('AddNoteForm').subscribe(res => {
-            this.dynamicFormInput = res;
-            this.isLoading = false;
-            this.spinner.hide();
-        });
+        this.dynamicFormInput = _forms_module_dynamic_data__WEBPACK_IMPORTED_MODULE_15__["AddNoteForm"];
+        this.isLoading = false;
+        this.spinner.hide();
+        // this.dynamicService.getFormSettings('AddNoteForm').subscribe((res) => {
+        // });
     }
     serveAction(event) {
         if (event.data.orderNoteText == '' && event.data.file == '') {
@@ -1364,7 +1366,7 @@ let AddNoteDialogComponent = class AddNoteDialogComponent {
         else {
             let formData = new FormData();
             console.log(event.data);
-            Object.entries(event.data).forEach(element => {
+            Object.entries(event.data).forEach((element) => {
                 var file;
                 if (element[0] == 'file') {
                     file = element[1];
@@ -1376,11 +1378,13 @@ let AddNoteDialogComponent = class AddNoteDialogComponent {
             });
             formData.append('orderId', this.orderId);
             console.log(formData);
-            this.baseService.postFormItem(_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderNotes, _global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, formData).subscribe(res => {
+            this.baseService
+                .postFormItem(_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderNotes, _global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, formData)
+                .subscribe((res) => {
                 this.spinner.hide();
                 this.dialogRef.close();
                 this.notification.showNotification(res, 'success');
-            }, error => {
+            }, (error) => {
                 if (error.status === 400) {
                     this.notification.showNotification(error.error, 'danger');
                 }
@@ -4364,7 +4368,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./src/forms-module/dynamic-data/index.ts ***!
   \************************************************/
-/*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
+/*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm, AddNoteForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4407,6 +4411,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PromoCodeUpdateForm", function() { return PromoCodeUpdateForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MsgCreateForm", function() { return MsgCreateForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardSearchForm", function() { return DashboardSearchForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddNoteForm", function() { return AddNoteForm; });
 /* harmony import */ var _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../shared/enums/enums */ "B10k");
 
 const searchAction = {
@@ -5460,12 +5465,21 @@ const OrderFormFields = [
     },
     {
         fieldId: 'isOrderPriceIncluded',
-        fieldOrder: 1,
+        fieldOrder: 8,
         fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].CheckBox,
         label: 'isOrderPriceIncluded',
         value: false,
         placeholder: 'isOrderPriceIncluded',
         options: { disabled: false, required: false, size: 4 },
+    },
+    {
+        fieldId: 'isQRRequired',
+        fieldOrder: 9,
+        fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].CheckBox,
+        label: 'IsQRRequired',
+        value: false,
+        placeholder: 'IsQRRequired',
+        options: { disabled: false, required: true, size: 4 },
     },
 ];
 const OrderStatusCreateForm = {
@@ -5634,6 +5648,27 @@ const DashboardSearchForm = {
             label: 'name',
             placeholder: 'name',
             options: { disabled: false, required: false, size: 4 },
+        },
+    ],
+};
+const AddNoteForm = {
+    actions: [addAction],
+    formFields: [
+        {
+            fieldId: 'OrderNoteText',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+            label: 'note',
+            placeholder: 'note',
+            options: { disabled: false, required: true, size: 12 },
+        },
+        {
+            fieldId: 'File',
+            fieldOrder: 1,
+            fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].File,
+            label: 'file',
+            placeholder: 'file',
+            options: { disabled: false, required: false, size: 12 },
         },
     ],
 };

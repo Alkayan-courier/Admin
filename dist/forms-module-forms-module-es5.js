@@ -464,6 +464,7 @@
             var _this6 = this;
 
             this.dynamicService.getListSettings('OrderNotesList').subscribe(function (res) {
+              console.log("🚀 ~ OrderDetailsComponent ~ this.dynamicService.getListSettings ~ res:", res);
               _this6.order = res;
               _this6.dynamicListInput = _this6.order;
 

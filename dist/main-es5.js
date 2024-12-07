@@ -2101,6 +2101,12 @@
       var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
+      /* harmony import */
+
+
+      var _forms_module_dynamic_data__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      /*! ../../../forms-module/dynamic-data */
+      "WBh1");
 
       var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
         var c = arguments.length,
@@ -2155,19 +2161,15 @@
         }, {
           key: "getFieldsData",
           value: function getFieldsData() {
-            var _this10 = this;
-
-            this.dynamicService.getFormSettings('AddNoteForm').subscribe(function (res) {
-              _this10.dynamicFormInput = res;
-              _this10.isLoading = false;
-
-              _this10.spinner.hide();
-            });
+            this.dynamicFormInput = _forms_module_dynamic_data__WEBPACK_IMPORTED_MODULE_15__["AddNoteForm"];
+            this.isLoading = false;
+            this.spinner.hide(); // this.dynamicService.getFormSettings('AddNoteForm').subscribe((res) => {
+            // });
           }
         }, {
           key: "serveAction",
           value: function serveAction(event) {
-            var _this11 = this;
+            var _this10 = this;
 
             if (event.data.orderNoteText == '' && event.data.file == '') {
               this.spinner.hide();
@@ -2188,19 +2190,19 @@
               formData.append('orderId', this.orderId);
               console.log(formData);
               this.baseService.postFormItem(_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderNotes, _global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].PostItem, formData).subscribe(function (res) {
-                _this11.spinner.hide();
+                _this10.spinner.hide();
 
-                _this11.dialogRef.close();
+                _this10.dialogRef.close();
 
-                _this11.notification.showNotification(res, 'success');
+                _this10.notification.showNotification(res, 'success');
               }, function (error) {
                 if (error.status === 400) {
-                  _this11.notification.showNotification(error.error, 'danger');
+                  _this10.notification.showNotification(error.error, 'danger');
                 } else {
-                  _this11.notification.showNotification(_this11.translate.instant('somethingWentWrong'), 'danger');
+                  _this10.notification.showNotification(_this10.translate.instant('somethingWentWrong'), 'danger');
                 }
 
-                _this11.spinner.hide();
+                _this10.spinner.hide();
               });
             }
           }
@@ -2413,15 +2415,15 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this12 = this;
+            var _this11 = this;
 
             this.dynamicFormGroup = this.formBuilder.group({});
             this.formInput.formFields.forEach(function (field) {
-              var validators = _this12.fetchFieldValidations(field);
+              var validators = _this11.fetchFieldValidations(field);
 
-              var control = _this12.formBuilder.control(field.value, validators);
+              var control = _this11.formBuilder.control(field.value, validators);
 
-              _this12.dynamicFormGroup.addControl(field.fieldId, control);
+              _this11.dynamicFormGroup.addControl(field.fieldId, control);
             });
           }
         }, {
@@ -2588,7 +2590,7 @@
         }, {
           key: "openIconPickerDialog",
           value: function openIconPickerDialog(fieldId) {
-            var _this13 = this;
+            var _this12 = this;
 
             var dialogRef = this.dialog.open(_icon_picker_dialog_icon_picker_dialog_component__WEBPACK_IMPORTED_MODULE_9__["IconPickerDialogComponent"], {
               width: '600px',
@@ -2599,9 +2601,9 @@
             });
             dialogRef.afterClosed().subscribe(function (res) {
               if (res) {
-                _this13.getFormControlByName(fieldId).setValue(res);
+                _this12.getFormControlByName(fieldId).setValue(res);
 
-                _this13.iconName = res;
+                _this12.iconName = res;
               }
             });
           }
@@ -2749,15 +2751,15 @@
         var _super = _createSuper(MatPaginationIntlService);
 
         function MatPaginationIntlService(translateService) {
-          var _this14;
+          var _this13;
 
           _classCallCheck(this, MatPaginationIntlService);
 
-          _this14 = _super.call(this);
-          _this14.translateService = translateService;
+          _this13 = _super.call(this);
+          _this13.translateService = translateService;
 
-          _this14.getRangeLabel = function (page, pageSize, length) {
-            var of = _this14.translateService ? _this14.translateService.instant("I18N.MAT_PAGINATOR.OF") : "of";
+          _this13.getRangeLabel = function (page, pageSize, length) {
+            var of = _this13.translateService ? _this13.translateService.instant("I18N.MAT_PAGINATOR.OF") : "of";
 
             if (length === 0 || pageSize === 0) {
               return "0 " + of + " " + length;
@@ -2770,24 +2772,24 @@
           }; // React whenever the language is changed
 
 
-          _this14.translateService.onLangChange.subscribe(function (_event) {
-            _this14.translateLabels();
+          _this13.translateService.onLangChange.subscribe(function (_event) {
+            _this13.translateLabels();
           }); // Initialize the translations once at construction time
 
 
-          _this14.translateLabels();
+          _this13.translateLabels();
 
-          return _this14;
+          return _this13;
         }
 
         _createClass(MatPaginationIntlService, [{
           key: "injectTranslateService",
           value: function injectTranslateService(translate) {
-            var _this15 = this;
+            var _this14 = this;
 
             this.translateService = translate;
             this.translateService.onLangChange.subscribe(function () {
-              _this15.translateLabels();
+              _this14.translateLabels();
             });
             this.translateLabels();
           }
@@ -3768,7 +3770,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this16 = this;
+            var _this15 = this;
 
             this._MatPaginatorIntl.itemsPerPageLabel = this.translate.instant('itemsPerLbl');
             this._MatPaginatorIntl.nextPageLabel = this.translate.instant('nextPageLbl');
@@ -3782,7 +3784,7 @@
               var startIndex = page * pageSize; // If the start index exceeds the list length, do not try and fix the end index to the end.
 
               var endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-              return "".concat(startIndex + 1, " - ").concat(endIndex, " ") + _this16.translate.instant('of') + " ".concat(length);
+              return "".concat(startIndex + 1, " - ").concat(endIndex, " ") + _this15.translate.instant('of') + " ".concat(length);
             };
 
             this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](this.listInput.data);
@@ -3809,21 +3811,21 @@
         }, {
           key: "downloadFile",
           value: function downloadFile(fileName) {
-            var _this17 = this;
+            var _this16 = this;
 
             this.spinner.show();
             return this.baseService.downloadFile(fileName).subscribe(function (res) {
-              _this17.fileSaverService.save(res, fileName);
+              _this16.fileSaverService.save(res, fileName);
 
-              _this17.spinner.hide();
+              _this16.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this17.notification.showNotification(error.error, 'danger');
+                _this16.notification.showNotification(error.error, 'danger');
               } else {
-                _this17.notification.showNotification('somethingWentWrong', 'danger');
+                _this16.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this17.spinner.hide();
+              _this16.spinner.hide();
             });
           }
         }]);
@@ -4314,28 +4316,28 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this18 = this;
+            var _this17 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
               if (params.roundId) {
-                _this18.userType.setValue(3);
+                _this17.userType.setValue(3);
 
-                _this18.getAllOrdersByRoundId(params.roundId);
+                _this17.getAllOrdersByRoundId(params.roundId);
               } else {
-                _this18.filterValue = JSON.parse(sessionStorage.getItem('recordForm'));
+                _this17.filterValue = JSON.parse(sessionStorage.getItem('recordForm'));
 
-                _this18.filterForm.get('clientId').setValue(_this18.filterValue.clientId);
+                _this17.filterForm.get('clientId').setValue(_this17.filterValue.clientId);
 
-                _this18.filterForm.get('driverId').setValue(_this18.filterValue.driverId);
+                _this17.filterForm.get('driverId').setValue(_this17.filterValue.driverId);
 
-                _this18.filterForm.get('userType').setValue(_this18.filterValue.userType);
+                _this17.filterForm.get('userType').setValue(_this17.filterValue.userType);
 
-                _this18.filterForm.get('ordersDateTo').setValue(_this18.filterValue.ordersDateTo);
+                _this17.filterForm.get('ordersDateTo').setValue(_this17.filterValue.ordersDateTo);
 
-                _this18.filterForm.get('ordersDateFrom').setValue(_this18.filterValue.ordersDateFrom);
+                _this17.filterForm.get('ordersDateFrom').setValue(_this17.filterValue.ordersDateFrom);
 
-                _this18.getAllOrders(10, 1);
+                _this17.getAllOrders(10, 1);
               }
             });
           }
@@ -4413,7 +4415,7 @@
         }, {
           key: "getAllOrders",
           value: function getAllOrders(pageSize, pageNumber) {
-            var _this19 = this;
+            var _this18 = this;
 
             this.isLoadingResults = true;
             this.PageSize.setValue(pageSize);
@@ -4433,36 +4435,36 @@
 
             if (this.userType.value == 2 || this.userType.value == 3) {
               this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Actions"].DailyRecords, request).subscribe(function (res) {
-                _this19.isValidLink = res.isValid;
+                _this18.isValidLink = res.isValid;
 
-                if (_this19.userType.value == 2) {
+                if (_this18.userType.value == 2) {
                   console.log('Drivers List', res);
-                  _this19.driversList = res.orderListWithRevenue.data;
+                  _this18.driversList = res.orderListWithRevenue.data;
 
-                  if (_this19.driversList.length == 0) {
-                    _this19.isEmptyData = true;
+                  if (_this18.driversList.length == 0) {
+                    _this18.isEmptyData = true;
                   }
-                } else if (_this19.userType.value == 3) {
+                } else if (_this18.userType.value == 3) {
                   console.log('Clients List', res);
-                  _this19.clientsList = res.orderListWithRevenue.data;
+                  _this18.clientsList = res.orderListWithRevenue.data;
 
-                  if (_this19.clientsList.length == 0) {
-                    _this19.isEmptyData = true;
+                  if (_this18.clientsList.length == 0) {
+                    _this18.isEmptyData = true;
                   }
                 }
 
-                _this19.totalCompanyRevenue = res.totalCompanyRevenue;
-                _this19.totalDriverRevenue = res.totalDriverRevenue;
-                _this19.totalClientRevenue = res.totalClientRevenue;
-                _this19.totalOrderPrices = res.totalOrderPrices;
-                _this19.additionalCostsTotal = res.additionalCostsTotal;
-                _this19.total = res.total;
-                _this19.isLoadingResults = false;
-                _this19.isRateLimitReached = false;
+                _this18.totalCompanyRevenue = res.totalCompanyRevenue;
+                _this18.totalDriverRevenue = res.totalDriverRevenue;
+                _this18.totalClientRevenue = res.totalClientRevenue;
+                _this18.totalOrderPrices = res.totalOrderPrices;
+                _this18.additionalCostsTotal = res.additionalCostsTotal;
+                _this18.total = res.total;
+                _this18.isLoadingResults = false;
+                _this18.isRateLimitReached = false;
               }, function (error) {
-                _this19.isLoadingResults = false;
+                _this18.isLoadingResults = false;
 
-                _this19.notification.showNotification(error.error, 'Failed');
+                _this18.notification.showNotification(error.error, 'Failed');
               });
             } else if (this.userType.value == 5) {
               var object = {
@@ -4474,10 +4476,10 @@
               };
               this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Actions"].GetDriversDetails, request).subscribe(function (res) {
                 console.log('Driver Details', res);
-                _this19.driverdetailsList = res;
+                _this18.driverdetailsList = res;
 
-                if (_this19.driverdetailsList.length == 0) {
-                  _this19.isEmptyData = true;
+                if (_this18.driverdetailsList.length == 0) {
+                  _this18.isEmptyData = true;
                 }
               });
             } else if (this.userType.value == 4) {
@@ -4491,10 +4493,10 @@
               console.log('Sending Client Request', request);
               this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Actions"].GetClientsDetails, _object).subscribe(function (res) {
                 console.log('Client Details', res);
-                _this19.clientdetailsList = res;
+                _this18.clientdetailsList = res;
 
-                if (_this19.clientdetailsList.length == 0) {
-                  _this19.isEmptyData = true;
+                if (_this18.clientdetailsList.length == 0) {
+                  _this18.isEmptyData = true;
                 }
               });
             }
@@ -4504,39 +4506,39 @@
         }, {
           key: "getAllOrdersByRoundId",
           value: function getAllOrdersByRoundId(roundId) {
-            var _this20 = this;
+            var _this19 = this;
 
             this.isLoadingResults = true;
             this.baseService.getItemsByKey(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_10__["Actions"].DailyRecordsByRoundId, 'roundId', roundId).subscribe(function (res) {
-              _this20.isValidLink = res.isValid;
+              _this19.isValidLink = res.isValid;
 
-              if (_this20.isValidLink) {
+              if (_this19.isValidLink) {
                 console.log('Clients List', res);
-                _this20.clientsList = res.orderListWithRevenue.data;
+                _this19.clientsList = res.orderListWithRevenue.data;
 
-                _this20.filterForm.get('ordersDateTo').setValue(res.dateFrom);
+                _this19.filterForm.get('ordersDateTo').setValue(res.dateFrom);
 
-                _this20.filterForm.get('ordersDateFrom').setValue(res.dateTo);
+                _this19.filterForm.get('ordersDateFrom').setValue(res.dateTo);
 
-                if (_this20.clientsList.length == 0) {
-                  _this20.isEmptyData = true;
+                if (_this19.clientsList.length == 0) {
+                  _this19.isEmptyData = true;
                 }
 
-                _this20.totalCompanyRevenue = res.totalCompanyRevenue;
-                _this20.totalDriverRevenue = res.totalDriverRevenue;
-                _this20.totalClientRevenue = res.totalClientRevenue;
-                _this20.totalOrderPrices = res.totalOrderPrices;
+                _this19.totalCompanyRevenue = res.totalCompanyRevenue;
+                _this19.totalDriverRevenue = res.totalDriverRevenue;
+                _this19.totalClientRevenue = res.totalClientRevenue;
+                _this19.totalOrderPrices = res.totalOrderPrices;
               }
 
-              _this20.isLoadingResults = false;
+              _this19.isLoadingResults = false;
 
-              _this20.spinner.hide();
+              _this19.spinner.hide();
 
-              _this20.isRateLimitReached = false;
+              _this19.isRateLimitReached = false;
             }, function (error) {
-              _this20.isLoadingResults = false;
+              _this19.isLoadingResults = false;
 
-              _this20.notification.showNotification(error.error, 'Failed');
+              _this19.notification.showNotification(error.error, 'Failed');
             });
           }
         }, {
@@ -4760,36 +4762,36 @@
         _createClass(PublicOrderDetailsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this21 = this;
+            var _this20 = this;
 
             this.spinner.show();
             this.route.params.subscribe(function (params) {
-              _this21.getAsync(params.id);
+              _this20.getAsync(params.id);
             });
           }
         }, {
           key: "getAsync",
           value: function getAsync(id) {
-            var _this22 = this;
+            var _this21 = this;
 
             this.baseService.getForPublic(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Controllers"].Order, id).subscribe(function (res) {
-              _this22.order = res;
-              _this22.detailsInput.dataObject = _this22.order;
+              _this21.order = res;
+              _this21.detailsInput.dataObject = _this21.order;
 
-              _this22.getDriverDetailsByOrderId(id);
+              _this21.getDriverDetailsByOrderId(id);
             });
           }
         }, {
           key: "getDriverDetailsByOrderId",
           value: function getDriverDetailsByOrderId(id) {
-            var _this23 = this;
+            var _this22 = this;
 
             this.baseService.getDriverDetailsByOrderId(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Controllers"].Order, id).subscribe(function (res) {
-              _this23.orderDriver = res;
-              _this23.driverDetailsInput.dataObject = _this23.orderDriver;
-              _this23.isLoading = false;
+              _this22.orderDriver = res;
+              _this22.driverDetailsInput.dataObject = _this22.orderDriver;
+              _this22.isLoading = false;
 
-              _this23.spinner.hide();
+              _this22.spinner.hide();
             });
           }
         }]);
@@ -5920,7 +5922,7 @@
         _createClass(OrderNotesComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this24 = this;
+            var _this23 = this;
 
             this._MatPaginatorIntl.itemsPerPageLabel = this.translate.instant('itemsPerLbl');
             this._MatPaginatorIntl.nextPageLabel = this.translate.instant('nextPageLbl');
@@ -5934,7 +5936,7 @@
               var startIndex = page * pageSize; // If the start index exceeds the list length, do not try and fix the end index to the end.
 
               var endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-              return "".concat(startIndex + 1, " - ").concat(endIndex, " ") + _this24.translate.instant('of') + " ".concat(length);
+              return "".concat(startIndex + 1, " - ").concat(endIndex, " ") + _this23.translate.instant('of') + " ".concat(length);
             };
 
             console.log('Notes Comp');
@@ -5944,7 +5946,7 @@
         }, {
           key: "getNotes",
           value: function getNotes(pageSize, pageNumber) {
-            var _this25 = this;
+            var _this24 = this;
 
             var request = {
               pageSize: pageSize,
@@ -5954,24 +5956,24 @@
             console.log(request);
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Controllers"].OrderNotes, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Actions"].GetList, request).subscribe(function (res) {
               console.log(res);
-              _this25.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res.entities);
-              _this25.totalCount = res.totalCount;
+              _this24.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res.entities);
+              _this24.totalCount = res.totalCount;
 
-              _this25.spinner.hide();
+              _this24.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this25.notification.showNotification(error.error, 'danger');
+                _this24.notification.showNotification(error.error, 'danger');
               } else {
-                _this25.notification.showNotification(_this25.translate.instant('somethingWentWrong'), 'danger');
+                _this24.notification.showNotification(_this24.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this25.spinner.hide();
+              _this24.spinner.hide();
             });
           }
         }, {
           key: "addNote",
           value: function addNote() {
-            var _this26 = this;
+            var _this25 = this;
 
             var dialogRef = this.dialog.open(_add_note_dialog_add_note_dialog_component__WEBPACK_IMPORTED_MODULE_13__["AddNoteDialogComponent"], {
               width: '700px',
@@ -5983,7 +5985,7 @@
               autoFocus: false
             });
             dialogRef.afterClosed().subscribe(function (res) {
-              _this26.getNotes(_this26.pageSize, _this26.pageNumber);
+              _this25.getNotes(_this25.pageSize, _this25.pageNumber);
             });
           }
         }, {
@@ -5996,40 +5998,40 @@
         }, {
           key: "updatePrice",
           value: function updatePrice(price) {
-            var _this27 = this;
+            var _this26 = this;
 
             this.baseService.updateAreaGroupClientPrices(price).subscribe(function (res) {
-              _this27.spinner.hide();
+              _this26.spinner.hide();
 
-              _this27.notification.showOriginalNotification(res, 'success');
+              _this26.notification.showOriginalNotification(res, 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this27.notification.showNotification(error.error, 'danger');
+                _this26.notification.showNotification(error.error, 'danger');
               } else {
-                _this27.notification.showNotification(_this27.translate.instant('somethingWentWrong'), 'danger');
+                _this26.notification.showNotification(_this26.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this27.spinner.hide();
+              _this26.spinner.hide();
             });
           }
         }, {
           key: "downloadFile",
           value: function downloadFile(fileName) {
-            var _this28 = this;
+            var _this27 = this;
 
             this.spinner.show();
             return this.baseService.downloadFile(fileName).subscribe(function (res) {
-              _this28.fileSaverService.save(res, fileName);
+              _this27.fileSaverService.save(res, fileName);
 
-              _this28.spinner.hide();
+              _this27.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this28.notification.showNotification(error.error, 'danger');
+                _this27.notification.showNotification(error.error, 'danger');
               } else {
-                _this28.notification.showNotification('somethingWentWrong', 'danger');
+                _this27.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this28.spinner.hide();
+              _this27.spinner.hide();
             });
           }
         }]);
@@ -6223,13 +6225,13 @@
         _createClass(AuthorizeService, [{
           key: "refreshToken",
           value: function refreshToken() {
-            var _this29 = this;
+            var _this28 = this;
 
             return this.http.post("".concat(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiPreLink + _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Auth, "RefreshToken"), {
               accessToken: this.getJwtToken(),
               refreshToken: this.getRefreshToken()
             }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_8__["tap"])(function (tokens) {
-              _this29.storeJwtToken(tokens.accessToken, tokens.refreshToken);
+              _this28.storeJwtToken(tokens.accessToken, tokens.refreshToken);
             }));
           }
         }, {
@@ -6540,35 +6542,35 @@
         }, {
           key: "getUserRoles",
           value: function getUserRoles() {
-            var _this30 = this;
+            var _this29 = this;
 
             this.baseService.getUserRoles(this.userId).subscribe(function (res) {
-              _this30.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res);
+              _this29.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res);
 
-              _this30.spinner.hide();
+              _this29.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this30.notification.showNotification(error.error, 'danger');
+                _this29.notification.showNotification(error.error, 'danger');
               } else {
-                _this30.notification.showNotification(_this30.translate.instant('somethingWentWrong'), 'danger');
+                _this29.notification.showNotification(_this29.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this30.spinner.hide();
+              _this29.spinner.hide();
             });
           }
         }, {
           key: "getRoles",
           value: function getRoles() {
-            var _this31 = this;
+            var _this30 = this;
 
             this.baseService.getRoles().subscribe(function (res) {
-              _this31.roles = res;
+              _this30.roles = res;
             });
           }
         }, {
           key: "openDeleteDialog",
           value: function openDeleteDialog(roleId) {
-            var _this32 = this;
+            var _this31 = this;
 
             var dialogRef = this.dialog.open(_yes_no_dialog_yes_no_dialog_component__WEBPACK_IMPORTED_MODULE_10__["YesNoDialogComponent"], {
               width: '400px',
@@ -6579,27 +6581,27 @@
             });
             dialogRef.afterClosed().subscribe(function (res) {
               if (res) {
-                _this32.spinner.show();
+                _this31.spinner.show();
 
                 var request = {
                   RoleId: roleId,
-                  UserId: Number(_this32.userId)
+                  UserId: Number(_this31.userId)
                 };
 
-                _this32.baseService.removeUserRole(request).subscribe(function (res) {
-                  _this32.getUserRoles();
+                _this31.baseService.removeUserRole(request).subscribe(function (res) {
+                  _this31.getUserRoles();
 
-                  _this32.spinner.hide();
+                  _this31.spinner.hide();
 
-                  _this32.notification.showNotification(res, 'success');
+                  _this31.notification.showNotification(res, 'success');
                 }, function (error) {
                   if (error.status === 400) {
-                    _this32.notification.showNotification(error.error, 'danger');
+                    _this31.notification.showNotification(error.error, 'danger');
                   } else {
-                    _this32.notification.showNotification('somethingWentWrong', 'danger');
+                    _this31.notification.showNotification('somethingWentWrong', 'danger');
                   }
 
-                  _this32.spinner.hide();
+                  _this31.spinner.hide();
                 });
               }
             });
@@ -6607,7 +6609,7 @@
         }, {
           key: "addUserRole",
           value: function addUserRole() {
-            var _this33 = this;
+            var _this32 = this;
 
             this.spinner.show();
             var request = {
@@ -6615,19 +6617,19 @@
               UserId: Number(this.userId)
             };
             this.baseService.postItemTextReponse(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_11__["Controllers"].User, 'AddUserRole', request).subscribe(function (res) {
-              _this33.getUserRoles();
+              _this32.getUserRoles();
 
-              _this33.spinner.hide();
+              _this32.spinner.hide();
 
-              _this33.notification.showNotification(res, 'success');
+              _this32.notification.showNotification(res, 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this33.notification.showNotification(error.error, 'danger');
+                _this32.notification.showNotification(error.error, 'danger');
               } else {
-                _this33.notification.showNotification('somethingWentWrong', 'danger');
+                _this32.notification.showNotification('somethingWentWrong', 'danger');
               }
 
-              _this33.spinner.hide();
+              _this32.spinner.hide();
             });
           }
         }]);
@@ -6812,7 +6814,7 @@
       !*** ./src/forms-module/dynamic-data/index.ts ***!
       \************************************************/
 
-    /*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm */
+    /*! exports provided: UserCreateForm, OrderSearchForm, UserSearchForm, OrderList, UsersList, UpdateUserForm, UpdateMerchantForm, OrderForm, OrderUpdateForm, PostponedOrdersSearchForm, EmployeeCreateForm, EmployeeUpdateForm, RecordSearchForm, RecordList, FinancialRoundSearchForm, FinancialRoundList, CitySearchForm, CityList, CityCreateForm, CityUpdateForm, AreaGroupSearchForm, AreaGroupList, AreaGroupForm, AreaGroupFormUpdate, AreaSearchForm, AreaList, AreaCreateForm, AreaUpdateForm, OrderStatusSearchForm, OrderStatusList, OrderStatusCreateForm, OrderStatusUpdateForm, PromoCodeSearchForm, PromoCodeList, PromoCodeCreateForm, PromoCodeUpdateForm, MsgCreateForm, DashboardSearchForm, AddNoteForm */
 
     /***/
     function WBh1(module, __webpack_exports__, __webpack_require__) {
@@ -7046,6 +7048,12 @@
 
       __webpack_require__.d(__webpack_exports__, "DashboardSearchForm", function () {
         return DashboardSearchForm;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "AddNoteForm", function () {
+        return AddNoteForm;
       });
       /* harmony import */
 
@@ -8267,7 +8275,7 @@
         }
       }, {
         fieldId: 'isOrderPriceIncluded',
-        fieldOrder: 1,
+        fieldOrder: 8,
         fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].CheckBox,
         label: 'isOrderPriceIncluded',
         value: false,
@@ -8275,6 +8283,18 @@
         options: {
           disabled: false,
           required: false,
+          size: 4
+        }
+      }, {
+        fieldId: 'isQRRequired',
+        fieldOrder: 9,
+        fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].CheckBox,
+        label: 'IsQRRequired',
+        value: false,
+        placeholder: 'IsQRRequired',
+        options: {
+          disabled: false,
+          required: true,
           size: 4
         }
       }];
@@ -8470,6 +8490,32 @@
             disabled: false,
             required: false,
             size: 4
+          }
+        }]
+      };
+      var AddNoteForm = {
+        actions: [addAction],
+        formFields: [{
+          fieldId: 'OrderNoteText',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].Input,
+          label: 'note',
+          placeholder: 'note',
+          options: {
+            disabled: false,
+            required: true,
+            size: 12
+          }
+        }, {
+          fieldId: 'File',
+          fieldOrder: 1,
+          fieldType: _shared_enums_enums__WEBPACK_IMPORTED_MODULE_0__["FieldTypeEnum"].File,
+          label: 'file',
+          placeholder: 'file',
+          options: {
+            disabled: false,
+            required: false,
+            size: 12
           }
         }]
       };
@@ -9888,28 +9934,28 @@
         }, {
           key: "getAllDrivers",
           value: function getAllDrivers() {
-            var _this34 = this;
+            var _this33 = this;
 
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Actions"].GetActiveDriversList, this.filterForm.value).subscribe(function (res) {
-              _this34.drivers = res;
-              console.log(_this34.drivers);
-              _this34.filteredOptions = _this34.driversControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_12__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_12__["map"])(function (value) {
+              _this33.drivers = res;
+              console.log(_this33.drivers);
+              _this33.filteredOptions = _this33.driversControl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_12__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_12__["map"])(function (value) {
                 return typeof value === 'string' ? value : value.viewValueEn || value.viewValueAr;
               }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_12__["map"])(function (name) {
-                return name ? _this34.filterOptions(name, _this34.drivers) : _this34.drivers.slice();
+                return name ? _this33.filterOptions(name, _this33.drivers) : _this33.drivers.slice();
               }));
 
-              _this34.getAvailableDrivers();
+              _this33.getAvailableDrivers();
             }, function (error) {
-              _this34.notification.showNotification(error.error, 'Failed');
+              _this33.notification.showNotification(error.error, 'Failed');
 
-              _this34.spinner.hide();
+              _this33.spinner.hide();
             });
           }
         }, {
           key: "getAvailableDrivers",
           value: function getAvailableDrivers(pageSize, pageNumber) {
-            var _this35 = this;
+            var _this34 = this;
 
             var request = {
               pageSize: pageSize ? pageSize : this.pageSize,
@@ -9919,19 +9965,19 @@
               userId: this.driverId.value
             };
             this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Controllers"].User, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_7__["Actions"].GetList, request).subscribe(function (res) {
-              _this35.driverList = res.entities;
-              _this35.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res.entities);
-              _this35.totalCount = res.totalCount;
+              _this34.driverList = res.entities;
+              _this34.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](res.entities);
+              _this34.totalCount = res.totalCount;
 
-              _this35.spinner.hide();
+              _this34.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this35.notification.showNotification(error.error, 'danger');
+                _this34.notification.showNotification(error.error, 'danger');
               } else {
-                _this35.notification.showNotification(_this35.translate.instant('somethingWentWrong'), 'danger');
+                _this34.notification.showNotification(_this34.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this35.spinner.hide();
+              _this34.spinner.hide();
             });
           }
         }, {
@@ -10174,7 +10220,7 @@
         _createClass(NavbarComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this36 = this;
+            var _this35 = this;
 
             this.isLoggedIn = this.authService.isLoggedIn();
 
@@ -10188,13 +10234,13 @@
               var navbar = this.element.nativeElement;
               this.toggleButton = document.getElementsByClassName('navbar-toggler')[0];
               this.router.events.subscribe(function (event) {
-                _this36.sidebarClose();
+                _this35.sidebarClose();
 
                 var $layer = document.getElementsByClassName('close-layer')[0];
 
                 if ($layer) {
                   $layer.remove();
-                  _this36.mobile_menu_visible = 0;
+                  _this35.mobile_menu_visible = 0;
                 }
               });
             }
@@ -10396,7 +10442,7 @@
         }, {
           key: "intercept",
           value: function intercept(request, next) {
-            var _this37 = this;
+            var _this36 = this;
 
             if (this.authorize.getJwtToken()) {
               request = this.addToken(request, this.authorize.getJwtToken());
@@ -10405,7 +10451,7 @@
             request = this.addAcceptLanguage(request);
             return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(function (error) {
               if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpErrorResponse"] && error.status === 401) {
-                return _this37.handle401Error(request, next);
+                return _this36.handle401Error(request, next);
               } else {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
               }
@@ -10414,7 +10460,7 @@
         }, {
           key: "handle401Error",
           value: function handle401Error(req, next) {
-            var _this38 = this;
+            var _this37 = this;
 
             if (!this.isRefreshingToken) {
               this.isRefreshingToken = true; // Reset here so that the following requests wait until the token
@@ -10422,17 +10468,17 @@
 
               this.tokenSubject.next(null);
               return this.authorize.refreshToken().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (token) {
-                _this38.isRefreshingToken = false;
+                _this37.isRefreshingToken = false;
 
-                _this38.tokenSubject.next(token.jwt);
+                _this37.tokenSubject.next(token.jwt);
 
-                return next.handle(_this38.addToken(req, token.jwt));
+                return next.handle(_this37.addToken(req, token.jwt));
               }));
             } else {
               return this.tokenSubject.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (token) {
                 return token != null;
               }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (jwt) {
-                return next.handle(_this38.addToken(req, jwt));
+                return next.handle(_this37.addToken(req, jwt));
               }));
             }
           }
@@ -10776,7 +10822,7 @@
         _createClass(AdminLayoutComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this39 = this;
+            var _this38 = this;
 
             var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -10790,17 +10836,17 @@
             var elemMainPanel = document.querySelector('.main-panel');
             var elemSidebar = document.querySelector('.sidebar .sidebar-wrapper');
             this.location.subscribe(function (ev) {
-              _this39.lastPoppedUrl = ev.url;
+              _this38.lastPoppedUrl = ev.url;
             });
             this.router.events.subscribe(function (event) {
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_5__["NavigationStart"]) {
-                if (event.url != _this39.lastPoppedUrl) _this39.yScrollStack.push(window.scrollY);
+                if (event.url != _this38.lastPoppedUrl) _this38.yScrollStack.push(window.scrollY);
               } else if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_5__["NavigationEnd"]) {
                 jquery__WEBPACK_IMPORTED_MODULE_6__("#mainBar").hide('slow');
 
-                if (event.url == _this39.lastPoppedUrl) {
-                  _this39.lastPoppedUrl = undefined;
-                  window.scrollTo(0, _this39.yScrollStack.pop());
+                if (event.url == _this38.lastPoppedUrl) {
+                  _this38.lastPoppedUrl = undefined;
+                  window.scrollTo(0, _this38.yScrollStack.pop());
                 } else window.scrollTo(0, 0);
               }
             });
@@ -11309,7 +11355,7 @@
         }, {
           key: "getAllPrices",
           value: function getAllPrices(pageSize, pageNumber) {
-            var _this40 = this;
+            var _this39 = this;
 
             var request = {
               pageSize: pageSize,
@@ -11317,18 +11363,18 @@
               userId: this.clientId
             };
             this.baseService.getClienAreaGroupPrices(request).subscribe(function (res) {
-              _this40.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](res.entities);
-              _this40.totalCount = res.totalCount;
+              _this39.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"](res.entities);
+              _this39.totalCount = res.totalCount;
 
-              _this40.spinner.hide();
+              _this39.spinner.hide();
             }, function (error) {
               if (error.status === 400) {
-                _this40.notification.showNotification(error.error, 'danger');
+                _this39.notification.showNotification(error.error, 'danger');
               } else {
-                _this40.notification.showNotification(_this40.translate.instant('somethingWentWrong'), 'danger');
+                _this39.notification.showNotification(_this39.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this40.spinner.hide();
+              _this39.spinner.hide();
             });
           }
         }, {
@@ -11341,20 +11387,20 @@
         }, {
           key: "updatePrice",
           value: function updatePrice(price) {
-            var _this41 = this;
+            var _this40 = this;
 
             this.baseService.updateAreaGroupClientPrices(price).subscribe(function (res) {
-              _this41.spinner.hide();
+              _this40.spinner.hide();
 
-              _this41.notification.showOriginalNotification(res, 'success');
+              _this40.notification.showOriginalNotification(res, 'success');
             }, function (error) {
               if (error.status === 400) {
-                _this41.notification.showNotification(error.error, 'danger');
+                _this40.notification.showNotification(error.error, 'danger');
               } else {
-                _this41.notification.showNotification(_this41.translate.instant('somethingWentWrong'), 'danger');
+                _this40.notification.showNotification(_this40.translate.instant('somethingWentWrong'), 'danger');
               }
 
-              _this41.spinner.hide();
+              _this40.spinner.hide();
             });
           }
         }]);
@@ -11497,7 +11543,7 @@
         _createClass(AddEndUserDialogComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this42 = this;
+            var _this41 = this;
 
             console.log(this.data);
             this.dialogType = this.data.dialogType;
@@ -11512,10 +11558,10 @@
               pageNumber: 1
             };
             this.baseService.postItem(_global_variables_api_config__WEBPACK_IMPORTED_MODULE_4__["Controllers"].User, _global_variables_api_config__WEBPACK_IMPORTED_MODULE_4__["Actions"].GetList, request).subscribe(function (res) {
-              _this42.merchants = res.entities;
+              _this41.merchants = res.entities;
             });
             this.baseService.postItem(_global_variables_api_config__WEBPACK_IMPORTED_MODULE_4__["Controllers"].User, _global_variables_api_config__WEBPACK_IMPORTED_MODULE_4__["Actions"].GetList, request2).subscribe(function (res) {
-              _this42.drivers = res.entities;
+              _this41.drivers = res.entities;
             });
           }
         }, {

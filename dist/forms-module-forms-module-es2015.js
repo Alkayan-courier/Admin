@@ -220,13 +220,13 @@ let OrderDetailsComponent = class OrderDetailsComponent {
     }
     ngOnInit() {
         this.spinner.show();
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.orderNoteId = params.id;
             this.getAsync(params.id);
         });
     }
     getAsync(id) {
-        this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, id).subscribe(res => {
+        this.baseService.getById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, id).subscribe((res) => {
             this.order = res;
             console.log(res);
             this.detailsInput.dataObject = this.order;
@@ -235,7 +235,8 @@ let OrderDetailsComponent = class OrderDetailsComponent {
         });
     }
     getListSettings() {
-        this.dynamicService.getListSettings('OrderNotesList').subscribe(res => {
+        this.dynamicService.getListSettings('OrderNotesList').subscribe((res) => {
+            console.log("🚀 ~ OrderDetailsComponent ~ this.dynamicService.getListSettings ~ res:", res);
             this.order = res;
             this.dynamicListInput = this.order;
             this.getListData();
@@ -243,9 +244,11 @@ let OrderDetailsComponent = class OrderDetailsComponent {
     }
     exportPdf() {
         let request = {
-            ordersId: 1
+            ordersId: 1,
         };
-        this.baseService.downloadPdf(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].ExportPdf, request).subscribe(res => {
+        this.baseService
+            .downloadPdf(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].ExportPdf, request)
+            .subscribe((res) => {
             console.log(res);
             // var a = document.createElement("a");
             // const blob = new Blob([res.body], { type:res.body.type });
@@ -258,10 +261,12 @@ let OrderDetailsComponent = class OrderDetailsComponent {
         let request = {
             pageSize: pageSize ? pageSize : this.pageSize,
             pageNumber: pageNumber ? pageNumber : this.pageNumber,
-            orderId: this.orderNoteId
+            orderId: this.orderNoteId,
         };
         console.log('Request', request);
-        this.baseService.postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderNotes, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, request).subscribe(res => {
+        this.baseService
+            .postItem(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].OrderNotes, _shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Actions"].GetList, request)
+            .subscribe((res) => {
             console.log(res);
             this.notes = res.entities;
             this.dynamicListInput.data = this.notes;
@@ -272,46 +277,45 @@ let OrderDetailsComponent = class OrderDetailsComponent {
     }
     serveListAction(event) {
         switch (event.action) {
-            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].Delete:
-                {
-                    const dialogRef = this.dialog.open(_shared_shared_components_yes_no_dialog_yes_no_dialog_component__WEBPACK_IMPORTED_MODULE_15__["YesNoDialogComponent"], {
-                        width: '400px',
-                        data: {
-                            title: 'confirm',
-                            content: 'confirmDeleteMessage'
-                        }
-                    });
-                    dialogRef.afterClosed().subscribe(res => {
-                        if (res) {
-                            this.spinner.show();
-                            this.baseService.removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId).subscribe(res => {
-                                this.getListData(this.pageSize, this.pageNumber);
-                                this.isLoading = false;
-                                this.spinner.hide();
-                                this.notification.showNotification(res, 'success');
-                            }, error => {
-                                if (error.status === 400) {
-                                    this.notification.showNotification(error.error, 'danger');
-                                }
-                                else {
-                                    this.notification.showNotification('somethingWentWrong', 'danger');
-                                }
-                                this.spinner.hide();
-                            });
-                        }
-                    });
-                    break;
-                }
-            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].Edit:
-                {
-                    this.router.navigate([`/forms/order-update/${event.entityId}`]);
-                    break;
-                }
-            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].View:
-                {
-                    this.router.navigate([`/forms/order-details/${event.entityId}`]);
-                    break;
-                }
+            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].Delete: {
+                const dialogRef = this.dialog.open(_shared_shared_components_yes_no_dialog_yes_no_dialog_component__WEBPACK_IMPORTED_MODULE_15__["YesNoDialogComponent"], {
+                    width: '400px',
+                    data: {
+                        title: 'confirm',
+                        content: 'confirmDeleteMessage',
+                    },
+                });
+                dialogRef.afterClosed().subscribe((res) => {
+                    if (res) {
+                        this.spinner.show();
+                        this.baseService
+                            .removeItemById(_shared_global_variables_api_config__WEBPACK_IMPORTED_MODULE_6__["Controllers"].Order, event.entityId)
+                            .subscribe((res) => {
+                            this.getListData(this.pageSize, this.pageNumber);
+                            this.isLoading = false;
+                            this.spinner.hide();
+                            this.notification.showNotification(res, 'success');
+                        }, (error) => {
+                            if (error.status === 400) {
+                                this.notification.showNotification(error.error, 'danger');
+                            }
+                            else {
+                                this.notification.showNotification('somethingWentWrong', 'danger');
+                            }
+                            this.spinner.hide();
+                        });
+                    }
+                });
+                break;
+            }
+            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].Edit: {
+                this.router.navigate([`/forms/order-update/${event.entityId}`]);
+                break;
+            }
+            case _shared_enums_enums__WEBPACK_IMPORTED_MODULE_12__["ListActionTypeEnum"].View: {
+                this.router.navigate([`/forms/order-details/${event.entityId}`]);
+                break;
+            }
             default:
                 break;
         }
@@ -340,8 +344,10 @@ OrderDetailsComponent = __decorate([
         _shared_services_base_service__WEBPACK_IMPORTED_MODULE_7__["BaseService"],
         ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"],
         _shared_services_dynamic_form_service__WEBPACK_IMPORTED_MODULE_5__["DynamicDataService"],
-        _shared_services_notification_service__WEBPACK_IMPORTED_MODULE_9__["NotificationService"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_14__["MatDialog"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__["TranslateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        _shared_services_notification_service__WEBPACK_IMPORTED_MODULE_9__["NotificationService"],
+        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_14__["MatDialog"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__["TranslateService"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], OrderDetailsComponent);
 
 

@@ -1097,12 +1097,21 @@ const OrderFormFields = [
   },
   {
     fieldId: 'isOrderPriceIncluded',
-    fieldOrder: 1,
+    fieldOrder: 8,
     fieldType: FieldTypeEnum.CheckBox,
     label: 'isOrderPriceIncluded',
     value: false,
     placeholder: 'isOrderPriceIncluded',
     options: { disabled: false, required: false, size: 4 },
+  },
+  {
+    fieldId: 'isQRRequired',
+    fieldOrder: 9,
+    fieldType: FieldTypeEnum.CheckBox,
+    label: 'IsQRRequired',
+    value: false,
+    placeholder: 'IsQRRequired',
+    options: { disabled: false, required: true, size: 4 },
   },
 ];
 

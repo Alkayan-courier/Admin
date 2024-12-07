@@ -12,6 +12,7 @@ import { DynamicFormInput } from '../../../shared/models/dynamic-form-input';
 import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.model';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { OrderStatusUpdateForm } from '../../dynamic-data';
+import { FieldTypeEnum } from '../../../shared/enums/enums';
 
 @Component({
   selector: 'app-order-status-update',

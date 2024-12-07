@@ -325,6 +325,7 @@
    "expiryFromDate": "من (تاريخ الانتهاء)",
    "expiryToDate": "الى (تاريخ الانتهاء)",
    "isOrderPriceIncluded": "اضمان سعر الطلب",
+   "IsQRRequired": "هل رمز الاستجابة السريعة QR مطلوب؟",
    "false": "لا",
    "true": "نعم",
    "messageText": "نص الرسالة",

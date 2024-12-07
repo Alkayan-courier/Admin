@@ -331,6 +331,7 @@
    "expiryFromDate": "Expiry From Date",
    "expiryToDate": "Expiry To Date",
    "isOrderPriceIncluded": "Is Order Price Included",
+   "IsQRRequired": "Is QR Code Required",
    "true": "true",
    "false": "false",
    "messageText": "Message Text",
