@@ -71,9 +71,9 @@ export class RecordListComponent implements OnInit {
     this.baseService
       .postItem(Controllers.Record, Actions.GetList, request)
       .subscribe((res) => {
-        this.recordList = res.result.entities;
+        this.recordList = res.entities;
         this.dynamicListInput.data = this.recordList;
-        this.dynamicListInput.totalCount = res.result.totalCount;
+        this.dynamicListInput.totalCount = res.totalCount;
         this.isLoading = false;
         this.spinner.hide();
       });
