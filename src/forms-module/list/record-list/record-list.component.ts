@@ -60,11 +60,13 @@ export class RecordListComponent implements OnInit {
   public getListSettings() {
     this.dynamicListInput.columns = RecordList;
     this.getListData();
+    this.spinner.hide();
   }
   public getListData(pageSize?: number, pageNumber?: number) {
     let request = {
       pageSize: pageSize ? pageSize : this.pageSize,
       pageNumber: pageNumber ? pageNumber : this.pageNumber,
+      name: '',
     };
     this.baseService
       .postItem(Controllers.Record, Actions.GetList, request)
