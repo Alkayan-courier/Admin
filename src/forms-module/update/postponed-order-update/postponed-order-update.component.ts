@@ -10,6 +10,7 @@ import { DynamicFormOutput } from '../../../shared/models/dynamic-form-output.mo
 import { NotificationService } from '../../../shared/services/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RoleTypes } from '../../../shared/enums/enums';
+import { OrderUpdateForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-postponed-order-update',
@@ -58,11 +59,9 @@ export class PostponedOrderUpdateComponent implements OnInit {
     return RoleTypes;
   }
   public getFieldsData(client: any) {
-    this.dynamicService.getFormSettings('OrderUpdateForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      this.dynamicFormInput.formFields.forEach(field => {
-        field.value = client[field.fieldId];
-      });
+    this.dynamicFormInput = OrderUpdateForm;
+    this.dynamicFormInput.formFields.forEach(field => {
+      field.value = client[field.fieldId];
     });
     this.baseService.getAllForList(Controllers.Area).subscribe(res => {
       this.areas = res;

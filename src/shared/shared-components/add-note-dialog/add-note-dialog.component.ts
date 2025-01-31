@@ -66,8 +66,6 @@ export class AddNoteDialogComponent implements OnInit {
     this.dynamicFormInput = AddNoteForm;
     this.isLoading = false;
     this.spinner.hide();
-    // this.dynamicService.getFormSettings('AddNoteForm').subscribe((res) => {
-    // });
   }
   public serveAction(event: DynamicFormOutput) {
     if (event.data.orderNoteText == '' && event.data.file == '') {

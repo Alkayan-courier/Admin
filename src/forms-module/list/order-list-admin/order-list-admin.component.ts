@@ -71,8 +71,6 @@ export class OrderListAdminComponent implements OnInit {
       ).value = storedForm.toDate;
     }
     this.getAllStatuses();
-    // this.dynamicService.getFormSettings('OrderSearchForm').subscribe((res) => {
-    // });
   }
 
   public getListData(pageSize?: number, pageNumber?: number) {
