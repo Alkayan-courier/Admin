@@ -57,9 +57,7 @@ export class CityListComponent implements OnInit {
     this.getListSettings();
   }
   public getFormData() {
-    this.dynamicService.getFormSettings('CitySearchForm').subscribe((res) => {
-      this.dynamicFormInput = res;
-    });
+    this.dynamicFormInput = CitySearchForm;
   }
   public getListSettings() {
     this.baseService.getAllForList(Controllers.City).subscribe((res) => {

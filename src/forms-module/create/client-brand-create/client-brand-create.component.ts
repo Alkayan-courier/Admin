@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { param } from 'jquery';
+import { ClientBrandForm } from '../../dynamic-data';
 
 @Component({
   selector: 'app-client-brand-create',
@@ -37,7 +38,6 @@ export class ClientBrandCreateComponent implements OnInit {
     this.getFieldsData();
   }
   public serveAction(event: DynamicFormOutput) {
-    console.log(event);
     let formData = new FormData();
     Object.entries(event.data).forEach(element => {
       var file;
@@ -65,14 +65,9 @@ export class ClientBrandCreateComponent implements OnInit {
     })
   }
   public getFieldsData() {
-    this.dynamicService.getFormSettings('ClientBrandForm').subscribe(res => {
-      this.dynamicFormInput = res;
-      console.log(this.dynamicFormInput);
-      this.isLoading = false;
-      this.spinner.hide();
-    });
-
-
+    this.dynamicFormInput = ClientBrandForm;
+    this.isLoading = false;
+    this.spinner.hide();
   }
   public getTranslatableText(key: string) {
     var textValue = "";

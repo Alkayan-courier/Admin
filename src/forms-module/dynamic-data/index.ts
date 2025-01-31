@@ -1292,6 +1292,19 @@ export const DashboardSearchForm: DynamicFormInput = {
     },
   ],
 };
+export const ClientBrandSearchForm: DynamicFormInput = {
+  actions: [searchAction, resetAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: false, size: 4 },
+    },
+  ],
+};
 
 export const AddNoteForm: DynamicFormInput = {
   actions: [addAction],
@@ -1311,6 +1324,57 @@ export const AddNoteForm: DynamicFormInput = {
       label: 'file',
       placeholder: 'file',
       options: { disabled: false, required: false, size: 12 },
+    },
+  ],
+};
+
+export const ClientBrandsList: DynamicListColumn[] = [
+  {
+    columnId: 'name',
+    columnName: 'name',
+    columnValue: 'name',
+    actions: [],
+  },
+  {
+    columnId: 'phoneNumber',
+    columnName: 'phoneNumber',
+    columnValue: 'phoneNumber',
+    actions: [],
+  },
+  {
+    columnId: 'actions',
+    columnName: 'actions',
+    columnValue: 'actions',
+    actions: [{ actionName: 'delete', actionType: ListActionTypeEnum.Delete }],
+  },
+];
+
+export const ClientBrandForm: DynamicFormInput = {
+  actions: [addAction],
+  formFields: [
+    {
+      fieldId: 'name',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'name',
+      placeholder: 'name',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'phoneNumber',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.Input,
+      label: 'phoneNumber',
+      placeholder: 'phoneNumber',
+      options: { disabled: false, required: true, size: 4 },
+    },
+    {
+      fieldId: 'brandImage',
+      fieldOrder: 1,
+      fieldType: FieldTypeEnum.ImageFile,
+      label: 'brandImage',
+      placeholder: 'brandImage',
+      options: { disabled: false, required: false, size: 4 },
     },
   ],
 };
