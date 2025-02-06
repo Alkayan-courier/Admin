@@ -1,11 +1,10 @@
 export const environment = {
   production: true,
-  apiPreLink:
-    'https://alkayanapi2025-frf2h8dgh6bxb4g7.canadacentral-01.azurewebsites.net/api/',
+  apiPreLink: 'http://ec2-51-20-181-54.eu-north-1.compute.amazonaws.com/api/',
   token: 'accessToken',
   host: '',
   imagesUrl:
-    'https://alkayanapi2025-frf2h8dgh6bxb4g7.canadacentral-01.azurewebsites.net/home/appimages/',
+    'http://ec2-51-20-181-54.eu-north-1.compute.amazonaws.com/home/appimages/',
   sasToken: '',
   roleClaim: 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role',
   addressClaim: '',
