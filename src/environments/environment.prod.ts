@@ -1,10 +1,9 @@
 export const environment = {
   production: true,
-  apiPreLink: 'http://ec2-51-20-181-54.eu-north-1.compute.amazonaws.com/api/',
+  apiPreLink: 'https://api.alkyan-delivery.com/api/',
   token: 'accessToken',
   host: '',
-  imagesUrl:
-    'http://ec2-51-20-181-54.eu-north-1.compute.amazonaws.com/home/appimages/',
+  imagesUrl: 'https://api.alkyan-delivery.com/home/appimages/',
   sasToken: '',
   roleClaim: 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role',
   addressClaim: '',
