@@ -1,20 +1,32 @@
-<div *ngIf="isValidLink" style="padding: 10px; font-size: large;">
-  <div class="forPrint" style="background-color: white;"
-    *ngIf="(userType.value == 2 ||userType.value == 3) && !isEmptyData">
+<div
+  *ngIf="isValidLink"
+  style="
+    padding: 10px;
+    font-size: large;
+    overflow: auto;
+    background-color: white;
+  "
+>
+  <div
+    class="forPrint"
+    *ngIf="(userType.value == 2 || userType.value == 3) && !isEmptyData"
+  >
     <div class="row">
       <div class="col-12 text-center">
-        <img src="/assets/img/logo.png" style="height: auto;width: 300px;" class="center">
+        <img
+          src="/assets/img/logo.png"
+          style="height: auto; width: 300px"
+          class="center"
+        />
       </div>
     </div>
-    <br>
+    <br />
     <div class="row">
       <div class="col-12 text-center">
         <h2>
           <b>
-            {{'alkayan' | translate}}
+            {{ 'alkayan' | translate }}
           </b>
-
-
         </h2>
       </div>
     </div>
@@ -22,276 +34,284 @@
       <div class="col-12 text-center">
         <h3>
           <b *ngIf="userType.value == 3">
-            {{'clientsReports' | translate}}
+            {{ 'clientsReports' | translate }}
           </b>
           <b *ngIf="userType.value == 2">
-            {{'driversReports' | translate}}
+            {{ 'driversReports' | translate }}
           </b>
-
         </h3>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        {{'fromDate' | translate}} {{ordersDateFrom.value | date: 'dd/MM/yyyy'}} {{'toDate' | translate}}
-        {{ordersDateTo.value | date: 'dd/MM/yyyy'}}
+        {{ 'fromDate' | translate }}
+        {{ ordersDateFrom.value | date : 'dd/MM/yyyy' }}
+        {{ 'toDate' | translate }}
+        {{ ordersDateTo.value | date : 'dd/MM/yyyy' }}
       </div>
     </div>
-    <br>
-    <div class="row" *ngIf="userType.value==3">
+    <br />
+    <div class="row" *ngIf="userType.value == 3">
       <div class="col">
-        <table class="print-friendly" style="align-content: center;">
+        <table class="print-friendly" style="align-content: center">
           <thead>
             <tr>
-              <th> {{'number' | translate}}</th>
+              <th>{{ 'number' | translate }}</th>
 
-              <th> {{'merchant' | translate}} </th>
-              <th> {{'area' | translate}}</th>
-              <th> {{'policyNumber' | translate}} </th>
-              <th> {{'address' | translate}} </th>
-              <th> {{'deliveryNumber' | translate}}</th>
+              <th>{{ 'merchant' | translate }}</th>
+              <th>{{ 'area' | translate }}</th>
+              <th>{{ 'policyNumber' | translate }}</th>
+              <th>{{ 'address' | translate }}</th>
+              <th>{{ 'deliveryNumber' | translate }}</th>
 
-              <th> {{'statusEn' | translate}}</th>
-              <th> {{'statusAr' | translate}}</th>
-              <th> {{'price' | translate}}</th>
-              <th> {{'additionalCosts' | translate}}</th>
-              <th>{{'deliveryCosts' | translate}}</th>
-              <th> {{'total' | translate}}</th>
-              <th> {{'details' | translate}}</th>
-
+              <th>{{ 'statusEn' | translate }}</th>
+              <th>{{ 'statusAr' | translate }}</th>
+              <th>{{ 'price' | translate }}</th>
+              <th>{{ 'additionalCosts' | translate }}</th>
+              <th>{{ 'deliveryCosts' | translate }}</th>
+              <th>{{ 'total' | translate }}</th>
+              <th>{{ 'details' | translate }}</th>
             </tr>
           </thead>
           <tbody>
-
-            <tr *ngFor="let order of clientsList; let i=index"
-              [ngStyle]="{'background-color':order.orderStatusId === 3 || order.orderStatusId === 6 || order.orderStatusId === 7 || order.orderStatusId === 10 || order.orderStatusId === 11 || order.orderStatusId === 12? '#e1e3e1' : 'white' }">
+            <tr
+              *ngFor="let order of clientsList; let i = index"
+              [ngStyle]="{
+                'background-color':
+                  order.orderStatusId === 3 ||
+                  order.orderStatusId === 6 ||
+                  order.orderStatusId === 7 ||
+                  order.orderStatusId === 10 ||
+                  order.orderStatusId === 11 ||
+                  order.orderStatusId === 12
+                    ? '#e1e3e1'
+                    : 'white'
+              }"
+            >
               <td>
-                {{i + 1}}
+                {{ i + 1 }}
               </td>
               <td>
-                {{order?.clientName}}
+                {{ order?.clientName }}
               </td>
               <td>
-                {{order?.areaName}}
+                {{ order?.areaName }}
               </td>
               <td>
-                {{order?.policyNumber}}
+                {{ order?.policyNumber }}
               </td>
               <td>
-                {{order?.address}}
-              </td>
-
-              <td>
-                {{order?.deliveryNumber}}
-              </td>
-
-
-              <td>
-                {{order?.orderStatusNameEn }}
-              </td>
-              <td>
-                {{order?.orderStatusNameAr }}
-              </td>
-              <td>
-                {{order?.orderPrice}}
-              </td>
-              <td>
-                {{order?.addedPrice}}
-              </td>
-              <td>
-                {{order?.deliveryCost}}
-              </td>
-              <td>
-                {{order?.orderTotalPrice}}
-              </td>
-              <td>
-                {{order?.orderItemTypeDescription}}
+                {{ order?.address }}
               </td>
 
+              <td>
+                {{ order?.deliveryNumber }}
+              </td>
+
+              <td>
+                {{ order?.orderStatusNameEn }}
+              </td>
+              <td>
+                {{ order?.orderStatusNameAr }}
+              </td>
+              <td>
+                {{ order?.orderPrice }}
+              </td>
+              <td>
+                {{ order?.addedPrice }}
+              </td>
+              <td>
+                {{ order?.deliveryCost }}
+              </td>
+              <td>
+                {{ order?.orderTotalPrice }}
+              </td>
+              <td>
+                {{ order?.orderItemTypeDescription }}
+              </td>
             </tr>
           </tbody>
-
         </table>
       </div>
     </div>
 
-    <div class="row" *ngIf="userType.value==2">
+    <div class="row" *ngIf="userType.value == 2">
       <div class="col">
-        <table class="print-friendly" style="align-content: center;">
+        <table class="print-friendly" style="align-content: center">
           <thead>
             <tr>
-              <th> {{'number' | translate}}</th>
-              <th> {{'page' | translate}} </th>
-              <th> {{'driver' | translate}} </th>
-              <th> {{'area' | translate}}</th>
-              <th> {{'policyNumber' | translate}} </th>
-              <th> {{'address' | translate}} </th>
-              <th> {{'driverPhoneNumber' | translate}}</th>
+              <th>{{ 'number' | translate }}</th>
+              <th>{{ 'page' | translate }}</th>
+              <th>{{ 'driver' | translate }}</th>
+              <th>{{ 'area' | translate }}</th>
+              <th>{{ 'policyNumber' | translate }}</th>
+              <th>{{ 'address' | translate }}</th>
+              <th>{{ 'driverPhoneNumber' | translate }}</th>
 
-              <th> {{'statusEn' | translate}}</th>
-              <th> {{'statusAr' | translate}}</th>
-              <th>{{'price' | translate}}</th>
-            <th>{{'deliveryCosts' | translate}}</th>
-              <th> {{'additionalCosts' | translate}}</th>
+              <th>{{ 'statusEn' | translate }}</th>
+              <th>{{ 'statusAr' | translate }}</th>
+              <th>{{ 'price' | translate }}</th>
+              <th>{{ 'deliveryCosts' | translate }}</th>
+              <th>{{ 'additionalCosts' | translate }}</th>
 
-              <th> {{'total' | translate}}</th>
-              <th> {{'details' | translate}}</th>
+              <th>{{ 'total' | translate }}</th>
+              <th>{{ 'details' | translate }}</th>
             </tr>
           </thead>
           <tbody>
-
-            <tr *ngFor="let order of driversList; let i=index"
-            [ngStyle]="{'background-color':order.orderStatusId === 3 || order.orderStatusId === 6 || order.orderStatusId === 7 || order.orderStatusId === 10 || order.orderStatusId === 11 || order.orderStatusId === 12? '#e1e3e1' : 'white' }">
-            <td>
-                {{i + 1}}
+            <tr
+              *ngFor="let order of driversList; let i = index"
+              [ngStyle]="{
+                'background-color':
+                  order.orderStatusId === 3 ||
+                  order.orderStatusId === 6 ||
+                  order.orderStatusId === 7 ||
+                  order.orderStatusId === 10 ||
+                  order.orderStatusId === 11 ||
+                  order.orderStatusId === 12
+                    ? '#e1e3e1'
+                    : 'white'
+              }"
+            >
+              <td>
+                {{ i + 1 }}
               </td>
               <td>
-                {{order?.clientName}}
+                {{ order?.clientName }}
               </td>
               <td>
-                {{order?.driverName}}
-              </td>
-              
-              <td>
-                {{order?.areaName}}
-              </td>
-              <td>
-                {{order?.policyNumber}}
-              </td>
-              <td>
-                {{order?.address}}
-              </td>
-
-              <td>
-                {{order?.driverPhoneNumber}}
+                {{ order?.driverName }}
               </td>
 
-
               <td>
-                {{order?.orderStatusNameEn }}
+                {{ order?.areaName }}
               </td>
               <td>
-                {{order?.orderStatusNameAr }}
+                {{ order?.policyNumber }}
               </td>
               <td>
-                {{order?.orderPrice}}
-              </td>
-           <td>
-             {{order?.driverRevenue}}
-           </td>
-              <td>
-                {{order?.addedPrice}}
-              </td>
-              <td>
-                {{order?.orderTotalPrice}}
-              </td>
-              <td>
-                {{order?.orderItemTypeDescription}}
+                {{ order?.address }}
               </td>
 
+              <td>
+                {{ order?.driverPhoneNumber }}
+              </td>
 
+              <td>
+                {{ order?.orderStatusNameEn }}
+              </td>
+              <td>
+                {{ order?.orderStatusNameAr }}
+              </td>
+              <td>
+                {{ order?.orderPrice }}
+              </td>
+              <td>
+                {{ order?.driverRevenue }}
+              </td>
+              <td>
+                {{ order?.addedPrice }}
+              </td>
+              <td>
+                {{ order?.orderTotalPrice }}
+              </td>
+              <td>
+                {{ order?.orderItemTypeDescription }}
+              </td>
             </tr>
           </tbody>
-
         </table>
       </div>
     </div>
-    <br>
+    <br />
 
-
-
-
-    <div class="row" *ngIf="userType.value==2">
+    <div class="row" *ngIf="userType.value == 2">
       <div class="col">
         <table>
           <tr>
             <th>
-              {{'ordersTotalPrice' | translate}}
+              {{ 'ordersTotalPrice' | translate }}
             </th>
             <th>
-              {{totalOrderPrices}}
+              {{ totalOrderPrices }}
             </th>
           </tr>
           <tr>
             <th>
-              {{'totalDeliveryFees' | translate}}
+              {{ 'totalDeliveryFees' | translate }}
             </th>
             <th>
-              {{totalDriverRevenue}}
-            </th>
-          </tr>       
-          <tr style="background-color: #e1e3e1;">
-            <th>
-              {{'totalSum' | translate}}
-            </th>
-            <th>
-              {{total}}
+              {{ totalDriverRevenue }}
             </th>
           </tr>
-        
-
+          <tr style="background-color: #e1e3e1">
+            <th>
+              {{ 'totalSum' | translate }}
+            </th>
+            <th>
+              {{ total }}
+            </th>
+          </tr>
         </table>
       </div>
     </div>
 
-    <div class="row" *ngIf="userType.value==3">
+    <div class="row" *ngIf="userType.value == 3">
       <div class="col">
         <table>
           <tr>
             <th>
-              {{'ordersTotalPrice' | translate}}
+              {{ 'ordersTotalPrice' | translate }}
             </th>
             <th>
-              {{totalOrderPrices}}
+              {{ totalOrderPrices }}
             </th>
           </tr>
           <tr>
             <th>
-              {{'totalDeliveryFees' | translate}}
+              {{ 'totalDeliveryFees' | translate }}
             </th>
             <th>
-              {{totalDriverRevenue}}
-            </th>
-          </tr>  
-          <tr style="background-color: #e1e3e1;">
-            <th>
-              {{'additionalCostsTotal' | translate}}
-            </th>
-            <th>
-              {{additionalCostsTotal}}
+              {{ totalDriverRevenue }}
             </th>
           </tr>
-             
-          <tr style="background-color: #e1e3e1;">
+          <tr style="background-color: #e1e3e1">
             <th>
-              {{'totalSum' | translate}}
+              {{ 'additionalCostsTotal' | translate }}
             </th>
             <th>
-              {{total}}
+              {{ additionalCostsTotal }}
             </th>
           </tr>
-        
 
+          <tr style="background-color: #e1e3e1">
+            <th>
+              {{ 'totalSum' | translate }}
+            </th>
+            <th>
+              {{ total }}
+            </th>
+          </tr>
         </table>
       </div>
     </div>
 
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
     <div *ngIf="userType.value == 2 || userType.value == 3">
       <div class="row">
         <div class="col">
-          {{'delivered' | translate}}
+          {{ 'delivered' | translate }}
         </div>
       </div>
       <div class="row">
         <div class="col">
-          {{'recipientName' | translate}}
+          {{ 'recipientName' | translate }}
         </div>
         <div class="col">
-          {{'recipientSign' | translate}}
+          {{ 'recipientSign' | translate }}
         </div>
       </div>
     </div>
@@ -300,18 +320,20 @@
   <div *ngIf="userType.value == 4 && !isEmptyData">
     <div class="row">
       <div class="col-12 text-center">
-        <img src="/assets/img/logo.png" style="height: auto;width: 300px;" class="center">
+        <img
+          src="/assets/img/logo.png"
+          style="height: auto; width: 300px"
+          class="center"
+        />
       </div>
     </div>
-    <br>
+    <br />
     <div class="row">
       <div class="col-12 text-center">
         <h2>
           <b>
-            {{'alkayan' | translate}}
+            {{ 'alkayan' | translate }}
           </b>
-
-
         </h2>
       </div>
     </div>
@@ -319,49 +341,50 @@
       <div class="col-12 text-center">
         <h3>
           <b *ngIf="userType.value == 3">
-            {{'clientsReports' | translate}}
+            {{ 'clientsReports' | translate }}
           </b>
           <b *ngIf="userType.value == 2">
-            {{'driversReports' | translate}}
+            {{ 'driversReports' | translate }}
           </b>
           <b *ngIf="userType.value == 4">
-            {{'merchantDetails' | translate}}
+            {{ 'merchantDetails' | translate }}
           </b>
           <b *ngIf="userType.value == 5">
-            {{'todayDriversDetails' | translate}}
+            {{ 'todayDriversDetails' | translate }}
           </b>
         </h3>
       </div>
     </div>
 
-  
     <div class="row">
       <div class="col">
-        {{'fromDate' | translate}} {{ordersDateFrom.value | date: 'dd/MM/yyyy'}} {{'toDate' | translate}}
-        {{ordersDateTo.value | date: 'dd/MM/yyyy'}}
+        {{ 'fromDate' | translate }}
+        {{ ordersDateFrom.value | date : 'dd/MM/yyyy' }}
+        {{ 'toDate' | translate }}
+        {{ ordersDateTo.value | date : 'dd/MM/yyyy' }}
       </div>
     </div>
-    <br>
-  
-    <table class="print-friendly" style="align-content: center;">
+    <br />
+
+    <table class="print-friendly" style="align-content: center">
       <tr>
-        <th> {{'number' | translate}}</th>
+        <th>{{ 'number' | translate }}</th>
         <th>
-          {{'clientName' | translate}}
+          {{ 'clientName' | translate }}
         </th>
         <th>
-          {{'ordersCount' | translate}}
+          {{ 'ordersCount' | translate }}
         </th>
       </tr>
-      <tr *ngFor="let client of clientdetailsList; let i=index">
+      <tr *ngFor="let client of clientdetailsList; let i = index">
         <td>
-          {{i+1}}
+          {{ i + 1 }}
         </td>
         <td>
-          {{client.clientName}}
+          {{ client.clientName }}
         </td>
         <td>
-          {{client.totalOrders}}
+          {{ client.totalOrders }}
         </td>
       </tr>
     </table>
@@ -369,18 +392,20 @@
   <div *ngIf="userType.value == 5 && !isEmptyData">
     <div class="row">
       <div class="col-12 text-center">
-        <img src="/assets/img/logo.png" style="height: auto;width: 300px;" class="center">
+        <img
+          src="/assets/img/logo.png"
+          style="height: auto; width: 300px"
+          class="center"
+        />
       </div>
     </div>
-    <br>
+    <br />
     <div class="row">
       <div class="col-12 text-center">
         <h2>
           <b>
-            {{'alkayan' | translate}}
+            {{ 'alkayan' | translate }}
           </b>
-
-
         </h2>
       </div>
     </div>
@@ -388,68 +413,75 @@
       <div class="col-12 text-center">
         <h3>
           <b *ngIf="userType.value == 3">
-            {{'clientsReports' | translate}}
+            {{ 'clientsReports' | translate }}
           </b>
           <b *ngIf="userType.value == 2">
-            {{'driversReports' | translate}}
+            {{ 'driversReports' | translate }}
           </b>
           <b *ngIf="userType.value == 4">
-            {{'merchantDetails' | translate}}
+            {{ 'merchantDetails' | translate }}
           </b>
           <b *ngIf="userType.value == 5">
-            {{'todayDriversDetails' | translate}}
+            {{ 'todayDriversDetails' | translate }}
           </b>
         </h3>
       </div>
     </div>
 
-    
-    
     <div class="row">
       <div class="col">
-        {{'fromDate' | translate}} {{ordersDateFrom.value | date: 'dd/MM/yyyy'}} {{'toDate' | translate}}
-        {{ordersDateTo.value | date: 'dd/MM/yyyy'}}
+        {{ 'fromDate' | translate }}
+        {{ ordersDateFrom.value | date : 'dd/MM/yyyy' }}
+        {{ 'toDate' | translate }}
+        {{ ordersDateTo.value | date : 'dd/MM/yyyy' }}
       </div>
     </div>
-    <br>
-    <table class="print-friendly" style="align-content: center;">
+    <br />
+    <table class="print-friendly" style="align-content: center">
       <tr>
         <th>
-          {{'number' | translate}}
+          {{ 'number' | translate }}
         </th>
         <th>
-          {{'driverName' | translate}}
+          {{ 'driverName' | translate }}
         </th>
         <th>
-          {{'roundName' | translate}}
+          {{ 'roundName' | translate }}
         </th>
         <th>
-          {{'ordersCount' | translate}}
+          {{ 'ordersCount' | translate }}
         </th>
       </tr>
-      <tr *ngFor="let driver of driverdetailsList; let i=index">
+      <tr *ngFor="let driver of driverdetailsList; let i = index">
         <td>
-          {{i + 1}}
+          {{ i + 1 }}
         </td>
         <td>
-          {{!driver.driverName ? ( 'noDriver' | translate ): driver.driverName }}
+          {{
+            !driver.driverName ? ('noDriver' | translate) : driver.driverName
+          }}
         </td>
         <td>
-          {{driver.recordArea}}
+          {{ driver.recordArea }}
         </td>
         <td>
-          {{driver.totalOrders}}
+          {{ driver.totalOrders }}
         </td>
       </tr>
     </table>
   </div>
-  <h3 style="color:rgb(235, 49, 49);margin-left: 40%;margin-top: 10%;" *ngIf="isEmptyData">No Data Found</h3>
+  <h3
+    style="color: rgb(235, 49, 49); margin-left: 40%; margin-top: 10%"
+    *ngIf="isEmptyData"
+  >
+    No Data Found
+  </h3>
 </div>
 <div *ngIf="!isValidLink" id="main" class="d-flex justify-content-center">
-  <img src="../../../assets/img/403.png" style="position: absolute;" />
-  <div class="fof mt-5" style="padding-top: 361px;">
-      <h1>{{'sorryYouAre' | translate}} </h1>
-      <br />
-      <h1> {{'toAccess' | translate}} </h1>
+  <img src="../../../assets/img/403.png" style="position: absolute" />
+  <div class="fof mt-5" style="padding-top: 361px">
+    <h1>{{ 'sorryYouAre' | translate }}</h1>
+    <br />
+    <h1>{{ 'toAccess' | translate }}</h1>
   </div>
 </div>
